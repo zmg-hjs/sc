@@ -1,2 +1,2 @@
 # SmartCommunity
-zmg
+zmg update
