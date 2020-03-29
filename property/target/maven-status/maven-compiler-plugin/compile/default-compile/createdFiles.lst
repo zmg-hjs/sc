@@ -1,0 +1,4 @@
+com\sc\property\repository\UserRepository.class
+com\sc\property\controller\UserController.class
+com\sc\property\service\UserService.class
+com\sc\property\PropertyApplication.class
