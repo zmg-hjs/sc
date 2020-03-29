@@ -101,6 +101,13 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    public static Result createNewResult(Result oldResult){
+        Result result = new Result();
+        result.setCode(oldResult.getCode());
+        result.setMessage(oldResult.getMessage());
+        return result;
+    }
+
 
     private Result setMessage(String message) {
         this.message = message;

@@ -1,5 +1,6 @@
 package weChat.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import vo.Result;
@@ -37,6 +38,12 @@ public class GetWeChatInfoUtil {
     }
     public static Result<String> getUserInfo(WeChatEntity weChatEntity){
         try {
+            Result<String> result1 = getOpenIdAndSessionKey(weChatEntity);
+            if (!result1.isSuccess()) return result1;
+            JSONObject jsonObject = JSONObject.parseObject(result1.getData());
+            weChatEntity.setOpenId((String) jsonObject.get("openid"));
+            weChatEntity.setSessionKey((String) jsonObject.get("session_key"));
+
             //被加密的数据
             byte[] dataByte = Base64.decodeBase64(weChatEntity.getEncryptedData());
             //加密秘钥
@@ -46,7 +53,6 @@ public class GetWeChatInfoUtil {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec spec = new SecretKeySpec(keyByte, "AES");
             AlgorithmParameters parameters = AlgorithmParameters.getInstance("AES");
-
             parameters.init(new IvParameterSpec(ivByte));
             cipher.init(Cipher.DECRYPT_MODE, spec, parameters);// 初始化
             byte[] resultByte = cipher.doFinal(dataByte);
