@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StaffRegistrationRepository extends JpaRepository<StaffRegistrationEntity,String> {
 
-    StaffRegistrationEntity findUserEntityByIdNumber(String id);
+    StaffRegistrationEntity findStaffRegistrationEntityByIdNumber(String idNumber);
 }

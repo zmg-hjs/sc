@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StaffUserRepository extends JpaRepository<StaffUserEntity,String> {
 
-    StaffUserEntity findUserEntityById(String id);
-    StaffUserEntity findUserEntityByOpenId(String openId);
+    StaffUserEntity findStaffUserEntityById(String id);
+    StaffUserEntity findStaffUserEntityByOpenId(String openId);
 
 }

@@ -1,12 +1,13 @@
-package com.sc.property.service.user;
+package com.sc.resident.service.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sc.dto.RegisterDto;
-import com.sc.entity.StaffRegistrationEntity;
+import com.sc.entity.ResidentRegistrationEntity;
+import com.sc.entity.ResidentUserEntity;
 import com.sc.entity.StaffUserEntity;
 import com.sc.enums.WhetherValidEnum;
-import com.sc.property.repository.user.StaffRegistrationRepository;
-import com.sc.property.repository.user.StaffUserRepository;
+import com.sc.resident.repository.user.ResidentRegistrationRepository;
+import com.sc.resident.repository.user.ResidentUserRepository;
 import myJson.MyJsonUtil;
 import myString.MyStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,20 +21,20 @@ import weChat.util.GetWeChatInfoUtil;
 import java.util.Date;
 
 @Service
-public class StaffUserService {
+public class ResidentUserService {
 
 
     @Autowired
-    private StaffUserRepository staffUserRepository;
+    private ResidentUserRepository residentUserRepository;
     @Autowired
-    private StaffRegistrationRepository staffRegistrationRepository;
+    private ResidentRegistrationRepository residentRegistrationRepository;
     @Value("${wechat.appid}")
     private String appId;
     @Value("${wechat.appsecret}")
     private String appSecret;
 
-    public StaffUserEntity findUserEntityById(String id){
-        return staffUserRepository.findStaffUserEntityById(id);
+    public ResidentUserEntity findResidentUserEntityById(String id){
+        return residentUserRepository.findResidentUserEntityById(id);
     }
 
     //用户登录方式
@@ -49,7 +50,7 @@ public class StaffUserService {
      * }，
      * 不存在,返回失败
      */
-    public Result<StaffUserEntity> login(WeChatEntity weChatEntity){
+    public Result<ResidentUserEntity> login(WeChatEntity weChatEntity){
         //查询用户openId
         weChatEntity.setAppid(appId);
         weChatEntity.setAppSecret(appSecret);
@@ -58,8 +59,8 @@ public class StaffUserService {
         JSONObject jsonObject = JSONObject.parseObject(result1.getData());
         weChatEntity.setOpenId((String) jsonObject.get("openid"));
         //根据openId查询是否存在改用户
-        StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByOpenId(weChatEntity.getOpenId());
-        if (staffUserEntity !=null && StringUtils.isNotBlank(staffUserEntity.getId())) return new Result().setSuccess(staffUserEntity);
+        ResidentUserEntity residentUserEntity = residentUserRepository.findResidentUserEntityByOpenId(weChatEntity.getOpenId());
+        if (residentUserEntity !=null && StringUtils.isNotBlank(residentUserEntity.getId())) return new Result().setSuccess(residentUserEntity);
         return Result.createSimpleFailResult();
     }
 
@@ -76,18 +77,19 @@ public class StaffUserService {
      */
     public Result register(RegisterDto registerDto){
         //判断是否存在该用户
-        StaffRegistrationEntity staffRegistrationEntity = staffRegistrationRepository.findStaffRegistrationEntityByIdNumber(registerDto.getIdNumber());
-        if (staffRegistrationEntity==null&&StringUtils.isBlank(staffRegistrationEntity.getId()))
+        ResidentRegistrationEntity residentRegistrationEntity = residentRegistrationRepository.findResidentRegistrationEntityByIdNumber(registerDto.getIdNumber());
+        if (residentRegistrationEntity==null&&StringUtils.isBlank(residentRegistrationEntity.getId()))
             return Result.createSimpleFailResult();
 
-        StaffUserEntity staffUserEntity = new StaffUserEntity();
-        staffUserEntity.setId(MyStringUtils.getIdDateStr("staffUser"));
-        staffUserEntity.setIdNumber(registerDto.getIdNumber());
-        staffUserEntity.setActualName(staffRegistrationEntity.getActualName());
-        staffUserEntity.setAddress(staffRegistrationEntity.getAddress());
-        staffUserEntity.setPosition(staffRegistrationEntity.getPosition());
-        staffUserEntity.setUserAuditId(staffRegistrationEntity.getId());
-        staffUserEntity.setPhoneNumber(staffRegistrationEntity.getPhoneNumber());
+        ResidentUserEntity residentUserEntity = new ResidentUserEntity();
+        residentUserEntity.setId(MyStringUtils.getIdDateStr("staffUser"));
+        residentUserEntity.setIdNumber(registerDto.getIdNumber());
+        residentUserEntity.setActualName(residentRegistrationEntity.getActualName());
+        residentUserEntity.setAddress(residentRegistrationEntity.getAddress());
+        //创建roleEnum(居民，委员会成员)
+        residentUserEntity.setRole(null);
+        residentUserEntity.setUserAuditId(residentRegistrationEntity.getId());
+        residentUserEntity.setPhoneNumber(residentRegistrationEntity.getPhoneNumber());
         //获取微信用户信息
         WeChatEntity weChatEntity = new WeChatEntity();
         weChatEntity.setAppid(appId);
@@ -106,10 +108,10 @@ public class StaffUserService {
          */
         if (StringUtils.isNotBlank(result.getData())){
             JSONObject jsonObject = JSONObject.parseObject(result.getData());
-            staffUserEntity.setOpenId((String) jsonObject.get("openId"));
-            staffUserEntity.setUsername((String) jsonObject.get("nickName"));
-            staffUserEntity.setHeadPictureUrl((String) jsonObject.get("avatarUrl"));
-            addUserEntity(staffUserEntity);
+            residentUserEntity.setOpenId((String) jsonObject.get("openId"));
+            residentUserEntity.setUsername((String) jsonObject.get("nickName"));
+            residentUserEntity.setHeadPictureUrl((String) jsonObject.get("avatarUrl"));
+            addUserEntity(residentUserEntity);
         }
         return Result.createSimpleSuccessResult();
     }
@@ -119,20 +121,20 @@ public class StaffUserService {
      * 1.获取openId
      * 2.判断数据库是否存在openId，存在，自动登录
      */
-    public Result<StaffUserEntity> automaticLogin(WeChatEntity weChatEntity){
+    public Result<ResidentUserEntity> automaticLogin(WeChatEntity weChatEntity){
         weChatEntity.setAppid(appId);
         weChatEntity.setAppSecret(appSecret);
         WeChatEntity weChatEntity1 = MyJsonUtil.jsonToPojo(GetWeChatInfoUtil.getOpenIdAndSessionKey(weChatEntity).getData(), WeChatEntity.class);
-        StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByOpenId(weChatEntity1.getOpenId());
-        if (StringUtils.isNotBlank(staffUserEntity.getId())) return new Result().setSuccess(staffUserEntity);
+        ResidentUserEntity residentUserEntity = residentUserRepository.findResidentUserEntityByOpenId(weChatEntity1.getOpenId());
+        if (StringUtils.isNotBlank(residentUserEntity.getId())) return new Result().setSuccess(residentUserEntity);
         return Result.createSimpleFailResult();
     }
 
-    public void addUserEntity(StaffUserEntity staffUserEntity){
-        staffUserEntity.setCreateDate(new Date());
-        staffUserEntity.setUpdateDate(new Date());
-        staffUserEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
-        staffUserRepository.save(staffUserEntity);
+    public void addUserEntity(ResidentUserEntity residentUserEntity){
+        residentUserEntity.setCreateDate(new Date());
+        residentUserEntity.setUpdateDate(new Date());
+        residentUserEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+        residentUserRepository.save(residentUserEntity);
     }
 
 }
