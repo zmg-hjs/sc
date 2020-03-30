@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c99bc00-aa7b-4147-bcc4-5d80c86d9e4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resident/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resident/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/ResidentApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/ResidentApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resident/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resident/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/ResultEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/StaffUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/ResidentUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sc-property/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sc-property/project.config.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/property/target/" />
@@ -50,43 +53,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/property/pom.xml">
+        <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/StaffUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="69" selection-end-column="19" />
-              <folding>
-                <element signature="n#dependencies#0;n#project#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resident/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
-              <folding>
-                <element signature="n#dependencies#0;n#project#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/entity/ResidentUserEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/dto/ResidentUserDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+            <state relative-caret-position="1210">
+              <caret line="125" column="90" selection-start-line="125" selection-start-column="90" selection-end-line="125" selection-end-column="90" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -95,13 +65,52 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/PropertyApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/property/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="10" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resident/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="136" column="30" selection-start-line="136" selection-start-column="30" selection-end-line="136" selection-end-column="30" />
+            <state relative-caret-position="208">
+              <caret line="90" column="62" selection-start-line="90" selection-start-column="62" selection-end-line="90" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/enums/RoleEnum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-432">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -109,20 +118,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="25" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/StaffUserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="253">
+              <caret line="11" column="74" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,13 +128,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/controller/user/StaffUserController.java">
+        <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentUserRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="230">
+              <caret line="10" column="22" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/ResidentUserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="35" column="51" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myUtils/src/main/java/weChat/entity/WeChatEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -158,10 +176,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/PropertyApplication.java" />
-        <option value="95d39737-ed89-423c-8e5b-14045b2c06aa/schema/sc/table/t_user.sql" />
-        <option value="$PROJECT_DIR$/myUtils/src/main/java/weChat/WeChatUtil.java" />
-        <option value="$PROJECT_DIR$/myUtils/src/main/java/weChat/HttpClientUtil.java" />
         <option value="$PROJECT_DIR$/myUtils/src/main/java/entity/WeChatDto.java" />
         <option value="$PROJECT_DIR$/base/pom.xml" />
         <option value="$PROJECT_DIR$/myUtils/src/main/java/enums/ResultEnum.java" />
@@ -182,7 +196,6 @@
         <option value="$PROJECT_DIR$/base/src/main/java/com/sc/entity/ResidentRegistrationEntity.java" />
         <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/UserRepositoryRepository.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/sc/entity/PropertyRegistrationEntity.java" />
-        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffRegistrationRepository.java" />
         <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/ResidentRegistrationRepository.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/sc/dto/RegisterDto.java" />
         <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/UserService.java" />
@@ -198,17 +211,22 @@
         <option value="$PROJECT_DIR$/myUtils/pom.xml" />
         <option value="$PROJECT_DIR$/myUtils/src/main/java/weChat/util/GetWeChatInfoUtil.java" />
         <option value="$PROJECT_DIR$/myUtils/src/main/java/vo/Result.java" />
-        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/StaffUserService.java" />
         <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/ResidentApplication.java" />
         <option value="$PROJECT_DIR$/resident/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/resident/pom.xml" />
         <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/user/StaffUserController.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/sc/entity/ResidentUserEntity.java" />
         <option value="$PROJECT_DIR$/base/src/main/java/com/sc/dto/ResidentUserDto.java" />
-        <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java" />
         <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentUserRepository.java" />
         <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/StaffUserService.java" />
+        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffRegistrationRepository.java" />
+        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffUserRepository.java" />
+        <option value="$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/StaffUserService.java" />
         <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/StaffUserController.java" />
+        <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/RegisterUserController.java" />
+        <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/sc/enums/RoleEnum.java" />
+        <option value="$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java" />
       </list>
     </option>
   </component>
@@ -320,108 +338,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="myUtils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="myUtils" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="myUtils" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="myUtils" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="property" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="enums" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sc" type="b2602c69:ProjectViewProjectNode" />
@@ -553,14 +470,6 @@
               <item name="resident" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sc" type="462c0819:PsiDirectoryNode" />
-              <item name="resident" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -578,7 +487,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1585545189906" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1585552450177" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -593,11 +502,11 @@
       <recent name="D:\graduation_project_smart_community\sc\base\" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sc.enums" />
       <recent name="com.sc.dto" />
       <recent name="com.sc.entity" />
       <recent name="mystr" />
       <recent name="com.sc.property.repository.user" />
-      <recent name="com.sc.property.repository" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\graduation_project_smart_community\sc\resident\src\main\java\com\sc\resident" />
@@ -714,18 +623,18 @@
       <workItem from="1585118463351" duration="7016000" />
       <workItem from="1585376741239" duration="8655000" />
       <workItem from="1585452148892" duration="15943000" />
-      <workItem from="1585544271683" duration="779000" />
+      <workItem from="1585544271683" duration="3950000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38152000" />
+    <option name="totallyTimeSpent" value="41323000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22163388" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27685326" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -765,14 +674,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/base/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myUtils/src/main/java/entity/WeChatDto.java" />
     <entry file="das://95d39737-ed89-423c-8e5b-14045b2c06aa/schema/sc/table/t_user.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -849,13 +750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myUtils/src/main/java/weChat/entity/WeChatEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="21" column="31" selection-start-line="7" selection-start-column="4" selection-end-line="21" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://95d39737-ed89-423c-8e5b-14045b2c06aa/schema/sc/table/t_resident_registration">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -886,16 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffRegistrationRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/entity/StaffRegistrationEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -903,23 +787,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffUserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/dto/RegisterDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -982,44 +849,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/StaffUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="56" column="73" selection-start-line="56" selection-start-column="73" selection-end-line="56" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/PropertyApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/ResidentApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/property/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resident/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="32" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1072,26 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentUserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/dto/StaffUserDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
@@ -1109,20 +922,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java">
+    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffRegistrationRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="136" column="30" selection-start-line="136" selection-start-column="30" selection-end-line="136" selection-end-column="30" />
+        <state relative-caret-position="230">
+          <caret line="10" column="81" selection-start-line="10" selection-start-column="81" selection-end-line="10" selection-end-column="81" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/StaffUserController.java">
+    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/repository/user/StaffUserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="253">
+          <caret line="11" column="63" lean-forward="true" selection-start-line="11" selection-start-column="63" selection-end-line="11" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/service/user/StaffUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1210">
+          <caret line="125" column="90" selection-start-line="125" selection-start-column="90" selection-end-line="125" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/property/src/main/java/com/sc/property/PropertyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/property/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/ResultEnum.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resident/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/dto/RegisterDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myUtils/src/main/java/weChat/entity/WeChatEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentUserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/controller/user/ResidentUserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="35" column="51" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/sc/enums/RoleEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-432">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/repository/user/ResidentRegistrationRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="74" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resident/src/main/java/com/sc/resident/service/user/ResidentUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="90" column="62" selection-start-line="90" selection-start-column="62" selection-end-line="90" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

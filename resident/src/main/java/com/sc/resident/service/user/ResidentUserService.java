@@ -5,6 +5,7 @@ import com.sc.dto.RegisterDto;
 import com.sc.entity.ResidentRegistrationEntity;
 import com.sc.entity.ResidentUserEntity;
 import com.sc.entity.StaffUserEntity;
+import com.sc.enums.RoleEnum;
 import com.sc.enums.WhetherValidEnum;
 import com.sc.resident.repository.user.ResidentRegistrationRepository;
 import com.sc.resident.repository.user.ResidentUserRepository;
@@ -77,17 +78,17 @@ public class ResidentUserService {
      */
     public Result register(RegisterDto registerDto){
         //判断是否存在该用户
-        ResidentRegistrationEntity residentRegistrationEntity = residentRegistrationRepository.findResidentRegistrationEntityByIdNumber(registerDto.getIdNumber());
+        ResidentRegistrationEntity residentRegistrationEntity = residentRegistrationRepository.findResidentRegistrationEntityByPhoneNumber(registerDto.getPhoneNumber());
         if (residentRegistrationEntity==null&&StringUtils.isBlank(residentRegistrationEntity.getId()))
             return Result.createSimpleFailResult();
 
         ResidentUserEntity residentUserEntity = new ResidentUserEntity();
-        residentUserEntity.setId(MyStringUtils.getIdDateStr("staffUser"));
-        residentUserEntity.setIdNumber(registerDto.getIdNumber());
+        residentUserEntity.setId(MyStringUtils.getIdDateStr("residentUser"));
+        residentUserEntity.setIdNumber(residentRegistrationEntity.getIdNumber());
         residentUserEntity.setActualName(residentRegistrationEntity.getActualName());
         residentUserEntity.setAddress(residentRegistrationEntity.getAddress());
         //创建roleEnum(居民，委员会成员)
-        residentUserEntity.setRole(null);
+        residentUserEntity.setRole(RoleEnum.RESIDENT.getType());
         residentUserEntity.setUserAuditId(residentRegistrationEntity.getId());
         residentUserEntity.setPhoneNumber(residentRegistrationEntity.getPhoneNumber());
         //获取微信用户信息

@@ -1,6 +1,7 @@
 package com.sc.resident.controller.user;
 
 
+import com.sc.dto.RegisterDto;
 import com.sc.resident.service.user.ResidentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +14,14 @@ import weChat.entity.WeChatEntity;
 
 @Controller
 @RequestMapping("/sc/resident/user")
-public class StaffUserController {
+public class ResidentUserController {
 
     @Autowired
     private ResidentUserService residentUserService;
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     @ResponseBody
-    public Result findUserEntityById(){
+    public Result findResidentUserEntityById(){
         return new Result().setSuccess(residentUserService.findResidentUserEntityById("1"));
     }
 
@@ -45,10 +46,10 @@ public class StaffUserController {
      */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
-    public Result register(@RequestBody WeChatEntity weChatEntity){
+    public Result register(@RequestBody RegisterDto registerDto){
         try {
-            Result login = residentUserService.login(weChatEntity);
-            return login;
+            Result register = residentUserService.register(registerDto);
+            return register;
         }catch (Exception e){
             return Result.createSystemErrorResult();
         }

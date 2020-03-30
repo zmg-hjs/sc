@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ResidentRegistrationRepository extends JpaRepository<ResidentRegistrationEntity,String> {
 
-    ResidentRegistrationEntity findResidentRegistrationEntityByIdNumber(String idNumber);
+    ResidentRegistrationEntity findResidentRegistrationEntityByPhoneNumber(String phoneNumber);
 }
