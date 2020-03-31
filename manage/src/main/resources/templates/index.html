@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title th:text="管理系统"></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../static/style/admin.css" media="all">
+    <link rel="stylesheet" href="../static/style/font/css/oms-icons.css" media="all">
+    <link rel="stylesheet" href="../static/style/common.css" media="all">
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
+</head>
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" th:title="#{common.text.telescopic}">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" th:title="#{common.text.refresh}">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right" style="margin-right: 36px;">
+
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a lay-href="/appsecret/index" layadmin-event="" title="API">
+                        <i class="layui-icon">API</i>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="" th:title="#{common.text.help}">
+                        <i class="layui-icon icon-help-circle-outline" style="font-size: 14px;"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs no-nav-more" lay-unselect>
+                    <a href="javascript:;" layadmin-event="language" th:title="#{common.text.language}">
+                        <i class="layui-icon icon-google-earth"></i>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a class="languageCode" data-code="cn">中文</a>
+                        </dd>
+                        <dd>
+                            <a class="languageCode" data-code="en">English</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="fullscreen" th:title="#{common.text.fullscreen}">
+                        <i class="layui-icon icon-screen-full" style="font-size: 14px;"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite th:text="${userName}"></cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd style="text-align: center;">
+                            <a class="logoutSystem" th:text="#{common.text.logout}"></a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="/console">
+                    <span th:text="管理系统"></span>
+                </div>
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all"
+                    lay-filter="layadmin-system-side-menu" id="view">
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="用户管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="用户管理"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/user/manage_staff_user_index_page" th:text="工作人员登记信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/user/manage_staff_registration_index_page" th:text="工作人员小程序信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/user/manage_resident_user_index_page" th:text="居民登记信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/user/manage_resident_registration_index_page" th:text="居民小程序信息管理"></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="商家信息管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="商家管理"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/view/v2/business/view_business_index_page" th:text="商家信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/business/view_business_add_page" th:text="商家信息录入"></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="基础管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="霸王餐模块"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/view/v2/overbearfood/view_overbearfood_index_page" th:text="霸王餐列表"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/view/v2/overbearfood/view_overbearfood_add_page" th:text="新增霸王餐"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/overbearfood/view_review_index_page" th:text="霸王餐审核"></a>
+                            </dd>
+                        </dl>
+                    </li>
+
+
+
+
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="优惠模块" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="优惠管理"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/push/view_push_index_page" th:text="优惠列表"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/push/view_push_add_page" th:text="新增优惠"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/recommendation/view_recommendation_index_page" th:text="置顶信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/report/view_report_index_page" th:text="举报信息管理"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/view/v2/comment/view_comment_index_page" th:text="评论信息管理"></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="下载管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="下载管理"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="warehouse_manage">
+                                <a lay-href="/downRecord/index" th:text="审核下载"></a>
+                            </dd>
+                        </dl>
+                    </li>
+
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="系统管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="系统管理"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/view/v2/systemLog/view_system_log_index_page" th:text="接口日志管理"></a>
+                            </dd>
+                        </dl>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev"
+                 layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next"
+                 layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select"
+                    lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs">
+                                <a href="javascript:;"><cite th:text="#{common.text.close.label.current}"></cite></a>
+                            </dd>
+                            <dd layadmin-event="closeOtherTabs">
+                                <a href="javascript:;"><cite th:text="#{common.text.close.label.other}"></cite></a>
+                            </dd>
+                            <dd layadmin-event="closeAllTabs">
+                                <a href="javascript:;"><cite th:text="#{common.text.close.label.all}"></cite></a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true"
+                 lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="/console" lay-attr="/console" class="layui-this">
+                        <i class="layui-icon layui-icon-home"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="/console" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+</div>
+
+<script src="../static/layui/layui.js"></script>
+<script src="../../static/jquery/jquery.min.js"></script>
+<script src="../static/modules/index.js"></script>
+<script>
+    layui.config({
+        base: '../static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
+<script th:inline="javascript">
+    var menuData = [[${menus}]];
+    var access_token = [[${access_token}]];
+</script>
+</body>
+</html>
+

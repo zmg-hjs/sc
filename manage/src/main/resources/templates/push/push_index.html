@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title th:text="商户管理主页"></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/font/css/oms-icons.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/common.css" media="all">
+    <link rel="stylesheet" href="../../../static/lib/formSelects/formSelects-v4.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/ws-dropdown.css" media="all">
+    <script th:inline="javascript">
+        var statusMap = [[${statusMap}]];
+        var skuCode = [[#{product.sku.code}]];
+        var owner = [[#{product.owner}]];
+        var opertion = [[#{product.operate}]];
+        var taskEffect = [[#{product.task.effect}]];
+        var invalid = [[#{product.invalid}]];
+        var eanCode = [[#{product.ean.code}]];
+        var customCode = [[#{product.custom.code}]];
+        var chineseName = [[#{product.chinese.name}]];
+        var englishName = [[#{product.english.name}]];
+        var status = [[#{product.status}]];
+        var operation = [[#{product.operation}]];
+        var editProduct = [[#{product.edit.product}]];
+
+        var pleaseInput = [[#{common.text.input}]];
+        var confirmationFailureCheckRecord = [[#{product.confirmation.failure.check.record}]]
+        var confirmationOfAllFailureRecords = [[#{product.confirmation.of.all.failure.records}]]
+        var confirmationOfvalidSelectedRecords = [[#{product.confirmation.of.valid.selected.records}]]
+        var confirmationOfallRecordsInForce = [[#{product.confirmation.of.all.records.in.force}]]
+        var confirmExportCheckedRecord = [[#{product.confirm.export.checked.record}]]
+        var verifyThatAllRecordsAreExported = [[#{product.verify.that.all.records.are.exported}]]
+        var language = [[${session.language}]];
+        var yes = [[#{common.button.yes}]];
+        var no = [[#{common.button.no}]];
+        var info = [[#{product.info}]];
+        var checkAllLang = '全选';  //全选
+        var emptyLang = '清空';  //清空
+        var selectInvertLang = '反选';  //反选
+        var pageConfirm = '确定';
+        var page = '页';
+        var pageConnectives = '到第';
+        var stripOrPage = '条/页';
+        var pageInAll = '共';
+        var strip = '条';
+        var advice= [[#{common.text.tip.title}]];
+        var choose_product = [[#{common.text.choose.data}]];
+        var synchronize_confirm = [[#{product.synchronize.confirm}]];
+    </script>
+
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-header">优惠发布概况</div>
+        <div class="layui-card-body">
+            <div class="layui-row">
+                <div class="layui-col-md2" id="notReviewNum" style="cursor:pointer;">
+                    <div style="text-align: center">待审核</div>
+                    <div style="text-align: center;font-size: 30px;color: #c80000" th:text="${reviewInfo.getNotReviewNum()}"></div>
+                </div>
+                <div class="layui-col-md2" id="reviewSucceedNum" style="cursor:pointer;">
+                    <div style="text-align: center">已审核</div>
+                    <div style="text-align: center;font-size: 30px"  th:text="${reviewInfo.getReviewSucceedNum()}"></div>
+                </div>
+                <div class="layui-col-md2" id="reviewFailNum" style="cursor:pointer;">
+                    <div style="text-align: center">不通过</div>
+                    <div style="text-align: center;font-size: 30px" th:text="${reviewInfo.getReviewFailNum()}"></div>
+                </div>
+                <div class="layui-col-md4">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--发布-->
+    <div class="layui-card">
+        <form class="layui-form layui-card-header layuiadmin-card-header-auto" id="searchFormId">
+            <input id="checkBoxIdList" type="text" name="checkBoxIdList" style="display:none" value="[]"/>
+            <div class="layui-form-item screen-input-content clearfix">
+                <div class="layui-form-item">
+
+<!--                    <label th:text="ID" class="layui-form-label"></label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" id="id" name="id" class="layui-input"  th:placeholder="请输入ID"/>-->
+<!--                    </div>-->
+
+                    <div class="layui-inline">
+                        <div class="layui-input-block">
+                            <label th:text="优惠发布时间" class="layui-form-label"></label>
+                            <div class="layui-input-block">
+                                <input name="beginDate" type="text" class="layui-input" id="beginDate" placeholder="优惠发布时间-起">
+                            </div>
+                        </div>
+                        <div class="layui-input-block">
+                            <label th:text="至" class="layui-form-label"></label>
+                            <div class="layui-input-block">
+                                <input name="endDate" type="text" class="layui-input" id="endDate" placeholder="优惠发布时间-止">
+                            </div>
+                        </div>
+                        <label th:text="发布人" class="layui-form-label" style="margin-left: 40px;"></label>
+                        <div class="layui-input-block">
+                            <select id="releaseName"  name="releaseName">
+                                <option value="" th:text="请选择"></option>
+                                <option th:text="好吃小仙女"
+                                        value="好吃小仙女"></option>
+                                <option th:text="口水值千金"
+                                        value="口水值千金"></option>
+                                <option th:text="美食小霸王"
+                                        value="美食小霸王"></option>
+                                <option th:text="歪麦福利官"
+                                        value="歪麦福利官"></option>
+                            </select>
+                        </div>
+                        <label th:text="类型" class="layui-form-label" style="margin-left: 40px;"></label>
+                        <div class="layui-input-block">
+                            <select id="preferentialType" name="preferentialType">
+                                <option value="" th:text="请选择"></option>
+                                <option th:text="UGC"
+                                        value="ugc"></option>
+                                <option th:text="普通优惠"
+                                        value="ordinary"></option>
+                                <option th:text="同城优惠"
+                                        value="local"></option>
+                                <option th:text="全国优惠"
+                                        value="nationwide"></option>
+                            </select>
+                        </div>
+                        <label th:text="状态" class="layui-form-label" style="margin-left: 40px;"></label>
+                        <div class="layui-input-block">
+                            <select id="status" name="status">
+                                <option value="" th:text="全部"></option>
+                                <option th:text="未审核"
+                                        value="not_review"></option>
+                                <option th:text="审核成功"
+                                        value="review_succeed"></option>
+                                <option th:text="审核失败"
+                                        value="review_fail"></option>
+                            </select>
+                        </div>
+                        <label th:text="审核人" class="layui-form-label" style="margin: 8px 0 0 40px;"></label>
+                        <div class="layui-input-block" style="margin: 8px 0 0 0;">
+                            <select  id="reviewerName" name="reviewerName">
+                                <option value="" th:text="请选择"></option>
+                                <option th:text="好吃小仙女"
+                                        value="好吃小仙女"></option>
+                                <option th:text="口水值千金"
+                                        value="口水值千金"></option>
+                                <option th:text="美食小霸王"
+                                        value="美食小霸王"></option>
+                                <option th:text="歪麦福利官"
+                                        value="歪麦福利官"></option>
+                            </select>
+                        </div>
+<!--                        <div class="layui-inline">-->
+<!--                            <label th:text="外卖平台" class="layui-form-label"></label>-->
+<!--                            <div class="layui-input-block">-->
+
+<!--                                <select  name="platform" lay-filter="aihao" >-->
+<!--                                    <option value="" th:text="请选择"></option>-->
+<!--                                    <option th:text="饿了么"-->
+<!--                                            th:value="11"></option>-->
+<!--                                    <option th:text="美团"-->
+<!--                                            th:value="17"></option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="layui-inline" style="margin:8px 0 0 20px;">
+                            <button id="search" class="layui-btn layuiadmin-btn-useradmin" lay-submit
+                                    lay-filter="LAY-user-front-search">
+                                <i class="layui-icon layuiadmin-button-btn icon-magnify"></i>
+                            </button>
+                            <button id="reset" th:text="清空" class="layui-btn"
+                                    lay-filter="reset"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--发布-->
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table class="layui-hide" id="order-table-toolbar" lay-filter="order-table-toolbar"></table>
+        </div>
+    </div>
+    <script type="text/html" id="order-table-toolbar-toolbarDemo">
+       <div class="layui-btn-container">
+           <a class="layui-btn layui-btn-xs" lay-event="recommend">置顶</a>
+           <a class="layui-btn layui-btn-xs" lay-event="not_recommend">下沉</a>
+           <a class="layui-btn layui-btn-xs" lay-event="normal">正常</a>
+<!--           <a class="layui-btn layui-btn-xs" lay-event="overdue">设置过期</a>-->
+<!--            <button class="layui-btn layui-btn-sm" lay-event="all">全部</button>-->
+<!--            <button class="layui-btn layui-btn-sm" lay-event="unaudited">待审核</button>-->
+<!--            <button class="layui-btn layui-btn-sm" lay-event="highQuality">加优</button>-->
+<!--            <button class="layui-btn layui-btn-sm" lay-event="audited">已审核</button>-->
+<!--            <button class="layui-btn layui-btn-sm" lay-event="notPass">不通过</button>-->
+       </div>
+        <div class="com-option-content">
+            <div class="layui-inline" th:title="筛选" lay-event="LAYTABLE_COLS"><i
+                    class="layui-icon icon-tune"></i></div>
+        </div>
+    </script>
+    <script type="text/html" id="barDemo">
+        {{#  if(d.status == "未审核"){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>
+            <a class="layui-btn layui-btn-xs" lay-event="details">原始内容</a>
+<!--            <a class="layui-btn layui-btn-xs" lay-event="overdue">设置过期</a>-->
+        {{#  } else if(d.status == "审核成功" && d.whetherOverdue == "未过期"){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="update">编辑</a>
+<!--            <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>-->
+            <a class="layui-btn layui-btn-xs" lay-event="details">原始内容</a>
+            <a class="layui-btn layui-btn-xs" lay-event="overdue">设置过期</a>
+        {{#  } else if(d.status == "审核成功" && d.whetherOverdue == "过期"){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="update">编辑</a>
+            <!--            <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>-->
+            <a class="layui-btn layui-btn-xs" lay-event="details">原始内容</a>
+            <a class="layui-btn layui-btn-xs" lay-event="overdue">设置未过期</a>
+        {{#  } else if(d.status == "审核失败"){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>
+            <a class="layui-btn layui-btn-xs" lay-event="details">原始内容</a>
+        {{#  } }}
+<!--        <a class="layui-btn layui-btn-xs" lay-event="update">编辑</a>-->
+<!--        <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>-->
+<!--        <a class="layui-btn layui-btn-xs" lay-event="details">原始内容</a>-->
+<!--        <a class="layui-btn layui-btn-xs" lay-event="overdue">设置过期</a>-->
+    </script>
+</div>
+
+<script src="../../../static/layui/layui.js" type="text/javascript"></script>
+<script src="../../../static/modules/ws-dropdown.js" type="text/javascript"></script>
+<script src="../../../static/modules/push/push_index.js?t=<%=new Date().getTime() %"></script>
+
+</body>
+</html>
+

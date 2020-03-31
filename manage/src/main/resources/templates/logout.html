@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title th:text="#{oms.system.name}"></title>
+    <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
+    <style type="text/css">
+    	html,body{
+    		height: 100%;
+    		background-color: #F0F7FA;
+    		padding: 0;
+    		margin: 0;
+    		font-family: PingFang SC;
+    	}
+    	header{
+    		height: 46px;
+    		box-sizing: border-box;
+    		background: #214259;
+    	}
+    	.oms-title{
+    		font-size: 14px;
+    		font-family: PingFang SC;
+    		color: #FFFFFF;
+    		width: 56%;
+    		height: 100%;
+    		line-height: 46px;
+    		min-width: 800px;
+    		margin: 0 auto;
+    	}
+    	.body-content{
+    		width: 100%;
+    		position: relative;
+    	}
+    	.bc-box{
+    		width: 56%;
+    		min-width: 800px;
+    		height: 60%;
+    		max-height: 600px;
+    		min-height: 460px;
+    		margin-top: 20%;
+		    margin: 5% auto 10px;
+		    background:  #FFFFFF url(../static/style/res/logout-bg.png) no-repeat;
+		    background-size: 101%;
+		    background-position: center bottom;
+		    border-radius: 2px;
+    	}
+    	.bg-img{
+    		width: 100%;
+    	}
+    	.img-box{
+    		width: 100%;
+    		text-align: center;
+    		padding-top: 30px;
+    	}
+    	.tip-img{
+    		width: 144px;
+    		height: 144px;
+    	}
+    	.tip-text{
+    		text-align: center;
+    		color: #666666;
+    		font-size: 18px;
+    		font-family: PingFang SC;
+    		line-height: 40px;
+    	}
+    	.link-box{
+    		text-align: center;
+    	}
+    	.link-box > a{
+    		color: #0070FF;
+    		font-size: 12px;
+    		font-family: PingFang SC;
+    	}
+    </style>
+</head>
+<body>
+	<header>
+		<div class="oms-title">Order Management System</div>
+	</header>
+	<div class="body-content">
+		<div class="bc-box">
+			<div class="img-box">
+				<img class="tip-img" src="../static/style/res/logout-icon.png" />
+			</div>
+			<div class="tip-text">You have logged out of the system.</div>
+			<div class="link-box">
+				<a th:href="${systemDomain}" id="loginLink">Return to the login page after <span id="countDown">5</span> seconds.</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var countDown = 5;
+		var timer = null;
+		timer = setInterval(function (){
+			if(countDown<1){
+				clearInterval(timer);
+				window.location.href = document.getElementById('loginLink').getAttribute('href');
+				return;
+			}
+			countDown--;
+			document.getElementById('countDown').innerText = countDown;
+		},1000);
+	</script>
+	<iframe th:border="0px" th:height="0px" th:width="0px" th:src="${topage}"/>
+</body>
+</html>
+

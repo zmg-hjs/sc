@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title th:text="新增优惠"></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/font/css/oms-icons.css" media="all">
+    <link rel="stylesheet" href="../../../static/style/common.css" media="all">
+    <link rel="stylesheet" href="../../../static/lib/formSelects/formSelects-v4.css?t=1" media="all">
+    <style>
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 268px;
+            margin-right: 20px;
+        }
+
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 268px;
+            margin-right: 20px;
+        }
+
+        .upload-img-item {
+            display: inline-block;
+            position: relative;
+        }
+
+        .upload-img-item > img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .upload-img-item + .upload-img-item {
+            margin-right: 10px;
+        }
+
+        .upload-img-item .layui-icon {
+            font-size: 19px;
+            width: 20px;
+            height: 20px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            position: absolute;
+            z-index: 100;
+            top: -10px;
+            right: -10px;
+            color: #ff0000;
+            background: #ffffff;
+        }
+
+        .upload-img-item .layui-icon:hover {
+            cursor: pointer;
+        }
+
+        .upload-item-add {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-left: -3px;
+            border: 1px solid #ccc;
+            line-height: 46px;
+            text-align: center;
+        }
+
+        .upload-item-add:hover {
+            cursor: pointer;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-item-add .layui-icon {
+            font-size: 20px;
+        }
+        #upload_img_list {
+            margin: 10px 0 0 0
+        }
+        #upload_img_list dd {
+            position: relative;
+            margin: 0 10px 10px 0;
+            float: left
+        }
+        #upload_img_list .operate {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1
+        }
+        #upload_img_list .operate i {
+            cursor: pointer;
+            background: #2F4056;
+            padding: 2px;
+            line-height: 15px;
+            text-align: center;
+            color: #fff;
+            margin-left: 1px;
+            float: left;
+            filter: alpha(opacity=80);
+            -moz-opacity: .8;
+            -khtml-opacity: .8;
+            opacity: .8
+        }
+        #upload_img_list dd .img {
+            max-height: 150px;
+            max-width: 500px
+        }
+    </style>
+    <script th:inline="javascript">
+        var success = [[#{product.success}]];
+        var fail = [[#{product.fail}]];
+        var upload = [[#{common.button.upload}]];
+        var mydelete = [[#{common.button.delete}]];
+        var checkAllLang = '全选';  //全选
+        var emptyLang = '清空';  //清空
+        var selectInvertLang = '反选';  //反选
+        var requiredNotNull = '不能为空';
+        var productSkuRule = [[#{product.sku.rule}]];
+        var productEanRule = [[#{product.ean.rule}]];
+        var productMaterielCodeRule = [[#{product.materielCode.rule}]];
+        var productWeightRule = [[#{product.weight.rule}]];
+        var productLengthRule = [[#{product.length.rule}]];
+        var productWidthRule = [[#{product.width.rule}]];
+        var productHeightRule = [[#{product.height.rule}]];
+        var productRequiredRule = [[#{common.text.tip.required}]];
+        var productEnRule = [[#{product.add.en.name}]];
+        var prompt_owner = [[#{instock.add.owner}]];
+        var prompt_sku = [[#{instock.add.sku}]];
+        var prompt_check_sku = [[#{product.check.sku.is.exist}]];
+        var prompt_check_ean = [[#{product.check.ean.is.exist}]];
+        var advice= '添加成功';
+
+    </script>
+</head>
+<body>
+
+<div class="layui-fluid edit-page">
+    <div class="layui-card">
+        <div th:text="优惠发布" class="layui-card-header edit-card-header"></div>
+        <div  class="layui-card-body">
+            <form id="searchFormId" class="layui-form" lay-filter="component-form-group">
+                <div class="edit-module-title"></div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="优惠类型" class="layui-form-label required-tag"></label>
+                            <div class="layui-input-block">
+                                <select id="preferentialType" name="preferentialType" lay-filter="preferentialTypeFilter">
+                                    <option th:text="普通优惠"
+                                            value="ordinary"></option>
+                                    <option th:text="同城优惠"
+                                            value="local"></option>
+                                    <option th:text="全国优惠"
+                                            value="nationwide"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="发布人昵称" class="layui-form-label required-tag"></label>
+                            <div class="layui-input-block">
+                                <!--                                <input type="text" id="nickname" name="nickname" th:placeholder="请输入发布人昵称"-->
+                                <!--                                       autocomplete="off"-->
+                                <!--                                       class="layui-input" lay-verify="required"/>-->
+                                <select id="nickname" name="nickname">
+                                    <option th:text="好吃小仙女"
+                                            value="好吃小仙女"></option>
+                                    <option th:text="口水值千金"
+                                            value="口水值千金"></option>
+                                    <option th:text="美食小霸王"
+                                            value="美食小霸王"></option>
+                                    <option th:text="歪麦福利官"
+                                            value="歪麦福利官"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                <div class="layui-row">-->
+                <!--                    <div class="layui-col-xs12">-->
+                <!--                        <div class="layui-form-item">-->
+                <!--                            <label th:text="发布人头像" class="layui-form-label required-tag"></label>-->
+                <!--                            <div class="layui-upload">-->
+                <!--                                <div id="addressStr1" class="layui-upload-list" >-->
+                <!--                                    <input name="headPicStr" type="hidden" value=""/>-->
+                <!--                                    <div class="upload-img-item" >-->
+
+                <!--                                    </div>-->
+                <!--                                    <div class="upload-item-add" id="upload_headPic_add"><i class="layui-icon layui-icon-add-1"></i>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="优惠标题" class="layui-form-label required-tag"></label>
+                            <div class="layui-input-block">
+                                <input type="text" id="title" name="title" th:placeholder="请输入优惠标题"
+                                       autocomplete="off"
+                                       class="layui-input" lay-verify="required"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-row" id="preferentialCityDiv" hidden="hidden">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="优惠城市" class="layui-form-label "></label>
+                            <div class="layui-input-inline">
+                                <select id="province" lay-filter="provinceFilter">
+                                    <!--                                    <option th:text="广东"-->
+                                    <!--                                            value="GD"></option>-->
+                                </select>
+                                <select id="preferentialCity">
+                                    <!--                                    <option th:text="深圳"-->
+                                    <!--                                            value="SZ"></option>-->
+                                    <!--                                    <option th:text="广州"-->
+                                    <!--                                            value="GZ"></option>-->
+                                    <!--                                    <option th:text="惠州"-->
+                                    <!--                                            value="HZ"></option>-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label id="orderPriceDiv" th:text="订单金额" class="layui-form-label "></label>
+                            <label style="display: none" id="preferentialPriceDiv" th:text="优惠金额" class="layui-form-label "></label>
+                            <div class="layui-input-block">
+                                <input type="text" id="preferentialPrice" name="preferentialPrice" th:placeholder="请输入金额"
+                                       autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                <div class="layui-row" id="preferentialPriceDiv" hidden>-->
+                <!--                    <div class="layui-col-xs12">-->
+                <!--                        <div class="layui-form-item">-->
+                <!--                            <label th:text="优惠金额" class="layui-form-label "></label>-->
+                <!--                            <div class="layui-input-block">-->
+                <!--                                <input type="text" id="preferentialPrice" name="preferentialPrice" th:placeholder="请输入优惠金额"-->
+                <!--                                       autocomplete="off"-->
+                <!--                                       class="layui-input"/>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="订单截图" class="layui-form-label "></label>
+                            <div class="layui-upload">
+                                <div id="addressStr2" class="layui-upload-list" >
+                                    <input name="orderPicStr" type="hidden" value=""/>
+                                    <div class="upload-img-item" >
+
+                                    </div>
+                                    <div class="upload-item-add" id="upload_orderPic_add"><i class="layui-icon layui-icon-add-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="餐品图片" class="layui-form-label "></label>
+                            <input id="foodPicListStr" name="foodPicListStr"  type="hidden" value=""/>
+                            <button type="button" class="layui-btn layui-btn-primary" id="upload_img">上传图片</button>
+                            <div id="upload_img_list"> </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="推荐理由" class="layui-form-label required-tag"></label>
+                            <div class="layui-input-block">
+                                <textarea name="recommendReason" required lay-verify="required" placeholder="请输入推荐理由" class="layui-textarea"></textarea>
+                                <!--<input type="text" id="returnAmount" name="returnAmount" placeholder="例如:返利70% 或 最高返20"
+                                       autocomplete="off"
+                                       class="layui-input" lay-verify="required"/>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="busInfoDiv">
+                    <div class="layui-row">
+                        <div class="layui-col-xs12">
+                            <div class="layui-form-item">
+                                <label th:text="优惠商家" class="layui-form-label required-tag"><span
+                                        style="color: red">*</span></label>
+                                <div class="layui-input-block">
+                                    <select id="businessId" name="businessId" lay-filter="businessFilter">
+                                        <option th:text="请选择"
+                                                value=""></option>
+                                        <option th:each="list:${viewBusinessIndexDataOutDtoList}"
+                                                th:text="${list.getShopName()}"
+                                                th:value="${list.getId()+','+list.getAppletQrCodeUrl()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-xs8">
+                            <div class="layui-form-item">
+                                <label th:text="优惠商家二维码" class="layui-form-label "><span
+                                        style="color: red">*</span></label>
+                                <div class="layui-upload">
+                                    <div  class="layui-upload-list" >
+                                        <div class="upload-img-item" id="businessImg">
+
+                                        </div>
+                                        <div style="display: none" class="upload-item-add" id="upload_bus_add"><i class="layui-icon layui-icon-add-1"></i>
+                                        </div>
+                                    </div>
+                                    <button  id="button_update_addressStr4" name="" type="button" class="layui-btn" style="margin-top: 10px">更新</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                <div class="layui-row">-->
+                <!--                    <div class="layui-col-xs12">-->
+                <!--                        <div class="layui-form-item">-->
+                <!--                            <label th:text="进店链接地址" class="layui-form-label required-tag"></label>-->
+                <!--                            <div class="layui-input-block">-->
+                <!--                                <input type="text" id="releaseNumber2" name="releaseNumber2" th:placeholder="请输入进店链接地址"-->
+                <!--                                       autocomplete="off"-->
+                <!--                                       class="layui-input" lay-verify="required|number"/>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <hr><hr>
+
+                <div id="combination1_0">
+                    <div class="layui-row">
+                        <div class="layui-col-xs6">
+                            <div class="layui-form-item">
+                                <label th:text="优惠券领取" class="layui-form-label"></label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="combinationType1_0" name="combinationType1_0" th:placeholder="输入券名"
+                                           autocomplete="off"
+                                           class="layui-input" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-col-xs6">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input type="text" id="combinationName1_0" name="combinationName1_0" th:placeholder="请输入领取地址"
+                                           autocomplete="off"
+                                           class="layui-input" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button  id="combinationDelete1_0" name="combinationDelete1_0" type="button" class="layui-btn">移除</button>
+                </div>
+                <button  id="combinationAdd1" name="combinationAdd1" type="button" class="layui-btn" style="margin-top: 10px">新增</button>
+
+                <hr>
+
+                <div id="combination_0">
+                    <div class="layui-row">
+                        <div class="layui-col-xs6">
+                            <div class="layui-form-item">
+                                <label th:text="优惠餐品" class="layui-form-label "></label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="combinationType_0" name="combinationType_0" th:placeholder="请输入餐品名称"
+                                           autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-col-xs6">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input type="text" id="combinationName_0" name="combinationName_0" th:placeholder="请输入直达链接"
+                                           autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="layui-row">
+                        <div class="layui-col-xs6">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input type="text" id="combinationPrice_0" name="combinationPrice_0" th:placeholder="请输入价格"
+                                           autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-upload" style="margin-left: 168px;">
+                        <div id="combinationPicAddress_0" class="layui-upload-list" >
+                            <input name="combinationPicAddress_0" type="hidden" value="" lay-verify="pic"/>
+                            <div class="upload-img-item">
+
+                            </div>
+                            <div class="upload-item-add" id="upload_combinationPic_add_0"><i class="layui-icon layui-icon-add-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button  id="combinationDelete_0" name="combinationDelete_0" type="button" class="layui-btn">移除组合</button>
+                </div>
+                <button  id="combinationAdd" name="combinationAdd" type="button" class="layui-btn" style="margin-top: 10px">新增组合</button>
+
+                <hr>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="关联主标签" class="layui-form-label "></label>
+                            <div class="layui-input-block">
+                                <input type="text" id="mainLabelListStr" name="mainLabelListStr" th:placeholder="请输入关联主标签"
+                                       autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="关联副标签" class="layui-form-label "></label>
+                            <div class="layui-input-block">
+                                <input type="text" id="subLabelListStr" name="subLabelListStr" th:placeholder="请输入关联副标签"
+                                       autocomplete="off"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-options-content">
+                    <button id="testListAction" th:text="发布" class="layui-btn" lay-submit=""
+                            lay-filter="component-form"></button>
+                    <button th:text="取消" type="reset" class="layui-btn layui-btn-primary" id="close"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../../static/layui/layui.js" type="text/javascript"></script>
+<script src="../../../static/fraUpload/jquery.min.js?v=2.1.4"></script>
+<script src="../../../static/modules/push/push_add.js?t=<%=new Date().getTime() %"></script>
+</body>
+</html>
+

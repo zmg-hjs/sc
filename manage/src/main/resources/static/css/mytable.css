@@ -1,0 +1,40 @@
+.table-container
+{
+	width: 100%;
+	overflow-y: auto;
+	_overflow: auto;
+	margin: 0 0 1em;
+}
+
+.table-container tr { border: 1px solid #ccc; }
+ 
+.table-container td { 
+	border: none;
+	/*position: relative;*/
+	padding-left: 50%; 
+	white-space: normal;
+	text-align:left;
+	vertical-align: middle !important;
+}
+ 
+.table-container td:before { 
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	width: 45%; 
+	padding-right: 10px; 
+	white-space: nowrap;
+	text-align:left;
+	font-weight: bold;
+}
+.table-container td{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	width:100%;
+	text-align:center;
+}
+.icon-sort{display:inline-block;background: url(../images/icon-sort.png) no-repeat center center;width:7px; height: 14px;cursor: pointer;}
+.icon-sort-up{display:inline-block;background: url(../images/icon-sort-up.png) no-repeat center center;width:7px; height: 14px;cursor: pointer;}
+.icon-sort-down{display:inline-block;background: url(../images/icon-sort-down.png) no-repeat center center;width:7px; height: 14px;cursor: pointer;}

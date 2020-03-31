@@ -1,0 +1,18 @@
+package com.sc.property;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+
+@SpringBootApplication
+@EntityScan(basePackages = {"com.sc.base.entity"})
+@EnableJpaRepositories(basePackages = {"com.sc.base.repository"})
+public class PropertyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PropertyApplication.class, args);
+    }
+
+}
