@@ -1,4 +1,4 @@
-package com.sc.base.entity;
+package com.sc.base.entity.user;
 
 import lombok.Data;
 
@@ -9,8 +9,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_resident_user")
-public class ResidentUserEntity {
+@Table(name = "t_staff_user")
+public class StaffUserEntity {
 
     @Id
     private String id;
@@ -28,7 +28,7 @@ public class ResidentUserEntity {
     private String idNumber; //身份证号
     private String address; //家庭地址
     private String userAuditId; //审核表id;
-    private String role; //角色
+    private String position; //角色
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
 

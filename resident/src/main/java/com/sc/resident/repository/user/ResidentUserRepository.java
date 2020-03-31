@@ -1,7 +1,7 @@
 package com.sc.resident.repository.user;
 
 
-import com.sc.base.entity.ResidentUserEntity;
+import com.sc.base.entity.user.ResidentUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

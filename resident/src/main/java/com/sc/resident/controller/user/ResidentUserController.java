@@ -1,7 +1,7 @@
 package com.sc.resident.controller.user;
 
 
-import com.sc.base.dto.RegisterDto;
+import com.sc.base.dto.user.RegisterDto;
 import com.sc.resident.service.user.ResidentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

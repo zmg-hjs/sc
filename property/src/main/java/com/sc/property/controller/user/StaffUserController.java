@@ -1,7 +1,7 @@
 package com.sc.property.controller.user;
 
 
-import com.sc.base.entity.StaffUserEntity;
+import com.sc.base.entity.user.StaffUserEntity;
 import com.sc.property.service.user.StaffUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

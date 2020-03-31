@@ -1,9 +1,9 @@
 package com.sc.property.service.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sc.base.dto.RegisterDto;
-import com.sc.base.entity.StaffRegistrationEntity;
-import com.sc.base.entity.StaffUserEntity;
+import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.entity.user.StaffRegistrationEntity;
+import com.sc.base.entity.user.StaffUserEntity;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.user.StaffRegistrationRepository;
 import com.sc.base.repository.user.StaffUserRepository;

@@ -1,10 +1,9 @@
 package com.sc.resident.service.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sc.base.dto.RegisterDto;
-import com.sc.base.entity.ResidentRegistrationEntity;
-import com.sc.base.entity.ResidentUserEntity;
-import com.sc.base.entity.StaffUserEntity;
+import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.entity.user.ResidentRegistrationEntity;
+import com.sc.base.entity.user.ResidentUserEntity;
 import com.sc.base.enums.RoleEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.resident.repository.user.ResidentRegistrationRepository;
