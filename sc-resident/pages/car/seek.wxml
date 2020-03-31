@@ -1,0 +1,28 @@
+<!--pages/car/seek.wxml-->
+<view class="page">
+	<view class="weui-panel weui-panel_access">
+		<view class="weui-panel__hd">拼车信息</view>
+		<block wx:for="{{list}}" wx:key="id">
+			<view class="weui-panel weui-panel_access">
+				<view class="weui-panel__bd">
+
+					<view class="weui-media-box weui-media-box_text">
+						<view class="weui-media-box__title weui-media-box__title_in-text">{{item.starting}}到{{item.destination}}</view>
+						<view class="weui-media-box__desc">剩余位置：{{item.peopleNum}}</view>
+						<view class="weui-media-box__desc">时间：{{item.date}} {{item.time}}</view>
+						<view class="weui-media-box__desc">车牌号：{{item.carNum}}</view>
+            <view class="weui-media-box__desc">联系电话：{{item.telephone}}</view>
+					</view>
+				</view>
+				<navigator url="/pages/car/join?id={{item.id}}&telephone={{item.telephone}}&starting={{item.starting}}&destination={{item.destination}}">
+					<view class="weui-panel__ft">
+						<view class="weui-cell weui-cell_access weui-cell_link">
+							<view class="weui-cell__bd">参与拼车</view>
+							<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+						</view>
+					</view>
+				</navigator>
+			</view>
+		</block>
+	</view>
+</view>

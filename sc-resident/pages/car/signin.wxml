@@ -1,0 +1,59 @@
+<!--pages/car/signin.wxml-->
+<view class="weui-cells weui-cells_after-title">
+	<view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="chooseLocation_1">
+		<view class="weui-cell__bd">选择起点位置</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access">{{starting}}</view>
+	</view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+	<view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="chooseLocation_2">
+		<view class="weui-cell__bd">选择终点位置</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access">{{destination}}</view>
+	</view>
+</view>
+<view class="weui-cell ">
+	<view class="weui-cell__hd">
+		<view class="weui-label">日期</view>
+	</view>
+	<view class="weui-cell__bd">
+		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindDateChange">
+			<view class="weui-input">{{date}}</view>
+		</picker>
+	</view>
+</view>
+<view class="weui-cell ">
+	<view class="weui-cell__hd">
+		<view class="weui-label">时间</view>
+	</view>
+	<view class="weui-cell__bd">
+		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindTimeChange">
+			<view class="weui-input">{{time}}</view>
+		</picker>
+	</view>
+</view>
+<view class="weui-cell ">
+	<view class="weui-cell__hd">
+		<view class="weui-label">余座数</view>
+	</view>
+	<view class="weui-cell__bd">
+		<input class="weui-input" placeholder="请输入还可以乘坐的人数" bindchange="bindNumChange"/>
+	</view>
+</view>
+<view class="weui-cell ">
+	<view class="weui-cell__hd">
+		<view class="weui-label">车牌号</view>
+	</view>
+	<view class="weui-cell__bd">
+		<input class="weui-input" placeholder="请输入车牌号" bindchange="bindCarChange"/>
+	</view>
+</view>
+<view class="weui-cell ">
+	<view class="weui-cell__hd">
+		<view class="weui-label">联系电话</view>
+	</view>
+	<view class="weui-cell__bd">
+		<input class="weui-input" placeholder="请输入联系方式" bindchange="bindPhoneChange"/>
+	</view>
+</view>
+<view class="weui-cells weui-cells_after-title"></view>
+<button class="weui-btn" type="primary" disabled="{{!(flag1&&flag2)}}" bindtap="calculate">确定</button>

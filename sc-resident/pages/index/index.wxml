@@ -1,0 +1,47 @@
+<!--index.wxml-->
+ <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+ <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_example ">
+                <view class="weui-cell__hd">
+                    <image src="{{userInfo.avatarUrl}}" style="margin-right: 16px;vertical-align: middle;width:80px; height: 80px;"></image>
+                </view>
+                <view class="weui-cell__bd">
+                <view style='font-size:20px'>{{current_course['name']?current_course['name']:"姓名"}}</view>
+                <view style='font-size:13px;color:#888888'>单元号:{{current_course['teacher']['name'] ? current_course['teacher']['name'] : "未知 "}}</view>
+                <view style='font-size:13px;color:#888888'>户号:{{current_course['count']?current_course['count']:"未知"}}</view>
+                </view>  
+            </view>
+  </view>
+  <view class="index-exam-h1">
+  <view class="index-exam-span">社区服务</view>
+  </view>
+    <view class="row" style="clear: both;">
+            <view bindtap="service" data-type='chat' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-lt"></view>
+                <view class="text">邻里交流</view>
+            </view>
+            <view bindtap="service" data-type='shop' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-gw"></view>
+                <view class="text">社区购物</view>
+            </view>
+    </view>
+   <view class="row" style="clear: both;">
+            <view bindtap="service" data-type='car' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-pc"></view>
+                <view class="text">拼车服务</view>
+            </view>
+            <view bindtap="service" data-type='emal' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-xx"></view>
+                <view class="text">消息通知</view>
+            </view>
+    </view>
+       <view class="row" style="clear: both;">
+            <view bindtap="service" data-type='repair' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-bx"></view>
+                <view class="text">物业报修</view>
+            </view>
+            <view bindtap="service" data-type='vote' class="index-exam-inlets-list col-hg-6">
+                <view class="icon-index-tp"></view>
+                <view class="text">选举投票</view>
+            </view>
+    </view>
