@@ -1,0 +1,16 @@
+target
+.classpath
+.project
+.settings
+dependency-reduced-pom.xml
+.idea
+*.iml
+rebel.xml
+*.log
+package.bat
+.DS_Store
+.rebel*
+rebel-remote.xml
+.idea/workspace.xml
+.idea/*
+*.bak
