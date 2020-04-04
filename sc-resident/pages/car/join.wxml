@@ -1,0 +1,20 @@
+<!--pages/car/join.wxml-->
+<view class="weui-panel weui-panel_access">
+	<view class="weui-panel__hd">拼车信息</view>
+	<view class="weui-panel__bd">
+		<view class="weui-media-box weui-media-box_text">
+			<view class="weui-media-box__title weui-media-box__title_in-text">您将加入{{starting}}到{{destination}}拼车</view>
+			<view class="weui-media-box__desc">司机电话号码为：{{telephone}}，请你完善下面信息并及时联系司机</view>
+		</view>
+	</view>
+	<view class="weui-cell ">
+		<view class="weui-cell__hd">
+			<view class="weui-label">拼车人数</view>
+		</view>
+		<view class="weui-cell__bd">
+			<input class="weui-input" placeholder="请输入您参与拼车的人数" bindchange="bindNumChange" />
+		</view>
+	</view>
+</view>
+<view class="weui-cells weui-cells_after-title"></view>
+ <button class="weui-btn" type="primary" bindtap="submit">确定</button>
