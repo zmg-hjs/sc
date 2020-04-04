@@ -7,7 +7,10 @@
     "pages/car/seek",
     "pages/car/join",
     "pages/car/own",
-    "pages/my/register"
+    "pages/my/register",
+    "pages/my/userlogin",
+    "pages/my/myinfo",
+    "pages/my/change"
   ],
   "window": {
     "backgroundTextStyle": "light",

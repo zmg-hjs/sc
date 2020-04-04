@@ -18,26 +18,26 @@
   </view>
   <view class="weui-cell ">
     <view class="weui-cell__hd">
-      <view class="weui-label">学校</view>
+      <view class="weui-label">单元号</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入学校" bindchange="changeSchool"/>
+      <input class="weui-input" placeholder="请输入单元号" bindchange="changeUnit"/>
     </view>
   </view>
   <view class="weui-cell ">
     <view class="weui-cell__hd">
-      <view class="weui-label">学号</view>
+      <view class="weui-label">楼层</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入学号" bindchange="changeNum" />
+      <input class="weui-input" placeholder="请输入楼层" bindchange="changeFloor" />
     </view>
   </view>
   <view class="weui-cell ">
     <view class="weui-cell__hd">
-      <view class="weui-label">入学年份</view>
+      <view class="weui-label">门牌号</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入入学年份" bindchange="changeYear" />
+      <input class="weui-input" placeholder="请输入门牌号" bindchange="changeDoor" />
     </view>
   </view>
   </view>

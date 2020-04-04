@@ -112,8 +112,9 @@ public class ResidentUserService {
             residentUserEntity.setUsername((String) jsonObject.get("nickName"));
             residentUserEntity.setHeadPictureUrl((String) jsonObject.get("avatarUrl"));
             addUserEntity(residentUserEntity);
+            residentUserEntity=residentUserRepository.findResidentUserEntityByOpenId((String) jsonObject.get("openId"));
         }
-        return Result.createSimpleSuccessResult();
+        return new Result().setSuccess(residentUserEntity);
     }
 
     /**
