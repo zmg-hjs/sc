@@ -1,5 +1,5 @@
 //app.js
-const wxUrl=require('./config.js').wxUrl
+const userUrl=require('./config.js').userUrl
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -16,7 +16,7 @@ App({
           success:ress=>{
             console.log('ress',ress)
             wx.request({
-              url: wxUrl,
+              url: userUrl+'register',
               data: {
                 code: res.code,
                 phoneNumber:'13938290826',

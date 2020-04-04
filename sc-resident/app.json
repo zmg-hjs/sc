@@ -6,7 +6,8 @@
     "pages/car/car",
     "pages/car/seek",
     "pages/car/join",
-    "pages/car/own"
+    "pages/car/own",
+    "pages/my/register"
   ],
   "window": {
     "backgroundTextStyle": "light",
