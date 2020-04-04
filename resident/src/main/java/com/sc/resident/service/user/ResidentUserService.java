@@ -112,6 +112,8 @@ public class ResidentUserService {
             residentUserEntity.setUsername((String) jsonObject.get("nickName"));
             residentUserEntity.setHeadPictureUrl((String) jsonObject.get("avatarUrl"));
             addUserEntity(residentUserEntity);
+        }else{
+            return Result.createNewResult(result);
         }
         return Result.createSimpleSuccessResult();
     }

@@ -57,12 +57,13 @@ Page({
         console.log("用户的code:" + res.code);
         if (res.code) {
           wx.request({
-            url: 'http://localhost:8001/sc/property/user/login',
+            url: 'http://localhost:8002/sc/resident/user/register',
             method: 'POST',
             data: {
               code: res.code,//获取openid的话 需要向后台传递code,利用code请求api获取openid
               iv: e.detail.iv,
-              encryptedData: e.detail.encryptedData
+              encryptedData: e.detail.encryptedData,
+              phoneNumber: "13938290826"
             },
             success: function (e) {
               console.log("1:" + e.data.code)
