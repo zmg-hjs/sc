@@ -19,6 +19,7 @@
         <module>property</module>
         <module>resident</module>
         <module>myUtils</module>
+        <module>manage</module>
     </modules>
 
     <properties>
