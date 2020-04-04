@@ -1,13 +1,12 @@
 package com.sc.resident.repository.car;
 
-/**
- * Package: com.sc.resident.repository.car
- * <p>
- * Description： TODO
- * <p>
- * Author: hjscode
- * <p>
- * Date: Created in 2020/3/31 21:55
- */
-public class CarRepository {
+import com.sc.base.entity.car.CarEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CarRepository extends JpaRepository<CarEntity,String> {
+
+    CarEntity findCarEntityById(String id);
+
 }

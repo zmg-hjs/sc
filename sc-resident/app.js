@@ -12,22 +12,29 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log('res',res)
-        // wx.request({
-        //   url: wxUrl+'login',
-        //   data: {
-        //     code: '001'
-        //   },
-        //   method: 'GET',
-        //   header: {
-        //     'content-type': 'application/json' // 默认值
-        //   },
-        //   success: function (res) {
-        //     console.log(res.data);
-        //   },
-        //   fail: function (res) {
-        //     console.log(".....fail.....");
-        //   }
-        // })
+        wx.getUserInfo({
+          success:ress=>{
+            console.log('ress',ress)
+            wx.request({
+              url: wxUrl,
+              data: {
+                code: res.code,
+                phoneNumber:'13938290826',
+                iv:ress.iv,
+                encryptedDate:ress.encryptedDate
+    
+              },
+              method: 'POST',
+              success: function (res) {
+                console.log(res.data);
+              },
+              fail: function (res) {
+                console.log(".....fail.....");
+              }
+            })
+          }
+        })
+      
       }
     })
     // 获取用户信息
