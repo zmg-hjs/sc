@@ -27,7 +27,7 @@
         "selectedIconPath": "images/first1.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/my/myinfo",
         "text": "我的",
         "iconPath": "images/wode2.png",
         "selectedIconPath": "images/wode1.png"

@@ -2,6 +2,7 @@ package com.sc.resident.service.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.dto.user.UpdateUserDto;
 import com.sc.base.entity.user.ResidentRegistrationEntity;
 import com.sc.base.entity.user.ResidentUserEntity;
 import com.sc.base.enums.RoleEnum;
@@ -11,8 +12,11 @@ import com.sc.resident.repository.user.ResidentUserRepository;
 import myJson.MyJsonUtil;
 import myString.MyStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import vo.Result;
 import weChat.entity.WeChatEntity;
@@ -85,7 +89,9 @@ public class ResidentUserService {
         residentUserEntity.setId(MyStringUtils.getIdDateStr("residentUser"));
         residentUserEntity.setIdNumber(residentRegistrationEntity.getIdNumber());
         residentUserEntity.setActualName(residentRegistrationEntity.getActualName());
-        residentUserEntity.setAddress(residentRegistrationEntity.getAddress());
+        residentUserEntity.setUnit(registerDto.getUnit());
+        residentUserEntity.setFloor(registerDto.getFloor());
+        residentUserEntity.setDoor(registerDto.getDoor());
         //创建roleEnum(居民，委员会成员)
         residentUserEntity.setRole(RoleEnum.RESIDENT.getType());
         residentUserEntity.setUserAuditId(residentRegistrationEntity.getId());
@@ -137,7 +143,24 @@ public class ResidentUserService {
         residentUserEntity.setCreateDate(new Date());
         residentUserEntity.setUpdateDate(new Date());
         residentUserEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
-        residentUserRepository.save(residentUserEntity);
+        residentUserRepository.saveAndFlush(residentUserEntity);
     }
 
+    public Result update(UpdateUserDto updateUserDto){
+        ResidentUserEntity residentUserEntity=residentUserRepository.findResidentUserEntityByOpenId(updateUserDto.getOpenId());
+        if(updateUserDto.getChange().equals("unit")){
+            residentUserEntity.setUnit(updateUserDto.getValue());
+        }else if(updateUserDto.getChange().equals("floor")){
+            residentUserEntity.setFloor(updateUserDto.getValue());
+        }else if(updateUserDto.getChange().equals("door")){
+            residentUserEntity.setDoor(updateUserDto.getValue());
+        }else if(updateUserDto.getChange().equals("actualName")){
+            residentUserEntity.setActualName(updateUserDto.getValue());
+        }else if(updateUserDto.getChange().equals("phoneNumber")){
+            residentUserEntity.setPhoneNumber(updateUserDto.getValue());
+        }
+        residentUserRepository.saveAndFlush(residentUserEntity);
+        return new Result().setSuccess(residentUserEntity);
+
+    }
 }

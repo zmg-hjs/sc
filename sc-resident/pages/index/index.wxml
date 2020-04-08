@@ -6,8 +6,8 @@
                 </view>
                 <view class="weui-cell__bd">
                 <view style='font-size:20px'>{{userInfo.username?userInfo.username:"姓名"}}</view>
-                <view style='font-size:13px;color:#888888'>单元号:{{current_course['teacher']['name'] ? current_course['teacher']['name'] : "未知 "}}</view>
-                <view style='font-size:13px;color:#888888'>户号:{{current_course['count']?current_course['count']:"未知"}}</view>
+                <view style='font-size:13px;color:#888888'>单元号:{{userInfo.unit?userInfo.unit  : "未知 "}}</view>
+                <view style='font-size:13px;color:#888888'>户号:{{userInfo.door?userInfo.door:"未知"}}</view>
                 </view>  
             </view>
   </view>

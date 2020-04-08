@@ -13,27 +13,27 @@ Page({
     door:''
 
   },
-  changgeName:function(e){
+  changeName:function(e){
     this.setData({
       name:e.detail.value
     })
   },
-  changgeTel:function(e){
+  changeTel:function(e){
     this.setData({
       telephone:e.detail.value
     })
   },
-  changgeUnit:function(e){
+  changeUnit:function(e){
     this.setData({
       unit:e.detail.value
     })
   },
-  changgeFloor:function(e){
+  changeFloor:function(e){
     this.setData({
       floor:e.detail.value
     })
   },
-  changgeDoor:function(e){
+  changeDoor:function(e){
     this.setData({
       door:e.detail.value
     })
@@ -47,9 +47,12 @@ Page({
               url: userUrl+'register',
               data: {
                 code: res.code,
-                phoneNumber:'13938290826',
+                phoneNumber:this.data.telephone,
                 iv:ress.iv,
-                encryptedData:ress.encryptedData
+                encryptedData:ress.encryptedData,
+                unit:this.data.unit,
+                floor:this.data.floor,
+                door:this.data.door
               },
               method: 'POST',
               success: function (res) {

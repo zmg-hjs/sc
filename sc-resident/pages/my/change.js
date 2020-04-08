@@ -8,15 +8,15 @@ Page({
   data: {
     placeholder:'',
     infoArray:{
-      name:'姓名',
-      tel:'手机号',
+      actualName:'姓名',
+      phoneNumber:'电话号',
       floor:'楼层',
       unit:'单元号',
       door:'门牌号',
 
     },
     value:'',
-    userInfo:wx.getStorageSync('userInfo'),
+    userInfo:'',
     temp:'',
     changeWhat:''
 
@@ -38,14 +38,15 @@ Page({
        wx.navigateBack()
      }else{
      wx.request({
-       url: userUrl + 'updateInfo',
+       url: userUrl + 'update',
+       method:"POST",
        data:{
-         openid:wx.getStorageSync('jiaoxue_OPENID'),
+         openId:this.data.userInfo.openId,
          change:this.data.changeWhat,
          value:this.data.temp
        },
        success:res =>{
-         if(res.data.success){
+         if(res.data.code==1){
          this.data.userInfo[this.data.changeWhat]=this.data.temp,
          wx.setStorageSync('userInfo',this.data.userInfo),
          wx.navigateBack()
@@ -65,6 +66,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userInfo:wx.getStorageSync('userInfo'),
+      placeholder: '请输入' + this.data.infoArray[options.changeWhat],
+      value: this.data.userInfo[options.changeWhat],
+      changeWhat:options.changeWhat,
+    })
+    console.log("load",this.data.value)
+    wx.setNavigationBarTitle({
+      title: '修改' + this.data.infoArray[options.changeWhat]
+    })
 
   },
 
@@ -79,7 +90,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({    
+      value: this.data.userInfo[this.data.changeWhat],
+    })
+    console.log("show",this.data.value)
   },
 
   /**
