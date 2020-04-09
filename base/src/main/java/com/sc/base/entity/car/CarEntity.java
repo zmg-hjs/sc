@@ -32,6 +32,7 @@ public class CarEntity {
     private String telephone; //发起人电话
     private String carNum; //车牌号
     private String time; //出发时间
-    private Date dateCreated;  //创建时间
-    private Date dateModified;  //更新时间
+    private Date createDate;  //创建时间
+    private Date updateDate;  //更新时间
+    private String whetherValid;
 }
