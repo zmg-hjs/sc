@@ -1,5 +1,5 @@
 //app.js
-const wxUrl=require('./config.js').wxUrl
+const userUrl=require('./config.js').userUrl
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,30 +11,30 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log('res',res)
-        wx.getUserInfo({
-          success:ress=>{
-            console.log('ress',ress)
-            wx.request({
-              url: wxUrl,
-              data: {
-                code: res.code,
-                phoneNumber:'13938290826',
-                iv:ress.iv,
-                encryptedDate:ress.encryptedDate
-    
-              },
-              method: 'POST',
-              success: function (res) {
-                console.log(res.data);
-              },
-              fail: function (res) {
-                console.log(".....fail.....");
-              }
-            })
+        wx.request({
+          url: userUrl+'login',
+          data:{
+            code:res.code
+          },
+          method:'POST',
+          success:function(res){
+            if(res.data.code!=1){
+              wx.showModal({
+                title: '提示',
+                content: '请先注册',
+                showCancel: false,
+                confirmText: "确定",
+                success: function(res) {
+                  wx.navigateTo({
+                    url: '/pages/my/userlogin',
+                  })
+                }
+              })
+            }else{
+              wx.setStorageSync('userInfo', res.data.data)
+            }
           }
         })
-      
       }
     })
     // 获取用户信息

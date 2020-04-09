@@ -10,7 +10,9 @@ public class RegisterDto {
     private String code;
 
     private String phoneNumber; //电话号码
-    private String idNumber;  //身份证号码
+    private String unit;  //单元
     private String actualName; //姓名（身份证）
+    private String floor; //楼层
+    private String door; //门牌号
 
 }

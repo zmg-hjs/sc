@@ -2,8 +2,10 @@ package com.sc.resident.controller.user;
 
 
 import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.dto.user.UpdateUserDto;
 import com.sc.resident.service.user.ResidentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +54,19 @@ public class ResidentUserController {
             return register;
         }catch (Exception e){
             return Result.createSystemErrorResult();
+        }
+    }
+    /**
+     * 更新用户属数据
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public Result update(@RequestBody UpdateUserDto updateUserDto){
+        try{
+            Result update = residentUserService.update(updateUserDto);
+            return update;
+        }catch (Exception e){
+            return  Result.createSystemErrorResult();
         }
     }
 

@@ -31,5 +31,8 @@ public class ResidentUserEntity {
     private String role; //角色
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
+    private String unit; //单元号
+    private String floor; //楼层号
+    private String door;//门牌号
 
 }

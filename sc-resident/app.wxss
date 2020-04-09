@@ -1,4 +1,13 @@
 /**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
 @import 'style/weui.wxss'
 .col-hg-1, .col-hg-2, .col-hg-3, .col-hg-4, .col-hg-5, .col-hg-6, .col-hg-7, .col-hg-8, .col-hg-9, .col-hg-10, .col-hg-11, .col-hg-12 { float: left; box-sizing: border-box;}
 

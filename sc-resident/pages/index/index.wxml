@@ -1,14 +1,13 @@
 <!--index.wxml-->
- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
  <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_example ">
                 <view class="weui-cell__hd">
-                    <image src="{{userInfo.avatarUrl}}" style="margin-right: 16px;vertical-align: middle;width:80px; height: 80px;"></image>
+                 <image src="{{userInfo.headPictureUrl?userInfo.headPictureUrl:'/images/user.png'}}" style="margin-right: 16px;vertical-align: middle;width:80px; height: 80px;"></image>
                 </view>
                 <view class="weui-cell__bd">
-                <view style='font-size:20px'>{{current_course['name']?current_course['name']:"姓名"}}</view>
-                <view style='font-size:13px;color:#888888'>单元号:{{current_course['teacher']['name'] ? current_course['teacher']['name'] : "未知 "}}</view>
-                <view style='font-size:13px;color:#888888'>户号:{{current_course['count']?current_course['count']:"未知"}}</view>
+                <view style='font-size:20px'>{{userInfo.username?userInfo.username:"姓名"}}</view>
+                <view style='font-size:13px;color:#888888'>单元号:{{userInfo.unit?userInfo.unit  : "未知 "}}</view>
+                <view style='font-size:13px;color:#888888'>户号:{{userInfo.door?userInfo.door:"未知"}}</view>
                 </view>  
             </view>
   </view>

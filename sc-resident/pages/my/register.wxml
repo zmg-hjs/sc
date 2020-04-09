@@ -1,0 +1,47 @@
+<!--pages/my/register.wxml-->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">姓名</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入姓名"  bindchange="changeName" />
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">手机号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入手机号" bindchange="changeTel" />
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">单元号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入单元号" bindchange="changeUnit"/>
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">楼层</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入楼层" bindchange="changeFloor" />
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">门牌号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入门牌号" bindchange="changeDoor" />
+    </view>
+  </view>
+  </view>
+   <view class="submit">
+   <button class="weui-btn" type="primary" bindtap="bindSubmit">提交</button>
+   </view>
+  

@@ -1,0 +1,23 @@
+<!--pages/my/myinfo.wxml-->
+ <view class="weui-cells weui-cells_after-title">
+            <navigator url="./change?changeWhat=actualName" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">姓名</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.actualName}}</view>
+            </navigator>
+            <navigator url="./change?changeWhat=phoneNumber" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">手机号</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.phoneNumber}}</view>
+            </navigator>
+            <navigator url="./change?changeWhat=unit" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">单元号</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.unit}}</view>
+            </navigator>
+            <navigator url="./change?changeWhat=floor" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">楼层</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.floor}}</view>
+            </navigator>
+            <navigator url="./change?changeWhat=door" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">门牌号</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.door}}</view>
+            </navigator>
+            </view>

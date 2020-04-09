@@ -6,7 +6,11 @@
     "pages/car/car",
     "pages/car/seek",
     "pages/car/join",
-    "pages/car/own"
+    "pages/car/own",
+    "pages/my/register",
+    "pages/my/userlogin",
+    "pages/my/myinfo",
+    "pages/my/change"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,7 +27,7 @@
         "selectedIconPath": "images/first1.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/my/myinfo",
         "text": "我的",
         "iconPath": "images/wode2.png",
         "selectedIconPath": "images/wode1.png"
