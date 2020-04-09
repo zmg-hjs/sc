@@ -1,4 +1,4 @@
-package com.sc.resident.repository.car;
+package com.sc.base.repository.car;
 
 import com.sc.base.entity.car.CarEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
