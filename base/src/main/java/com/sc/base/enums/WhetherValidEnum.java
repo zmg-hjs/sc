@@ -27,13 +27,7 @@ public enum WhetherValidEnum {
 
     private String type;
     private String name;
-    private String peration;
 
-    WhetherValidEnum(String status, String name, String peration) {
-        this.type = status;
-        this.name = name;
-        this.peration=peration;
-    }
 
     WhetherValidEnum(String status, String name) {
         this.type = status;

@@ -36,6 +36,8 @@
         <httpclient>4.3.5</httpclient>
         <jackson-databind>2.10.2</jackson-databind>
         <commons-lang3>3.9</commons-lang3>
+        <commons-fileupload>3.9</commons-fileupload>
+        <commons-net>3.6</commons-net>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +118,18 @@
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring-boot-starter}</version>
             </dependency>
+            <!-- 文件上传组件 -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

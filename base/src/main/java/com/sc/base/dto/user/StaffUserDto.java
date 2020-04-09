@@ -11,7 +11,8 @@ public class StaffUserDto {
     private String username;  //微信用户名
     private String password;  //密码
     private String headPictureUrl; //微信头像图片地址
-    private String phoneNumber;  //微信注册电话号码
+    private String weChatPhoneNumber;  //微信注册电话号码
+    private String phoneNumber;//工作人员后台登记号码
     private String createDateStr; //创建时间
     private String updateDateStr; //更新时间
 
@@ -20,8 +21,10 @@ public class StaffUserDto {
     private String address; //家庭地址
     private String userAuditId; //审核表id;
 
-    private String position; //角色
+    private String position; //职位type
+    private String positionStr;//职位name
     private String applicationStatus; //申请状态
-    private String whetherValid; //是否有效
+    private String whetherValid; //是否有效type
+    private String whetherValidStr; //是否有效name
 
 }

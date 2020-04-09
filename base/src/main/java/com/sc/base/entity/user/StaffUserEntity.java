@@ -20,7 +20,8 @@ public class StaffUserEntity {
     private String username;  //微信用户名
     private String password;  //密码
     private String headPictureUrl; //微信头像图片地址
-    private String phoneNumber;  //微信注册电话号码（工作人员登记号码）
+    private String weChatPhoneNumber;  //微信注册电话号码
+    private String phoneNumber;//工作人员后台登记号码
     private Date createDate; //创建时间
     private Date updateDate; //更新时间
 
@@ -28,7 +29,7 @@ public class StaffUserEntity {
     private String idNumber; //身份证号
     private String address; //家庭地址
     private String userAuditId; //审核表id;
-    private String position; //角色
+    private String position; //职位
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
 

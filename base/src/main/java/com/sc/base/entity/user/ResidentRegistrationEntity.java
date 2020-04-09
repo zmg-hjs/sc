@@ -19,4 +19,5 @@ public class ResidentRegistrationEntity {
     private String phoneNumber;  //微信注册电话号码
     private Date createDate; //创建时间
     private Date updateDate; //更新时间
+    private String whetherValid;//是否有效
 }
