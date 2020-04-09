@@ -1,7 +1,7 @@
 package com.sc.resident.service.car;
 
 import com.sc.base.entity.car.CarEntity;
-import com.sc.resident.repository.car.CarRepository;
+import com.sc.base.repository.car.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class CarService {
 
     @Autowired
-    private  CarRepository carRepository;
+    private CarRepository carRepository;
     public CarEntity findCarEnityById(String id){
         return carRepository.findCarEntityById(id);
     }

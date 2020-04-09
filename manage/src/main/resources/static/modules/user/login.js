@@ -59,7 +59,7 @@
 
     //页面初始化
     $(document).ready(function () {
-        $("#passWord").val("")
-        $("#userName").val("")
+        $("#password").val("")
+        $("#username").val("")
     })
 })(jQuery);

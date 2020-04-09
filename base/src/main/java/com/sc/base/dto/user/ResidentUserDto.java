@@ -7,7 +7,6 @@ import javax.persistence.Id;
 @Data
 public class ResidentUserDto {
 
-    @Id
     private String id;
 
     private String openId; //微信小程序用户id
@@ -24,7 +23,9 @@ public class ResidentUserDto {
     private String address; //家庭地址
     private String userAuditId; //审核表id;
     private String role; //角色
+    private String roleStr; //角色
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
+    private String whetherValidStr; //是否有效
 
 }
