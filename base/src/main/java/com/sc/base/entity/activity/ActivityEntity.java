@@ -23,9 +23,9 @@ public class ActivityEntity {
     private String activityStatus;// 活动状态
     private Integer committeesNumber;//委员会人数
 
-    private String activityStartTime;// 活动开始时间
-    private String activityEndTime;//  活动结束时间
-    private String votingStartTime;// 投票开始时间
-    private String votingEndTime;// 投票结束时间
+    private Date activityStartTime;// 活动开始时间
+    private Date activityEndTime;//  活动结束时间
+    private Date votingStartTime;// 投票开始时间
+    private Date votingEndTime;// 投票结束时间
 
 }

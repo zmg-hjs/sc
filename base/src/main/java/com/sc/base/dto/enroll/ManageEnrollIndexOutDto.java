@@ -1,20 +1,10 @@
 package com.sc.base.dto.enroll;
 
+import com.sc.base.dto.common.BaseOutDto;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
-
 @Data
-public class EnrollDto {
-
-    private String id;
-    private String createDateStr;  //创建时间
-    private String updateDateStr;  //更新时间
-    private String whetherValid;//该数据是否有效type
-    private String whetherValidStr;//该数据是否有效name
+public class ManageEnrollIndexOutDto extends BaseOutDto {
 
     private String activityId;//活动id
     private String residentUserId;  // 居民id

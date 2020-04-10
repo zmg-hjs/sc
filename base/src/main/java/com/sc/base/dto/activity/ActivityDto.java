@@ -18,9 +18,9 @@ public class ActivityDto {
     private String activityStatusStr;// 活动状态name
     private Integer committeesNumber;//委员会人数
 
-    private String activityStartTime;// 活动开始时间
-    private String activityEndTime;//  活动结束时间
-    private String votingStartTime;// 投票开始时间
-    private String votingEndTime;// 投票结束时间
+    private String activityStartTimeStr;// 活动开始时间
+    private String activityEndTimeStr;//  活动结束时间
+    private String votingStartTimeStr;// 投票开始时间
+    private String votingEndTimeStr;// 投票结束时间
 
 }

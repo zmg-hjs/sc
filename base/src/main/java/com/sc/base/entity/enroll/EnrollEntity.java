@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_activity")
+@Table(name = "t_enroll")
 public class EnrollEntity {
     @Id
     private String id;
@@ -17,6 +17,7 @@ public class EnrollEntity {
     private Date updateDate;  //更新时间
     private String whetherValid;//该数据是否有效
 
+    private String activityId;//活动id
     private String residentUserId;  // 居民id
     private String residentUserActualName;  // 姓名
     private String residentUserAddress;  // 地址

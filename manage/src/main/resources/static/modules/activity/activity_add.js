@@ -3,7 +3,7 @@ layui.config({
 }).extend({
     index: 'lib/index' //主入口模块
     , formSelects: '../lib/formSelects/formSelects-v4'
-}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload','layedit'], function () {
+}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload',"layedit"], function () {
     layui.form.config.verify.required[1] = requiredNotNull;
     var $ = layui.$,
         form = layui.form,
@@ -13,13 +13,11 @@ layui.config({
         layedit = layui.layedit,
         formSelects = layui.formSelects;
 
-
     $(document).on('click','#close',function(){
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);//关闭当前页
         // window.parent.location.reload();
     });
-
     //注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
     layedit.set({
         uploadImage: {
@@ -27,11 +25,40 @@ layui.config({
             ,type: 'POST' //默认post
         }
     });
-    var index=layedit.build('textareaDemo1',{
+    var index=layedit.build('textareaDemo',{
         tool: ['strong',,'italic',,'del','unlink','face','image','link','left', 'center', 'right', '|', 'face'],
         height:500
     });//建立编辑器
 
+
+    var activityStartTimeStr= laydate.render({
+        elem: '#activity_start_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=8;
+        }
+    });
+    var activityEndTimeStr= laydate.render({
+        elem: '#activity_end_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=18;
+        }
+    });
+    var votingStartTimeStr= laydate.render({
+        elem: '#voting_start_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=8;
+        }
+    });
+    var votingEndTimeStr= laydate.render({
+        elem: '#voting_end_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=18;
+        }
+    });
 
 
     layui.use('form', function () {
@@ -39,12 +66,8 @@ layui.config({
         form.on('submit(component-form)', function (data) {
             var searchObj = $("#searchFormId").serializeObject();
             searchObj.content=layedit.getContent(index);
-            for (var i=0;i<data.form.length;i++){
-                if (data.form[i].name=="staffUserId"){
-                    searchObj.staffUserActualName=data.form[i].options[data.form[i].selectedIndex].innerText
-                }
-            }
-            $.simpleAjax('/sc/manage/news/manage_news_update_data', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
+
+            $.simpleAjax('/sc/manage/activity/manage_activity_add_data', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
             return false;//这一行代码必须加，不然会自动刷新页面，这个和layui的封装有关，且returnFunction 也不会调用
         });
     });
@@ -81,7 +104,6 @@ layui.config({
         article_desc: function(value){
             layedit.sync(index);
         }
-
     });
 
     function initData() {

@@ -1,4 +1,4 @@
-package com.sc.manage.service.activity;
+package com.sc.resident.service.activity;
 
 import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
@@ -8,9 +8,6 @@ import com.sc.base.entity.activity.ActivityEntity;
 import com.sc.base.enums.ActivityStatusEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.activity.ActivityRepository;
-import com.sc.base.repository.enroll.EnrollRepository;
-import com.sc.base.repository.vote.VoteRepository;
-import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +25,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +33,6 @@ public class ActivityService {
 
     @Autowired
     private ActivityRepository activityRepository;
-
-    @Autowired
-    private VoteRepository voteRepository;
 
     /**
      * 分页条件查询
@@ -112,72 +105,6 @@ public class ActivityService {
         }
     }
 
-    public Result updateActivityEntityById(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
-            if (entity!=null){
-                entity.setTitle(dto.getTitle());
-                entity.setContent(dto.getContent());
-                entity.setActivityStartTime(MyDateUtil.dateString3Date(dto.getActivityStartTimeStr()));
-                entity.setActivityEndTime(MyDateUtil.dateString3Date(dto.getActivityEndTimeStr()));
-                entity.setVotingStartTime(MyDateUtil.dateString3Date(dto.getVotingStartTimeStr()));
-                entity.setVotingEndTime(MyDateUtil.dateString3Date(dto.getVotingEndTimeStr()));
-                entity.setUpdateDate(date);
-                activityRepository.save(entity);
-                return Result.createSimpleSuccessResult();
-            }else {
-                return Result.createSimpleFailResult();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
-
-    public Result updateActivityEntityWhetherValid(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
-            if (entity!=null){
-                entity.setWhetherValid(dto.getWhetherValid());
-                entity.setUpdateDate(date);
-                activityRepository.save(entity);
-                return Result.createSimpleSuccessResult();
-            }else {
-                return Result.createSimpleFailResult();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
-
-    public Result addActivityEntity(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = new ActivityEntity();
-            entity.setId(MyStringUtils.getIdDateStr("news"));
-            entity.setTitle(dto.getTitle());
-            entity.setContent(dto.getContent());
-            entity.setHostParty(dto.getHostParty());
-            entity.setCommitteesNumber(dto.getCommitteesNumber());
-            entity.setActivityStartTime(MyDateUtil.dateString3Date(dto.getActivityStartTimeStr()));
-            entity.setActivityEndTime(MyDateUtil.dateString3Date(dto.getActivityEndTimeStr()));
-            entity.setVotingStartTime(MyDateUtil.dateString3Date(dto.getVotingStartTimeStr()));
-            entity.setVotingEndTime(MyDateUtil.dateString3Date(dto.getVotingEndTimeStr()));
-            entity.setActivityStatus(ActivityStatusEnum.UNPUBLISHED.getType());
-            entity.setCreateDate(date);
-            entity.setUpdateDate(date);
-            entity.setWhetherValid(WhetherValidEnum.VALID.getType());
-            activityRepository.save(entity);
-            return Result.createSimpleSuccessResult();
-
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
     
     private void getBaseIntoDtoPredicate(List<Predicate> predicateList, BaseIntoDto intoDto, Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
         if (StringUtils.isNotBlank(intoDto.getWhetherValid())){
