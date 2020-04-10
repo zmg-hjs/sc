@@ -10,7 +10,10 @@
     "pages/my/register",
     "pages/my/userlogin",
     "pages/my/myinfo",
-    "pages/my/change"
+    "pages/my/change",
+    "pages/emal/emal",
+    "pages/emal/information",
+    "pages/repair/repair"
   ],
   "window": {
     "backgroundTextStyle": "light",

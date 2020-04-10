@@ -5,7 +5,7 @@
                  <image src="{{userInfo.headPictureUrl?userInfo.headPictureUrl:'/images/user.png'}}" style="margin-right: 16px;vertical-align: middle;width:80px; height: 80px;"></image>
                 </view>
                 <view class="weui-cell__bd">
-                <view style='font-size:20px'>{{userInfo.username?userInfo.username:"姓名"}}</view>
+                <view style='font-size:20px'>{{userInfo.actualName?userInfo.actualName:"姓名"}}</view>
                 <view style='font-size:13px;color:#888888'>单元号:{{userInfo.unit?userInfo.unit  : "未知 "}}</view>
                 <view style='font-size:13px;color:#888888'>户号:{{userInfo.door?userInfo.door:"未知"}}</view>
                 </view>  

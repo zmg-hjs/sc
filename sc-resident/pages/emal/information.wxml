@@ -1,0 +1,5 @@
+<!--pages/emal/information.wxml-->
+<i-card title="{{title}}">
+    <view slot="content"><rich-text nodes="{{content}}"></rich-text></view>
+    <view slot="footer">时间：{{createDate}}</view>
+</i-card>

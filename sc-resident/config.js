@@ -6,6 +6,7 @@ var appid ="wx04dc99049cd52a84"
 var config={
   apiUrl,
   appid,
-  userUrl:`${apiUrl}/sc/resident/user/`
+  userUrl:`${apiUrl}/sc/resident/user/`,
+  newsUrl:`${apiUrl}/sc/resident/news/`
 };
 module.exports = config

@@ -34,7 +34,7 @@ public class NewsController {
 
     @RequestMapping(value = "/resident_news_index",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<ResidentNewsIndexOutDto>> findAll(ResidentNewsIndexIntoDto indexIntoDto){
+    public Result<List<ResidentNewsIndexOutDto>> findAll(@RequestBody ResidentNewsIndexIntoDto indexIntoDto){
         try {
             return newsService.findAll(indexIntoDto);
         }catch (Exception e){
@@ -43,7 +43,7 @@ public class NewsController {
         }
     }
 
-    @RequestMapping(value = "/resident_news_one_data",method = RequestMethod.GET)
+    @RequestMapping(value = "/resident_news_one_data",method = RequestMethod.POST)
     @ResponseBody
     public Result<NewsDto> residentNewsOneData(@RequestBody NewsDto dto){
         try {
