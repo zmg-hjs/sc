@@ -43,4 +43,16 @@ public class NewsController {
         }
     }
 
+    @RequestMapping(value = "/resident_news_add_data",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<NewsDto> residentNewsAddData(@RequestBody NewsDto dto){
+        try {
+            return newsService.addNewsEntity(dto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+
 }

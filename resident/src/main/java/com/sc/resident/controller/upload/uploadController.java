@@ -51,12 +51,9 @@ public class uploadController {
 //                return Result.createSimpleFailResult();
             }
             HashMap<String, Object> map1 = new HashMap<>();
-            HashMap<String, Object> map2 = new HashMap<>();
-            map2.put("src",picUrl+imagePath+"/"+newName);
-            map2.put("title",newName);
             map1.put("code",0);
             map1.put("msg","上传图片成功");
-            map1.put("data",map2);
+            map1.put("data",picUrl+imagePath+"/"+newName);
 
             return MyJsonUtil.toJson(map1);
 //            return new Result().setSuccess("{\"src\":\""+picUrl+imagePath+"/"+newName+"\"}");
