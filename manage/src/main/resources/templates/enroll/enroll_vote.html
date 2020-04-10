@@ -111,69 +111,29 @@
             <form id="searchFormId" class="layui-form" lay-filter="component-form-group">
                 <div class="layui-row">
                     <div class="layui-col-xs12">
-                        <hr>
-                        <input type="hidden" name="id" th:value="${activityDto.getId()}"/>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="标题" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getTitle()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="举办方" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getHostParty()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="投票选举委员会人数" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getCommitteesNumber()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="发布时间" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getCreateDateStr()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="报名时间" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getActivityStartTimeStr()}+' 到 '+${activityDto.getActivityEndTimeStr()}" class="edit-module-title"></div>
+                            <label th:text="序号" class="layui-form-label"></label>
+                            <label th:text="投票人" class="layui-form-label"></label>
+                            <label th:text="被投票人" class="layui-form-label"></label>
+                            <label th:text="票数" class="layui-form-label"></label>
                             <label th:text="投票时间" class="layui-form-label"></label>
-                            <div th:text="${activityDto.getVotingStartTimeStr()}+' 到 '+${activityDto.getVotingEndTimeStr()}" class="edit-module-title"></div>
                         </div>
                     </div>
                 </div>
-                <hr>
+                <tr th:each="user,userStat:${voteDtoList}">
+                    <div class="layui-row">
+                        <div class="layui-col-xs12">
+                            <div class="layui-form-item">
+                                <label th:text="${userStat.index+1}" class="layui-form-label"></label>
+                                <label th:text="${user.getResidentUserActualName()}" class="layui-form-label"></label>
+                                <label th:text="${user.getVotedPersonActualName()}" class="layui-form-label"></label>
+                                <label th:text="1" class="layui-form-label"></label>
+                                <label th:text="${user.getCreateDateStr()}" class="layui-form-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
 
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <hr>
-                            <div th:utext="${activityDto.getContent()}"></div>
-                            <!--<div th:text="${activityDto.getContent()}" class="edit-module-title"></div>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="edit-options-content">
-                    <button id="testListAction2" th:text="关闭" class="layui-btn" lay-submit=""
-                            lay-filter="component-form"></button>
-                    </div>
-            </form>
         </div>
     </div>
 </div>

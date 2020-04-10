@@ -80,5 +80,12 @@ public class ActivityController {
         return activityService.addActivityEntity(activityDto);
     }
 
+    @RequestMapping(value = "/manage_activity_result_page",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView ManageActivityResultPage(ModelAndView modelAndView, ActivityDto activityDto){
+        modelAndView.setViewName("activity/activity_result");
+        modelAndView.addObject("activityDto",activityService.result(activityDto).getData());
+        return modelAndView;
+    }
 
 }

@@ -124,7 +124,7 @@ layui.config({
                 skin: 'open-class',
                 area: [width, height],
                 title: '工作人员信息修改页面',
-                content: "/sc/manage/activity/manage_activity_update_page?id="+data.id
+                content: "/sc/manage/activity/manage_activity_result_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });

@@ -1,6 +1,10 @@
 package com.sc.base.dto.activity;
 
+import com.sc.base.dto.enroll.EnrollDto;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class ActivityDto {
@@ -22,5 +26,7 @@ public class ActivityDto {
     private String activityEndTimeStr;//  活动结束时间
     private String votingStartTimeStr;// 投票开始时间
     private String votingEndTimeStr;// 投票结束时间
+
+    private List<EnrollDto> enrollDtoList = new ArrayList<>();
 
 }

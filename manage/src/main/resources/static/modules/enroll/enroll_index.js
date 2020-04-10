@@ -94,7 +94,7 @@ layui.config({
                 skin: 'open-class',
                 area: [width, height],
                 title: '投票详情',
-                content: "/sc/manage/enroll/manage_vote_update_page?id="+data.id
+                content: "/sc/manage/enroll/manage_enroll_vote_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });
