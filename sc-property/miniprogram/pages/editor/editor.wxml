@@ -1,10 +1,8 @@
-<view class="container" style="height:{{editorHeight}}px;">
-  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady">
-  </editor>
-</view>
 
-<scroll-view scroll-x ="{{true}}">
-  <view class="toolbar" catchtouchend="format"  style="bottom: {{keyboardHeight}}px">
+    <view class='wrapper'>
+    <i-input value="{{ value2 }}" type="textarea" title="发布人：" mode="wrapped" placeholder="请输入发布人" />
+    <i-input value="{{ value3 }}" type="textarea" title="标题：" mode="wrapped" placeholder="请输入标题(最多15字)" maxlength="15" />
+  <view class="toolbar" catchtouchend="format">
     <i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
     <i class="iconfont icon-format-header-1 {{formats.header === 1 ? 'ql-active' : ''}}" data-name="header" data-value="{{1}}"></i>
     <i class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
@@ -19,4 +17,8 @@
     <i class="iconfont icon-clearedformat" bindtap="removeFormat"></i>
     <i class="iconfont icon-shanchu" bindtap="clear"></i>
   </view>
-</scroll-view>
+  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady">
+  </editor>
+
+<i-button bind:click="handleClick" type="success" shape="circle">发布</i-button>
+</view>

@@ -3,9 +3,10 @@ Page({
     formats: {},
     readOnly: false,
     placeholder: '开始输入...',
-    editorHeight: 300,
+    editorHeight: 100,
     keyboardHeight: 0,
-    isIOS: false
+    isIOS: false,
+    value6:'',
   },
   readOnlyChange() {
     this.setData({
@@ -106,22 +107,29 @@ Page({
   insertImage() {
     const that = this
     wx.chooseImage({
-      count: 1,
-      success: function (res) {
-        console.log(res)
-        that.editorCtx.insertImage({
-          src: res.tempFilePaths[0],
-          data: {
-            id: 'abcd',
-            role: 'god'
-          },
-          width: '100%',
-          success: function () {
-            console.log('insert image success')
+      count:1,
+      success:function(res){
+        wx.uploadFile({
+          filePath: res.tempFilePaths[0],
+          name: 'file',
+          url: 'http://127.0.0.1:8002/sc/resident/upload/images',
+          success:function(ress){
+            console.log(ress)
+            that.editorCtx.insertImage({
+              src: res.tempFilePaths[0] ,
+              data: {
+                id: 'abcd',
+                role: 'god'
+              },
+              width: '100%',
+              success: function () {
+                console.log('insert image success')
+              }
+            })
           }
         })
-      }
-    })
-  }
-})
 
+        }
+      })
+    },
+  })
