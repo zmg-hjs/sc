@@ -7,6 +7,7 @@ import com.sc.base.dto.news.ResidentNewsIndexOutDto;
 import com.sc.base.entity.news.NewsEntity;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.news.NewsRepository;
+import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -119,6 +120,27 @@ public class NewsService {
             }else {
                 return Result.createSimpleFailResult();
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    public Result addNewsEntity(NewsDto dto){
+        try {
+            Date date = new Date();
+            NewsEntity entity = new NewsEntity();
+            entity.setId(MyStringUtils.getIdDateStr("news"));
+            entity.setTitle(dto.getTitle());
+            entity.setContent(dto.getContent());
+            entity.setStaffUserId(dto.getStaffUserId());
+            entity.setStaffUserActualName(dto.getStaffUserActualName());
+            entity.setCreateDate(date);
+            entity.setUpdateDate(date);
+            entity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            newsRepository.save(entity);
+            return Result.createSimpleSuccessResult();
+
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
