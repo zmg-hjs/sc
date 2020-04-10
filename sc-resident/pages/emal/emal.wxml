@@ -3,8 +3,8 @@
 <block wx:for="{{list}}" wx:key="id">
 <view style="margin: 16px"></view>
 <navigator url="./information?id={{item.id}}">
-	<i-card title="今天加上搭搭撒撒发发发发" extra="查看详情">
-		<view slot="footer">时间:8:00</view>
+	<i-card title="{{item.title}}" extra="查看详情">
+		<view slot="footer">时间:{{item.createDateStr}}</view>
 	</i-card>
   </navigator>
 </block>

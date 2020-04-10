@@ -2,7 +2,8 @@
   "pages": [
     "pages/mine/mine",
     "pages/index/index",
-    "pages/news/news"
+    "pages/news/news",
+    "pages/editor/editor"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -25,7 +26,7 @@
       {
         "selectedIconPath": "images/icon_news_selected.png",
         "iconPath": "images/icon_news_normal.png",
-        "pagePath": "pages/news/news",
+        "pagePath": "pages/editor/editor",
         "text": "消息"
       },
       {

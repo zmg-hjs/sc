@@ -1,22 +1,12 @@
 // pages/emal/emal.js
+const newsUrl=require('../../config').newsUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[
-      {
-        id:1,
-        title:'三月充值明细',
-        time:'8:00'
-      },
-      {
-        id:1,
-        title:'三月充值明细',
-        time:'8:00'
-      }
-    ]
+    list:[]
 
   },
 
@@ -24,7 +14,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this
+     wx.request({
+       url: newsUrl+'resident_news_index',
+       method:'POST',
+       data:{
+         page:1,
+         limit:50
+       },
+       success:function(res){
+        that.setData({
+          list:res.data.data
+        })
+       }
+      
+     })
   },
 
   /**

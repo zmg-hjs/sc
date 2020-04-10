@@ -12,7 +12,8 @@
     "pages/my/myinfo",
     "pages/my/change",
     "pages/emal/emal",
-    "pages/emal/information"
+    "pages/emal/information",
+    "pages/repair/repair"
   ],
   "window": {
     "backgroundTextStyle": "light",

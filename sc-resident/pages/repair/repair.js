@@ -1,16 +1,10 @@
-// pages/emal/information.js
-const newsUrl=require('../../config').newsUrl
+// pages/repair/repair.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    id:'',
-    createDate:'',
-    content:'',
-    title:'',
-    user:''
 
   },
 
@@ -18,26 +12,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      id:options.id
-    })
-    var that=this
-    wx.request({
-      url: newsUrl+'resident_news_one_data',
-      method:'POST',
-      data:{
-        id:this.data.id
-      },
-      success:function(res){
-        console.log(res.data)
-        that.setData({
-          createDate:res.data.data.createDateStr,
-          title:res.data.data.title,
-          user:res.data.data.staffUserActualName,
-          content:res.data.data.content
-        })
-      }
-    })
 
   },
 
