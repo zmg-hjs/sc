@@ -55,7 +55,6 @@ App({
             }
           })
         }
-        console.log('global',wx.getSystemInfo('SDKVersion'))
       }
     })
   },
