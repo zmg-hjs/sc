@@ -16,6 +16,7 @@ public class EnrollDto {
     private String whetherValid;//该数据是否有效type
     private String whetherValidStr;//该数据是否有效name
 
+    private String activityId;//活动id
     private String residentUserId;  // 居民id
     private String residentUserActualName;  // 姓名
     private String residentUserAddress;  // 地址

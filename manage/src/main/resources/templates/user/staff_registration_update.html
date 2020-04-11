@@ -158,13 +158,13 @@
                             <label th:text="职位" class="layui-form-label"></label>
                             <div class="layui-input-block">
                                 <select id="position" name="position" lay-filter="aihao" th:value="${staffRegistration.getPosition()}">
-                                    <option th:text="所有" th:selected="${staffRegistration.getPosition()}"
+                                    <option th:text="所有"
                                             value=""></option>
-                                    <option th:text="管理员" th:selected="${staffRegistration.getPosition()}"
+                                    <option th:text="管理员" th:selected="${staffRegistration.getPosition() eq 'administrator'}"
                                             value="administrator"></option>
-                                    <option th:text="维修员工" th:selected="${staffRegistration.getPosition()}"
+                                    <option th:text="维修员工" th:selected="${staffRegistration.getPosition() eq 'repairman'}"
                                             value="repairman"></option>
-                                    <option th:text="普通员工" th:selected="${staffRegistration.getPosition()}"
+                                    <option th:text="普通员工" th:selected="${staffRegistration.getPosition() eq 'general_staff'}"
                                             value="general_staff"></option>
                                 </select>
                             </div>

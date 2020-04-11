@@ -38,6 +38,7 @@ layui.config({
         //监听提交
         form.on('submit(component-form)', function (data) {
             var searchObj = $("#searchFormId").serializeObject();
+            searchObj.content=layedit.getContent(index);
             for (var i=0;i<data.form.length;i++){
                 if (data.form[i].name=="staffUserId"){
                     searchObj.staffUserActualName=data.form[i].options[data.form[i].selectedIndex].innerText

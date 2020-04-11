@@ -76,13 +76,13 @@ public class StaffUserService {
      */
     public Result register(RegisterDto registerDto){
         //判断是否存在该用户
-        StaffRegistrationEntity staffRegistrationEntity = staffRegistrationRepository.findStaffRegistrationEntityByIdNumber(registerDto.getIdNumber());
+        StaffRegistrationEntity staffRegistrationEntity = staffRegistrationRepository.findStaffRegistrationEntityByPhoneNumber(registerDto.getPhoneNumber());
         if (staffRegistrationEntity==null&&StringUtils.isBlank(staffRegistrationEntity.getId()))
             return Result.createSimpleFailResult();
 
         StaffUserEntity staffUserEntity = new StaffUserEntity();
         staffUserEntity.setId(MyStringUtils.getIdDateStr("staffUser"));
-        staffUserEntity.setIdNumber(registerDto.getIdNumber());
+        staffUserEntity.setIdNumber(staffRegistrationEntity.getIdNumber());
         staffUserEntity.setActualName(staffRegistrationEntity.getActualName());
         staffUserEntity.setAddress(staffRegistrationEntity.getAddress());
         staffUserEntity.setPosition(staffRegistrationEntity.getPosition());
@@ -111,7 +111,9 @@ public class StaffUserService {
             staffUserEntity.setHeadPictureUrl((String) jsonObject.get("avatarUrl"));
             addUserEntity(staffUserEntity);
         }
-        return Result.createSimpleSuccessResult();
+        StaffUserEntity entity = staffUserRepository.findStaffUserEntityById(staffUserEntity.getId());
+        if (entity!=null) return new Result().setSuccess(entity);
+        else return Result.createSimpleFailResult();
     }
 
     /**
@@ -122,8 +124,8 @@ public class StaffUserService {
     public Result<StaffUserEntity> automaticLogin(WeChatEntity weChatEntity){
         weChatEntity.setAppid(appId);
         weChatEntity.setAppSecret(appSecret);
-        WeChatEntity weChatEntity1 = MyJsonUtil.jsonToPojo(GetWeChatInfoUtil.getOpenIdAndSessionKey(weChatEntity).getData(), WeChatEntity.class);
-        StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByOpenId(weChatEntity1.getOpenId());
+        JSONObject jsonObject = JSONObject.parseObject(GetWeChatInfoUtil.getOpenIdAndSessionKey(weChatEntity).getData());
+        StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByOpenId((String) jsonObject.get("openid"));
         if (StringUtils.isNotBlank(staffUserEntity.getId())) return new Result().setSuccess(staffUserEntity);
         return Result.createSimpleFailResult();
     }
