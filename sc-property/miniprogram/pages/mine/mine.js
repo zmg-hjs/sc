@@ -12,7 +12,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     logged: false,
     menuitems: [
-      { text: '我的消息发布', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' },
+      { text: '我的消息发布', url: '../myNews/myNews', icon: '../../images/icon-index.png', tips: '' },
       { text: '联系我们', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' }
     ]
   },

@@ -1,0 +1,14 @@
+<!--miniprogram/pages/myNews/myNews.wxml-->
+<block wx:for="{{list}}" wx:key="id">
+<view style="margin: 5px"></view>
+<navigator url="../newsDetail/newsDetail?id={{item.id}}">
+	<i-card title="{{item.title}}" extra="查看详情">
+		<view slot="footer">时间:{{item.createDateStr}}</view>
+	</i-card>
+  </navigator>
+</block>
+<view class='add_btn'>
+    <button class='btn' bindtap='add'>
+        发布消息
+    </button>
+</view>

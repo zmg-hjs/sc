@@ -9,4 +9,5 @@ public class ResidentNewsIndexIntoDto extends BaseIntoDto {
     private String title;
     private String content;
     private String staffUserActualName;
+    private String staffUserId;
 }

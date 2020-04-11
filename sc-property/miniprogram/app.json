@@ -4,7 +4,9 @@
     "pages/mine/mine",
     "pages/news/news",
     "pages/editor/editor",
-    "pages/userlogin/userlogin"
+    "pages/userlogin/userlogin",
+    "pages/newsDetail/newsDetail",
+    "pages/myNews/myNews"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     formats: {},
@@ -7,6 +8,7 @@ Page({
     keyboardHeight: 0,
     isIOS: false,
     value6:'',
+    content:''
   },
   readOnlyChange() {
     this.setData({
@@ -54,7 +56,8 @@ Page({
   onEditorReady() {
     const that = this
     wx.createSelectorQuery().select('#editor').context(function (res) {
-      that.editorCtx = res.context
+      that.editorCtx = res.context;
+      that.loadData();
     }).exec()
   },
   blur() {
@@ -112,7 +115,7 @@ Page({
         wx.uploadFile({
           filePath: res.tempFilePaths[0],
           name: 'file',
-          url: 'http://127.0.0.1:8002/sc/resident/upload/images',
+          url: app.globalData.domainName+'/sc/staff/upload/images',
           success:function(ress){
             console.log(ress)
             that.editorCtx.insertImage({
@@ -132,4 +135,62 @@ Page({
         }
       })
     },
+  formSubmit:function(e){
+      var that = this;
+      wx.createSelectorQuery().select('#editor').context(function (res) {
+        that.editorCtx = res.context;
+        that.loadData();
+      }).exec()
+      that.editorCtx.getContents({
+        success: function (res) {
+          that.setData({
+            content:res.html.replace(/wx:nodeid="\d+"/g, '')
+          })
+        },
+        fail:function(res){
+
+        }
+      });
+      var json = {
+        title: e.detail.value.title,
+        content: that.data.content,
+        staffUserId: app.globalData.userId
+      }
+      wx.request({
+        url: app.globalData.domainName + '/sc/property/news/resident_news_add_data1',
+        method: 'POST',
+        data: json,
+        success: function (res) {
+          wx.createSelectorQuery().select('#editor').context(function (res) {
+            that.editorCtx = res.context;
+            that.loadData();
+          }).exec()
+          that.editorCtx.getContents({
+            success: function (res) {
+              that.setData({
+                content: res.html.replace(/wx:nodeid="\d+"/g, '')
+              })
+            },
+            fail: function (res) {
+
+            }
+          });
+          json.content=that.data.content;
+          wx.request({
+            url: app.globalData.domainName + '/sc/property/news/resident_news_add_data',
+            method: 'POST',
+            data: json,
+            success: function (res) {
+              wx.switchTab({
+                url: "/pages/myNews/myNews"
+              }) 
+            }
+
+          })
+          
+        }
+
+      })
+    }
+    
   })
