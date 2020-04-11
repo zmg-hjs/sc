@@ -7,6 +7,7 @@ var config={
   apiUrl,
   appid,
   userUrl:`${apiUrl}/sc/resident/user/`,
-  newsUrl:`${apiUrl}/sc/resident/news/`
+  newsUrl:`${apiUrl}/sc/resident/news/`,
+  carUrl:`${apiUrl}/sc/resident/car/`
 };
 module.exports = config

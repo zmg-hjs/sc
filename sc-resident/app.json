@@ -13,7 +13,14 @@
     "pages/my/change",
     "pages/emal/emal",
     "pages/emal/information",
-    "pages/repair/repair"
+    "pages/repair/repair",
+    "pages/vote/vote",
+    "pages/vote/activity",
+    "pages/vote/information",
+    "pages/vote/join",
+    "pages/vote/voting",
+    "pages/vote/myVote",
+    "pages/repair/information"
   ],
   "window": {
     "backgroundTextStyle": "light",

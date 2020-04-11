@@ -1,0 +1,4 @@
+/* pages/vote/join.wxss */
+.weui-btn {
+  margin-top: 26px
+}

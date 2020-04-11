@@ -1,8 +1,10 @@
 package com.sc.resident.controller.car;
 
+import com.sc.base.dto.car.ManageCarIndexIntoDto;
 import com.sc.resident.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,5 +28,17 @@ public class CarController {
     @ResponseBody
     public Result findCarEntiyById(){
         return new Result().setSuccess(carService.findCarEnityById("1"));
+    }
+
+    @RequestMapping(value ="/addCar",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addCar(@RequestBody ManageCarIndexIntoDto manageCarIndexIntoDto){
+        try {
+            Result addCar = carService.addCarEntity(manageCarIndexIntoDto);
+            return addCar;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+
     }
 }

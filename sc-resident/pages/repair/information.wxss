@@ -1,0 +1,9 @@
+/* pages/repair/information.wxss */
+.progress-item{
+  padding: 12px;
+}
+
+.cell-panel-demo{
+  display: block;
+  margin-top: 15px;
+}
