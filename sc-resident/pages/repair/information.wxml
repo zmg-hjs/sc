@@ -1,0 +1,15 @@
+<!--pages/repair/information.wxml-->
+<i-panel class="cell-panel-demo">
+	<i-cell title="19楼层廊灯维修进度"></i-cell>
+</i-panel>
+<view class="progress-item">
+<i-progress percent="90" status="active"></i-progress>
+</view>
+<view class="cell-panel-demo">
+<i-cell title="派遣工人：" value="鲁班大师">
+	<i-icon type="businesscard_fill" slot="icon" />
+</i-cell>
+<i-cell title="目前进度：" value="修理中">
+	<i-icon type="activity" slot="icon" />
+</i-cell>
+</view>
