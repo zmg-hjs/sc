@@ -1,6 +1,7 @@
 package com.sc.property.controller.user;
 
 
+import com.sc.base.dto.user.RegisterDto;
 import com.sc.base.entity.user.StaffUserEntity;
 import com.sc.property.service.user.StaffUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +40,27 @@ public class StaffUserController {
             return Result.createSystemErrorResult();
         }
     }
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @ResponseBody
+    public Result register(@RequestBody RegisterDto registerDto){
+        try {
+            Result register = staffUserService.register(registerDto);
+            return register;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
 
     /**
      * 微信小程序登录或注册
      * @return
      */
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/automaticLogin",method = RequestMethod.POST)
     @ResponseBody
-    public Result register(@RequestBody WeChatEntity weChatEntity){
+    public Result automaticLogin(@RequestBody WeChatEntity weChatEntity){
         try {
-            Result login = staffUserService.login(weChatEntity);
-            return login;
+            Result automaticLoginREsult = staffUserService.automaticLogin(weChatEntity);
+            return automaticLoginREsult;
         }catch (Exception e){
             return Result.createSystemErrorResult();
         }

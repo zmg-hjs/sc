@@ -1,0 +1,18 @@
+<!--pages/my/userlogin.wxml-->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<!-- 弹出层 -->
+<view class="modalDlg" wx:if="{{showModal}}">
+    <input bindinput='getPhoneNumber' class="input" name="phoneNumber" placeholder="{{phoneNumber}}"></input> 
+    <view wx:if="{{phoneNumberStatus}}" style="color: red;">该号码后台未登记，请重新输入</view>
+    <button class="ok"  bindtap="ok" >一键绑定手机</button>
+</view>
+<view class="user-login">
+	<view class='logoCenter' style="margin-top:192rpx;">
+		<text class="text2">请完成微信授权以继续使用</text>
+	</view>
+	<view class='logoCenter' style="margin-top:30rpx;height:88rpx;">
+		<view style="width:90%;height:100%;  background-color: #2BB018; border-radius: 15rpx;">
+			<button wx:if="{{canIUse}}" style="width:100%;line-height:88rpx;" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信授权用户信息</button>
+		</view>
+	</view>
+</view>

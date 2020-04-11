@@ -1,4 +1,5 @@
 // miniprogram/pages/mine/mine.js
+const app = getApp()
 Page({
 
   /**
@@ -21,23 +22,87 @@ Page({
    */
   onLoad: function (options) {
     var that =this;
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              that.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                nickName: res.userInfo.nickName,
-                userInfo: res.userInfo
-              })
-            }
-          })
+    if (app.globalData.userId == null || app.globalData.userId == ""){
+      console.log(app.globalData.userId)
+      wx.showModal({
+        title: '注意',
+        content: '物业端小程序仅供物业工作人员使用，使用前请确认你的手机号已在后台管理系统中录入？',
+        success: function (res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '../userlogin/userlogin'
+            })
+            console.log(1)
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: "/pages/index/index"
+            }) 
+            console.log(1)
+          }
         }
-      }
-    });
+      })
+    }else{
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                that.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  nickName: res.userInfo.nickName,
+                  userInfo: res.userInfo
+                })
+              }
+            })
+          }
+        }
+      });
+    }
+    
+  },
+  onShow: function (options) {
+    var that = this;
+    if (app.globalData.userId == null || app.globalData.userId == "") {
+      console.log(app.globalData.userId)
+      wx.showModal({
+        title: '注意',
+        content: '物业端小程序仅供物业工作人员使用，使用前请确认你的手机号已在后台管理系统中录入？',
+        success: function (res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '../userlogin/userlogin'
+            })
+            console.log(1)
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: "/pages/index/index"
+            })
+            console.log(1)
+          }
+        }
+      })
+    } else {
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                that.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  nickName: res.userInfo.nickName,
+                  userInfo: res.userInfo
+                })
+              }
+            })
+          }
+        }
+      });
+    }
+
   },
   bindGetUserInfo: function (e) {
     var that = this;
@@ -57,17 +122,15 @@ Page({
         console.log("用户的code:" + res.code);
         if (res.code) {
           wx.request({
-            url: 'http://localhost:8002/sc/resident/user/register',
+            url: 'http://localhost:8001/sc/staff/user/login',
             method: 'POST',
             data: {
               code: res.code,//获取openid的话 需要向后台传递code,利用code请求api获取openid
               iv: e.detail.iv,
               encryptedData: e.detail.encryptedData,
-              phoneNumber: "13938290826"
             },
             success: function (e) {
               console.log("1:" + e.data.code)
-              console.log("1:" + e.data.data.iv)
             },
             fail: function (e) {
               console.log("2:" + e.data.code)
@@ -128,5 +191,47 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  onTabItemTap(item) {
+    var that = this;
+    if (app.globalData.userId == null || app.globalData.userId == "") {
+      console.log(app.globalData.userId)
+      wx.showModal({
+        title: '注意',
+        content: '物业端小程序仅供物业工作人员使用，使用前请确认你的手机号已在后台管理系统中录入？',
+        success: function (res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '../userlogin/userlogin'
+            })
+            console.log(1)
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: "/pages/index/index"
+            })
+            console.log(1)
+          }
+        }
+      })
+    } else {
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                that.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  nickName: res.userInfo.nickName,
+                  userInfo: res.userInfo
+                })
+              }
+            })
+          }
+        }
+      });
+    }
+  },
+  
 })
