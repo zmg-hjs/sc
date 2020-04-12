@@ -7,11 +7,21 @@
 <view class="row" style="clear: both;">
         <view bindtap="service" data-type='repair' class="index-exam-inlets-list col-hg-6">
             <view class="icon-index-bx"></view>
-            <view class="text">业主报修</view>
+            <view class="text">业主报修记录</view>
         </view>
-        <view bindtap="service" data-type='repair' class="index-exam-inlets-list col-hg-6">
-            <view class="icon-index-bx"></view>
+        <view bindtap="service" data-type='info' class="index-exam-inlets-list col-hg-6">
+            <view class="icon-index-in"></view>
             <view class="text">维修任务</view>
+        </view>
+</view>
+<view class="row" style="clear: both;">
+        <view bindtap="service" data-type='act' class="index-exam-inlets-list col-hg-6">
+            <view class="icon-index-hd"></view>
+            <view class="text">活动发布</view>
+        </view>
+        <view bindtap="service" data-type='mes' class="index-exam-inlets-list col-hg-6">
+            <view class="icon-index-xx"></view>
+            <view class="text">消息发布</view>
         </view>
 </view>
 <view class="index-exam-h1">
