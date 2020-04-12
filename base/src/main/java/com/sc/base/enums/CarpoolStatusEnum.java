@@ -8,22 +8,23 @@ import java.util.stream.Collectors;
 
 
 @Getter
-public enum RoleEnum {
+public enum CarpoolStatusEnum {
 
-    RESIDENT("resident","居民"),
-    COMMITTEE_MEMBER("committee_member","委员会成员");
+    IN_PROGRESS("in_progress","进行中"),
+    COMPLETE("complete","完成"),
+    CANCEL("cancel","取消");
 
     private String type;
     private String name;
 
 
-    RoleEnum(String status, String name) {
+    CarpoolStatusEnum(String status, String name) {
         this.type = status;
         this.name = name;
     }
 
-    public static RoleEnum getTypes(String status) {
-        for (RoleEnum whetherValidEnum : RoleEnum.values()) {
+    public static CarpoolStatusEnum getTypes(String status) {
+        for (CarpoolStatusEnum whetherValidEnum : CarpoolStatusEnum.values()) {
             if (whetherValidEnum.getType().equals(status)) {
                 return whetherValidEnum;
             }
@@ -31,7 +32,7 @@ public enum RoleEnum {
         return null;
     }
     public static String getTypesName(String status) {
-        for (RoleEnum whetherValidEnum : RoleEnum.values()) {
+        for (CarpoolStatusEnum whetherValidEnum : CarpoolStatusEnum.values()) {
             if (whetherValidEnum.getType().equals(status)) {
                 return whetherValidEnum.getName();
             }
@@ -39,16 +40,16 @@ public enum RoleEnum {
         return null;
     }
 
-    public static List<RoleEnum> getAllEnum(){
-        List<RoleEnum> list= Arrays.asList();
-        for (RoleEnum whetherValidEnum : RoleEnum.values()) {
+    public static List<CarpoolStatusEnum> getAllEnum(){
+        List<CarpoolStatusEnum> list= Arrays.asList();
+        for (CarpoolStatusEnum whetherValidEnum : CarpoolStatusEnum.values()) {
             list.add(whetherValidEnum);
         }
         return list;
     }
 
-    public static List<RoleEnum> getEnumTypesBylikeType(String type){
-        List<RoleEnum> list=  getAllEnum();
+    public static List<CarpoolStatusEnum> getEnumTypesBylikeType(String type){
+        List<CarpoolStatusEnum> list=  getAllEnum();
         return list.stream().filter(o->o.getType().contains(type)).collect(Collectors.toList());
     }
 

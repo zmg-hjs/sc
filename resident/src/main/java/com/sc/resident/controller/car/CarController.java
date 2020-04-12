@@ -1,5 +1,7 @@
 package com.sc.resident.controller.car;
 
+import com.sc.base.dto.car.CarDto;
+import com.sc.base.dto.car.CarpoolDto;
 import com.sc.base.dto.car.ManageCarIndexIntoDto;
 import com.sc.resident.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,9 @@ public class CarController {
 
     @RequestMapping(value ="/addCar",method = RequestMethod.POST)
     @ResponseBody
-    public Result addCar(@RequestBody ManageCarIndexIntoDto manageCarIndexIntoDto){
+    public Result addCar(@RequestBody CarDto carDto){
         try {
-            Result addCar = carService.addCarEntity(manageCarIndexIntoDto);
+            Result addCar = carService.addCarAndCarpool(carDto);
             return addCar;
         }catch (Exception e){
             return Result.createSystemErrorResult();
