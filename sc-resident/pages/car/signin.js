@@ -10,8 +10,8 @@ Page({
     destination:'',
     flag1: false,
     flag2: false,
-    date:"2020-3-9",
-    time:"12.01",
+    date:'',
+    time:'',
     peopleNum:'',
     carNum:'',
     telephone:''
@@ -40,22 +40,23 @@ Page({
   },
   calculate: function () {
     console.log(this.data)
-    // wx.request({
-    //   url: carUrl+'addCar',
-    //   method:'POST',
-    //   data:{
-    //     starting:this.data.starting,
-    //     destination:this.data.destination,
-    //     peopleNum:this.data.peopleNum,
-    //     time:this.data.time,
-    //     telephone:this.data.telephone,
-    //     userId:wx.getStorageSync('userInfo').id
-    //   },
-    //   success:function(res){
-    //     console.log(res.data)
-    //   }
+    wx.request({
+      url: carUrl+'add',
+      method:'POST',
+      data:{
+        startPosition:this.data.starting,
+        destination:this.data.destination,
+        peopleNum:this.data.peopleNum,
+        startTimeStr:this.data.date+" "+this.data.time+":00",
+        telephone:this.data.telephone,
+        userId:wx.getStorageSync('userInfo').id,
+        carNum:this.data.carNum
+      },
+      success:function(res){
+        console.log(res.data)
+      }
       
-    // })
+    })
   },
   bindDateChange: function (e) {
     this.setData({
