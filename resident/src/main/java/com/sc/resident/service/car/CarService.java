@@ -31,15 +31,6 @@ public class CarService {
     private CarpoolRepository carpoolRepository;
 
     /**
-     * 查询拼车信息(通过拼车id)
-     * @param id
-     * @return
-     */
-    public CarEntity findCarEnityById(String id){
-        return carRepository.findCarEntityById(id);
-    }
-
-    /**
      * 添加拼车信息
      * @param carDto
      * @return
@@ -193,7 +184,7 @@ public class CarService {
                 }else {
                     List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByResidentCarIdAndResidentUserId(carDto.getId(), carDto.getUserId());
                     carpoolEntityList.stream().filter(e->{
-                       return CarpoolStatusEnum.IN_PROGRESS.getType().equals(e.getCarpoolStatus());
+                        return CarpoolStatusEnum.IN_PROGRESS.getType().equals(e.getCarpoolStatus());
                     }).forEach(e->{
                         e.setCarpoolStatus(CarpoolStatusEnum.CANCEL.getType());
                         carpoolRepository.save(e);
