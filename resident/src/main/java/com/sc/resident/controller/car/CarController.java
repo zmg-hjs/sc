@@ -1,6 +1,6 @@
 package com.sc.resident.controller.car;
 
-import com.sc.base.dto.car.ManageCarIndexIntoDto;
+import com.sc.base.dto.car.CarDto;
 import com.sc.resident.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,35 +10,61 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vo.Result;
 
-/**
- * Package: com.sc.resident.controller.car
- * <p>
- * Description： TODO
- * <p>
- * Author: hjscode
- * <p>
- * Date: Created in 2020/4/2 13:25
- */
+
 @Controller
 @RequestMapping("sc/resident/car")
 public class CarController {
     @Autowired
     CarService carService;
-    @RequestMapping(value = "/findById",method = RequestMethod.GET)
-    @ResponseBody
-    public Result findCarEntiyById(){
-        return new Result().setSuccess(carService.findCarEnityById("1"));
-    }
 
-    @RequestMapping(value ="/addCar",method = RequestMethod.POST)
+    @RequestMapping(value ="/add",method = RequestMethod.POST)
     @ResponseBody
-    public Result addCar(@RequestBody ManageCarIndexIntoDto manageCarIndexIntoDto){
+    public Result addCarAndCarpool(@RequestBody CarDto carDto){
         try {
-            Result addCar = carService.addCarEntity(manageCarIndexIntoDto);
-            return addCar;
+            Result result = carService.addCarAndCarpool(carDto);
+            return result;
         }catch (Exception e){
             return Result.createSystemErrorResult();
         }
-
+    }
+    @RequestMapping(value ="/find",method = RequestMethod.POST)
+    @ResponseBody
+    public Result findCarEntitiesByCarpoolStatus(@RequestBody CarDto carDto){
+        try {
+            Result result = carService.findCarEntitiesByCarpoolStatus(carDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+    @RequestMapping(value ="/my",method = RequestMethod.POST)
+    @ResponseBody
+    public Result findAllByCarpoolStatus(@RequestBody CarDto carDto){
+        try {
+            Result result = carService.findAllByCarpoolStatus(carDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+    @RequestMapping(value ="/addCarpool",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addCarpoolEntity(@RequestBody CarDto carDto){
+        try {
+            Result result = carService.addCarpoolEntity(carDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+    @RequestMapping(value ="/cancel",method = RequestMethod.POST)
+    @ResponseBody
+    public Result cancel(@RequestBody CarDto carDto){
+        try {
+            Result result = carService.cancel(carDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
     }
 }

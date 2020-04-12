@@ -6,15 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @Author dsj
- * @Create 2019-02-28 10:09
- * @Description 霸王餐订购状态
- **/
 
-/**
- * 暂时未用到
- */
 @Getter
 public enum AuditStatusEnum {
 
