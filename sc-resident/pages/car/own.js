@@ -1,4 +1,5 @@
 // pages/car/My.js
+const carUrl=require('../../config').carUrl
 Page({
 
   /**
@@ -60,7 +61,17 @@ actionsTap(){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      wx.request({
+        url: carUrl+'cancel',
+        method:'POST',
+        data:{
+            id:'20200412183226-68ef74d6e5_residentCar',
+            userId:wx.getStorageSync('userInfo').id
+        },
+        success:function(res){
+            console.log(res.data)
+        }
+      })
   },
 
   /**
