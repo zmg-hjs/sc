@@ -84,16 +84,19 @@ public class CarService {
     public Result<List<CarDto>> findCarEntitiesByCarpoolStatus(CarDto carDto){
         try {
             List<CarEntity> carEntityList = carRepository.findCarEntitiesByCarpoolStatus(CarpoolStatusEnum.IN_PROGRESS.getType());
-            if (carEntityList==null||carEntityList.size()==0) return Result.createSimpleSuccessResult().setCustomMessage("数据为空");
-            List<CarDto> carDtoList = carEntityList.stream().map(e -> {
-                return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
-                    d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
-                    d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
-                    d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
-                    d.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
-                });
-            }).collect(Collectors.toList());
-            return new Result<List<CarDto>>().setSuccess(carDtoList);
+            if (carEntityList!=null&&carEntityList.size()>0){
+                List<CarDto> carDtoList = carEntityList.stream().map(e -> {
+                    return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                        d.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
+                    });
+                }).collect(Collectors.toList());
+                return new Result<List<CarDto>>().setSuccess(carDtoList);
+            }
+            else return Result.createSimpleSuccessResult().setCustomMessage("数据为空");
+
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
