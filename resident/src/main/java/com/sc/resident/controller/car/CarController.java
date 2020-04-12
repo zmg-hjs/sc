@@ -16,11 +16,6 @@ import vo.Result;
 public class CarController {
     @Autowired
     CarService carService;
-    @RequestMapping(value = "/findById",method = RequestMethod.GET)
-    @ResponseBody
-    public Result findCarEntiyById(){
-        return new Result().setSuccess(carService.findCarEnityById("1"));
-    }
 
     @RequestMapping(value ="/add",method = RequestMethod.POST)
     @ResponseBody
