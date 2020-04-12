@@ -62,10 +62,10 @@ actionsTap(){
    */
   onLoad: function (options) {
       wx.request({
-        url: carUrl+'cancel',
+        url: carUrl+'my',
         method:'POST',
         data:{
-            id:'20200412183226-68ef74d6e5_residentCar',
+            carpoolStatus:'in_progress',
             userId:wx.getStorageSync('userInfo').id
         },
         success:function(res){
