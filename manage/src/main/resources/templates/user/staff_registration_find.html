@@ -118,16 +118,6 @@
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="登记电话" class="layui-form-label"></label>
-                            <div th:text="${staffRegistration.getPhoneNumber()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
                             <label th:text="姓名" class="layui-form-label"></label>
                             <div th:text="${staffRegistration.getActualName()}" class="edit-module-title"></div>
                         </div>
@@ -146,6 +136,14 @@
                         <div class="layui-form-item">
                             <label th:text="地址" class="layui-form-label"></label>
                             <div th:text="${staffRegistration.getAddress()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="登记电话" class="layui-form-label"></label>
+                            <div th:text="${staffRegistration.getPhoneNumber()}" class="edit-module-title"></div>
                         </div>
                     </div>
                 </div>

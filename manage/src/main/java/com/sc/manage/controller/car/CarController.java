@@ -35,6 +35,7 @@ public class CarController {
     public ModelAndView ManageCarFindPage(ModelAndView modelAndView, CarDto carDto){
         modelAndView.setViewName("car/car_find");
         modelAndView.addObject("carDto",carService.findCarEntityById(carDto).getData());
+        modelAndView.addObject("carpoolDtoList",carService.findCarpoolEntitiesById(carDto).getData());
         return modelAndView;
     }
 

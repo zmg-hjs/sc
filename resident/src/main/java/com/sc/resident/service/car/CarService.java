@@ -89,6 +89,7 @@ public class CarService {
                     return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
                         d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                         d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setStartTimeStr(MyDateUtil.getDateAndTime(e.getStartTime()));
                         d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                         d.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
                     });
@@ -121,6 +122,7 @@ public class CarService {
                     return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
                         d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                         d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setStartTimeStr(MyDateUtil.getDateAndTime(e.getStartTime()));
                         d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                         d.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
                     });

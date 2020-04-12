@@ -66,7 +66,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员登记信息',
+                title: '居民登记信息',
                 content: "/sc/manage/resident/manage_resident_registration_find_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -80,7 +80,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息审核页面',
+                title: '居民登记信息审核页面',
                 content: "/sc/manage/resident/manage_resident_registration_examine_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -94,7 +94,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息修改页面',
+                title: '居民登记信息修改页面',
                 content: "/sc/manage/resident/manage_resident_registration_update_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -146,7 +146,7 @@ layui.config({
                     type: 2,
                     skin: 'open-class',
                     area: [width, height],
-                    title: '工作人员信息添加页面',
+                    title: '居民登记页面',
                     content: "/sc/manage/resident/manage_resident_registration_add_page"
                     ,maxmin: true
                     ,zIndex: layer.zIndex //重点1
