@@ -16,9 +16,21 @@ bindNumChange:function(e){
     num: e.detail.value
   })
 },
-  submit:function(){
-    console.log('num',this.data.num)
-  },
+submit: function(){
+  wx.showModal({
+    title: '提示',
+    content: '提交成功',
+    showCancel: false,
+    confirmText: "确定",
+    success: function(res) {
+      wx.navigateBack({
+        delta: 2
+    })
+    }
+  })
+
+},
+
 
   /**
    * 生命周期函数--监听页面加载

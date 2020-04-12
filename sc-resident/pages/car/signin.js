@@ -40,22 +40,22 @@ Page({
   },
   calculate: function () {
     console.log(this.data)
-    wx.request({
-      url: carUrl+'addCar',
-      method:'POST',
-      data:{
-        starting:this.data.starting,
-        destination:this.data.destination,
-        peopleNum:this.data.peopleNum,
-        time:this.data.time,
-        telephone:this.data.telephone,
-        userId:wx.getStorageSync('userInfo').id
-      },
-      success:function(res){
-        console.log(res.data)
-      }
+    // wx.request({
+    //   url: carUrl+'addCar',
+    //   method:'POST',
+    //   data:{
+    //     starting:this.data.starting,
+    //     destination:this.data.destination,
+    //     peopleNum:this.data.peopleNum,
+    //     time:this.data.time,
+    //     telephone:this.data.telephone,
+    //     userId:wx.getStorageSync('userInfo').id
+    //   },
+    //   success:function(res){
+    //     console.log(res.data)
+    //   }
       
-    })
+    // })
   },
   bindDateChange: function (e) {
     this.setData({
