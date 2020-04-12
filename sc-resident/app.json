@@ -20,7 +20,9 @@
     "pages/vote/join",
     "pages/vote/voting",
     "pages/vote/myVote",
-    "pages/repair/information"
+    "pages/repair/information",
+    "pages/car/index",
+    "pages/car/history"
   ],
   "window": {
     "backgroundTextStyle": "light",

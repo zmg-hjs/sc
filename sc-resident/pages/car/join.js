@@ -1,4 +1,5 @@
 // pages/car/join.js
+const carUrl=require('../../config').carUrl
 Page({
 
   /**
@@ -17,6 +18,14 @@ bindNumChange:function(e){
   })
 },
 submit: function(){
+  wx.request({
+    url: carUrl+'addCarpool',
+    method:'POST',
+    data:{
+      id:this.data.num,
+      userId:wx.getStorageSync('userInfo').id
+     }
+    })
   wx.showModal({
     title: '提示',
     content: '提交成功',
@@ -42,6 +51,7 @@ submit: function(){
       starting:options.starting,
       telephone:options.telephone
     })
+    console.log(this.data.id)
   },
 
   /**
