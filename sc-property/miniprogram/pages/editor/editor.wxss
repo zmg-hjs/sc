@@ -36,4 +36,15 @@
   
   border-bottom: 0;
 }
-
+/* -------------------------- */
+.add_btn{
+    width: 100%;
+    bottom: 30rpx;
+}
+.btn{
+    margin-top: 30rpx;
+    width: 450rpx;
+    background: #14a1fd;
+    color: #fff;
+    border-radius: 70rpx;
+}

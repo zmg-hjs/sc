@@ -15,7 +15,7 @@ import vo.Result;
 import java.util.List;
 
 @Controller
-@RequestMapping("/sc/resident/news")
+@RequestMapping("/sc/property/news")
 public class NewsController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class NewsController {
 
     @RequestMapping(value = "/resident_news_index",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<ResidentNewsIndexOutDto>> findAll(ResidentNewsIndexIntoDto indexIntoDto){
+    public Result<List<ResidentNewsIndexOutDto>> findAll(@RequestBody ResidentNewsIndexIntoDto indexIntoDto){
         try {
             return newsService.findAll(indexIntoDto);
         }catch (Exception e){
@@ -32,11 +32,22 @@ public class NewsController {
         }
     }
 
-    @RequestMapping(value = "/resident_news_one_data",method = RequestMethod.GET)
+    @RequestMapping(value = "/resident_news_one_data",method = RequestMethod.POST)
     @ResponseBody
     public Result<NewsDto> residentNewsOneData(@RequestBody NewsDto dto){
         try {
             return newsService.findNewsEntityById(dto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    @RequestMapping(value = "/resident_news_my_data",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<ResidentNewsIndexOutDto>> residentNewsMyData(@RequestBody ResidentNewsIndexIntoDto indexIntoDto){
+        try {
+            return newsService.findAll(indexIntoDto);
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
@@ -53,6 +64,10 @@ public class NewsController {
             return Result.createSystemErrorResult();
         }
     }
-
+    @RequestMapping(value = "/resident_news_add_data1",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<NewsDto> residentNewsAddData1(@RequestBody NewsDto dto){
+        return Result.createSimpleSuccessResult();
+    }
 
 }

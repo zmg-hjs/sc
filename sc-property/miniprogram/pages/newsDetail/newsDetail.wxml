@@ -1,0 +1,7 @@
+<!--pages/emal/information.wxml-->
+<view>
+  <view>标题：{{title}}</view>
+  <view>发布人：{{user}}</view>
+  <view style="width:90%;margin-left: 5%;margin-top: 10rpx;"><rich-text nodes="{{content}}"></rich-text></view>
+  <view>时间：{{createDate}}</view>
+</view>

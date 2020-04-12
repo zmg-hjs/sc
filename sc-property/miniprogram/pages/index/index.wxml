@@ -1,13 +1,28 @@
-<view class="menuitems">
-  <view class="div-line"></view>
-    <block wx:for="{{menuitems}}" wx:key="item">
-      <navigator url="{{item.url}}" class="list-item" hover-class="list-item_active">
-        <view class="item">
-          <image src="/images/mp.png" class="item-image"></image>
-          <text class="item-text">{{item.text}}</text>
-          <text class='item-array'>></text>
+<!--index.wxml-->
+<view class="weui-cells weui-cells_after-title">
+</view>
+<view class="index-exam-h1">
+  <view class="index-exam-span">工作管理</view>
+</view>
+<view class="row" style="clear: both;">
+        <view bindtap="service" data-type='repair' class="index-exam-inlets-list col-hg-6">
+            <view class="icon-index-bx"></view>
+            <view class="text">业主报修</view>
         </view>
-        <view class="div-line"></view>
-      </navigator>
-    </block>
-  </view>
+        <view bindtap="service" data-type='repair' class="index-exam-inlets-list col-hg-6">
+            <view class="icon-index-bx"></view>
+            <view class="text">维修任务</view>
+        </view>
+</view>
+<view class="index-exam-h1">
+  <view class="index-exam-span">消息通知</view>
+</view>
+<!-- ------------------------------------------- -->
+<block wx:for="{{list}}" wx:key="id">
+<view style="margin: 5px"></view>
+<navigator url="../newsDetail/newsDetail?id={{item.id}}">
+	<i-card title="{{item.title}}" extra="查看详情">
+		<view slot="footer">时间:{{item.createDateStr}}</view>
+	</i-card>
+  </navigator>
+</block>

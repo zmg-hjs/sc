@@ -18,5 +18,6 @@ public class CarDto {
     private String createDateStr;  //创建时间
     private String updateDateStr;  //更新时间
     private String whetherValid;
+    private String whetherValidStr;
 
 }

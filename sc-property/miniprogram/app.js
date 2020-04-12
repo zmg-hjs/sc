@@ -24,7 +24,6 @@ App({
           method: 'POST',
           success: function (res) {
             if (res.data.code==1){
-              
               that.globalData.userId = res.data.data.id;
             }
           }

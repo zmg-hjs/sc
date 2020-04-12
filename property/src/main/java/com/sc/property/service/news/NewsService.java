@@ -5,8 +5,10 @@ import com.sc.base.dto.news.NewsDto;
 import com.sc.base.dto.news.ResidentNewsIndexIntoDto;
 import com.sc.base.dto.news.ResidentNewsIndexOutDto;
 import com.sc.base.entity.news.NewsEntity;
+import com.sc.base.entity.user.StaffUserEntity;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.news.NewsRepository;
+import com.sc.base.repository.user.StaffUserRepository;
 import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
@@ -34,6 +36,8 @@ public class NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
+    @Autowired
+    private StaffUserRepository staffUserRepository;
 
     /**
      * 1.消息列表：需要传入 page=1,limit=50
@@ -52,6 +56,9 @@ public class NewsService {
                 @Override
                 public Predicate toPredicate(Root<NewsEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
+                    if (StringUtils.isNotBlank(indexIntoDto.getStaffUserId())){
+                        predicateList.add(criteriaBuilder.equal(root.get("staffUserId"),indexIntoDto.getStaffUserId()));
+                    }
                     if (StringUtils.isNotBlank(indexIntoDto.getTitle())){
                         predicateList.add(criteriaBuilder.like(root.get("title"),"%"+indexIntoDto.getTitle()+"%"));
                     }
@@ -128,16 +135,19 @@ public class NewsService {
 
     public Result addNewsEntity(NewsDto dto){
         try {
+
+
             Date date = new Date();
             NewsEntity entity = new NewsEntity();
             entity.setId(MyStringUtils.getIdDateStr("news"));
             entity.setTitle(dto.getTitle());
             entity.setContent(dto.getContent());
             entity.setStaffUserId(dto.getStaffUserId());
-            entity.setStaffUserActualName(dto.getStaffUserActualName());
             entity.setCreateDate(date);
             entity.setUpdateDate(date);
             entity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityById(dto.getStaffUserId());
+            if (staffUserEntity!=null) entity.setStaffUserActualName(staffUserEntity.getActualName());
             newsRepository.save(entity);
             return Result.createSimpleSuccessResult();
 
