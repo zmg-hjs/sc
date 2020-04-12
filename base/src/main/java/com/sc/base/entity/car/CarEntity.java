@@ -26,13 +26,13 @@ public class CarEntity {
 
     private String userId; //拼车发起者id
     private String userActualName; //拼车发起者name
-    private String starting; //起始地
+    private String startPosition; //起始地
     private String destination; //目的地
     private Integer peopleNum; //目标人数
     private Integer peopleNow; //现有人数
     private String telephone; //发起人电话
     private String carNum; //车牌号
-    private String time; //出发时间
+    private Date startTime; //出发时间
     private Date createDate;  //创建时间
     private Date updateDate;  //更新时间
     private String whetherValid;

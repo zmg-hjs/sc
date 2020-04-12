@@ -43,9 +43,9 @@ public class CarService {
             carEntity.setUserId(carDto.getUserId());
             carEntity.setTelephone(carDto.getTelephone());
             carEntity.setCarNum(carDto.getCarNum());
-            carEntity.setStarting(carDto.getStarting());
+            carEntity.setStartPosition(carDto.getStartPosition());
             carEntity.setDestination(carDto.getDestination());
-            carEntity.setTime(carDto.getTime());
+            carEntity.setStartTime(MyDateUtil.dateString3Date(carDto.getStartTimeStr()));
             carEntity.setPeopleNum(carDto.getPeopleNum());
             carEntity.setPeopleNow(0);
             carEntity.setCarpoolStatus(CarpoolStatusEnum.IN_PROGRESS.getType());

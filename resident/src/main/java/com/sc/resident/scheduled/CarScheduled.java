@@ -49,7 +49,7 @@ public class CarScheduled {
                 public Predicate toPredicate(Root<CarEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("createDate"),dateStr));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("startTime"),dateStr));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }

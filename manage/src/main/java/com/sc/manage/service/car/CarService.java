@@ -54,8 +54,8 @@ public class CarService {
                     if (StringUtils.isNotBlank(indexIntoDto.getUserActualName())){
                         predicateList.add(criteriaBuilder.like(root.get("userActualName"),"%"+indexIntoDto.getUserActualName()+"%"));
                     }
-                    if (StringUtils.isNotBlank(indexIntoDto.getStarting())){
-                        predicateList.add(criteriaBuilder.like(root.get("starting"),"%"+indexIntoDto.getStarting()+"%"));
+                    if (StringUtils.isNotBlank(indexIntoDto.getStartPosition())){
+                        predicateList.add(criteriaBuilder.like(root.get("starting"),"%"+indexIntoDto.getStartPosition()+"%"));
                     }
                     if (StringUtils.isNotBlank(indexIntoDto.getDestination())){
                         predicateList.add(criteriaBuilder.like(root.get("destination"),"%"+indexIntoDto.getDestination()+"%"));
@@ -76,6 +76,7 @@ public class CarService {
                 outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                 outDto.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
+                outDto.setStartTimeStr(MyDateUtil.getDateAndTime(e.getStartTime()));
                 return outDto;
             }).collect(Collectors.toList());
             return new Result<List<ManageCarIndexOutDto>>().setSuccess(manageCarIndexOutDtoList).setCount(page.getTotalElements());
