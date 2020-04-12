@@ -84,7 +84,7 @@ public class CarService {
     public Result<List<CarDto>> findCarEntitiesByCarpoolStatus(CarDto carDto){
         try {
             List<CarEntity> carEntityList = carRepository.findCarEntitiesByCarpoolStatus(CarpoolStatusEnum.IN_PROGRESS.getType());
-            if (carEntityList!=null||carEntityList.size()==0) return Result.createSimpleSuccessResult().setCustomMessage("数据为空");
+            if (carEntityList==null||carEntityList.size()==0) return Result.createSimpleSuccessResult().setCustomMessage("数据为空");
             List<CarDto> carDtoList = carEntityList.stream().map(e -> {
                 return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
