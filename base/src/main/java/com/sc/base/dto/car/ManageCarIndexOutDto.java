@@ -10,7 +10,7 @@ public class ManageCarIndexOutDto extends BaseOutDto {
     private String starting; //起始地
     private String destination; //目的地
     private String carNum; //车牌号
-    private String time; //出发时间
+    private String startTimeStr; //出发时间
     private Integer peopleNum; //目标人数
     private Integer peopleNow; //现有人数
     private String carpoolStatus;
