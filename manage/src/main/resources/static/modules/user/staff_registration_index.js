@@ -81,7 +81,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息审核页面',
+                title: '工作人员登记信息审核页面',
                 content: "/sc/manage/staff/manage_staff_registration_examine_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -95,7 +95,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息修改页面',
+                title: '工作人员登记信息修改页面',
                 content: "/sc/manage/staff/manage_staff_registration_update_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -147,7 +147,7 @@ layui.config({
                     type: 2,
                     skin: 'open-class',
                     area: [width, height],
-                    title: '工作人员信息添加页面',
+                    title: '工作人员信息登记页面',
                     content: "/sc/manage/staff/manage_staff_registration_add_page"
                     ,maxmin: true
                     ,zIndex: layer.zIndex //重点1
@@ -161,26 +161,6 @@ layui.config({
         $("input[name='selectValue']").val(null);
 
     })
-
-    // function djA(dom){
-    //     var colloction=$(".djsA")
-    //     $.each(colloction, function() {
-    //         $(this).removeClass("end");
-    //         $(this).addClass("start")
-    //     });
-    //     $(this).removeClass("start");
-    //     $(this).addClass("end")
-    // }
-    // function djB(dom){
-    //     console.log("11111111111111")
-    //     var colloction=$(".djsB")
-    //     $.each(colloction, function() {
-    //         $(this).removeClass("end");
-    //         $(this).addClass("start")
-    //     });
-    //     $(this).removeClass("start");
-    //     $(this).addClass("end")
-    // }
 
 
 

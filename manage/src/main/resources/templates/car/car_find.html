@@ -111,75 +111,112 @@
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <hr>
-                        <input type="hidden" name="id" th:value="${enrollDto.getId()}"/>
+                        <input type="hidden" name="id" th:value="${carDto.getId()}"/>
                     </div>
                 </div>
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="姓名" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getResidentUserActualName()}" class="edit-module-title"></div>
+                            <label th:text="拼车状态" class="layui-form-label"></label>
+                            <div th:text="${carDto.getCarpoolStatusStr()}" class="edit-module-title"></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="地址" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getResidentUserAddress()}" class="edit-module-title"></div>
+                            <label th:text="发布人姓名" class="layui-form-label"></label>
+                            <div th:text="${carDto.getUserActualName()}" class="edit-module-title"></div>
                         </div>
                     </div>
                 </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="联系方式" class="layui-form-label"></label>
+                            <div th:text="${carDto.getTelephone()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="车牌号" class="layui-form-label"></label>
+                            <div th:text="${carDto.getCarNum()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="出发时间" class="layui-form-label"></label>
+                            <div th:text="${carDto.getStartTimeStr()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="发布时间" class="layui-form-label"></label>
+                            <div th:text="${carDto.getCreateDateStr()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="起始地" class="layui-form-label"></label>
+                            <div th:text="${carDto.getStartPosition()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="目的地" class="layui-form-label"></label>
+                            <div th:text="${carDto.getDestination()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="目标人数" class="layui-form-label"></label>
+                            <div th:text="${carDto.getPeopleNum()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="现有人数" class="layui-form-label"></label>
+                            <div th:text="${carDto.getPeopleNow()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
 
-                <hr>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="简介" class="layui-form-label"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <div th:utext="${enrollDto.getBriefIntroduction()}"></div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
+                <tr th:each="carpoolDto:${carpoolDtoList}">
+                    <div class="layui-row">
+                        <div class="layui-col-xs12">
                             <hr>
-                            <label th:text="审核状态" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getAuditStatusStr()}" class="edit-module-title"></div>
+                            <input id="carpoolUserId" type="hidden" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
                         </div>
                     </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="审核原因" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getAuditReason()}==null?'暂无':${enrollDto.getAuditReason()}" class="edit-module-title"></div>
+                    <div class="layui-row">
+                        <div class="layui-col-xs12">
+                            <div class="layui-form-item">
+                                <label th:text="拼车人姓名" class="layui-form-label"></label>
+                                <div th:text="${carpoolDto.getCarpoolActualName()}" class="edit-module-title"></div>
+                                <div th:text="${carpoolDto.getCarpoolStatusStr()}" class="edit-module-title"></div>
+                                <button id="testListAction3" th:text="查询信息" class="layui-btn" lay-submit=""
+                                        lay-filter="component-form"></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="票数" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getVoteNumber()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="layui-col-xs12">
-                        <div class="layui-form-item">
-                            <label th:text="报名时间" class="layui-form-label"></label>
-                            <div th:text="${enrollDto.getCreateDateStr()}" class="edit-module-title"></div>
-                        </div>
-                    </div>
-                </div>
+                    <hr>
+                </tr>
+
                 <div class="edit-options-content">
                     <button id="testListAction2" th:text="关闭" class="layui-btn" lay-submit=""
                             lay-filter="component-form"></button>

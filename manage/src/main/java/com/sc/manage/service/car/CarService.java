@@ -1,13 +1,16 @@
 package com.sc.manage.service.car;
 
+import com.sc.base.dto.car.CarpoolDto;
 import com.sc.base.dto.car.ManageCarIndexOutDto;
 import com.sc.base.dto.common.BaseIntoDto;
 import com.sc.base.dto.car.ManageCarIndexIntoDto;
 import com.sc.base.dto.car.CarDto;
 import com.sc.base.entity.car.CarEntity;
+import com.sc.base.entity.car.CarpoolEntity;
 import com.sc.base.enums.CarpoolStatusEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.car.CarRepository;
+import com.sc.base.repository.car.CarpoolRepository;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +36,8 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private CarpoolRepository carpoolRepository;
 
 
     /**
@@ -93,9 +98,33 @@ public class CarService {
                 CarDto carDto = MyBeanUtils.copyPropertiesAndResTarget(entity, CarDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
                     d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
+                    d.setStartTimeStr(MyDateUtil.getDateAndTime(entity.getStartTime()));
+                    d.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(entity.getCarpoolStatus()));
                     d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
                 });
                 return new Result().setSuccess(carDto);
+            }else {
+                return Result.createSimpleFailResult();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    public Result findCarpoolEntitiesById(CarDto dto){
+        try {
+            List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByResidentCarId(dto.getId());
+            if (carpoolEntityList!=null&&carpoolEntityList.size()>0){
+                List<CarpoolDto> carpoolDtoList = carpoolEntityList.stream().map(e -> {
+                    CarpoolDto carpoolDto = MyBeanUtils.copyPropertiesAndResTarget(e, CarpoolDto::new);
+                    carpoolDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                    carpoolDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                    carpoolDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    carpoolDto.setCarpoolStatusStr(CarpoolStatusEnum.getTypesName(e.getCarpoolStatus()));
+                    return carpoolDto;
+                }).collect(Collectors.toList());
+                return new Result().setSuccess(carpoolDtoList);
             }else {
                 return Result.createSimpleFailResult();
             }

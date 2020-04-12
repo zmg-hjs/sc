@@ -67,7 +67,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员登记信息',
+                title: '委员会选举活动登记信息',
                 content: "/sc/manage/activity/manage_activity_find_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -81,7 +81,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息审核页面',
+                title: '委员会选举活动审核页面',
                 content: "/sc/manage/activity/manage_activity_examine_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -95,7 +95,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息修改页面',
+                title: '委员会选举活动修改页面',
                 content: "/sc/manage/activity/manage_activity_update_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -123,7 +123,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息修改页面',
+                title: '委员会选举活动结果',
                 content: "/sc/manage/activity/manage_activity_result_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -169,13 +169,11 @@ layui.config({
             case 'add':
                 var width = document.documentElement.scrollWidth * 0.9 + "px";
                 var height = document.documentElement.scrollHeight * 0.9 + "px";
-                var width = document.documentElement.scrollWidth * 0.9 + "px";
-                var height = document.documentElement.scrollHeight * 0.9 + "px";
                 layer.open({
                     type: 2,
                     skin: 'open-class',
                     area: [width, height],
-                    title: '工作人员信息添加页面',
+                    title: '委员会选举活动发布页面',
                     content: "/sc/manage/activity/manage_activity_add_page"
                     ,maxmin: true
                     ,zIndex: layer.zIndex //重点1
@@ -190,25 +188,6 @@ layui.config({
 
     })
 
-    // function djA(dom){
-    //     var colloction=$(".djsA")
-    //     $.each(colloction, function() {
-    //         $(this).removeClass("end");
-    //         $(this).addClass("start")
-    //     });
-    //     $(this).removeClass("start");
-    //     $(this).addClass("end")
-    // }
-    // function djB(dom){
-    //     console.log("11111111111111")
-    //     var colloction=$(".djsB")
-    //     $.each(colloction, function() {
-    //         $(this).removeClass("end");
-    //         $(this).addClass("start")
-    //     });
-    //     $(this).removeClass("start");
-    //     $(this).addClass("end")
-    // }
 
 
 

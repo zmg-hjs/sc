@@ -78,7 +78,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息审核页面',
+                title: '消息通知审核页面',
                 content: "/sc/manage/news/manage_news_examine_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -92,7 +92,7 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '工作人员信息修改页面',
+                title: '消息通知修改页面',
                 content: "/sc/manage/news/manage_news_update_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
@@ -144,7 +144,7 @@ layui.config({
                     type: 2,
                     skin: 'open-class',
                     area: [width, height],
-                    title: '工作人员信息添加页面',
+                    title: '消息通知发布页面',
                     content: "/sc/manage/news/manage_news_add_page"
                     ,maxmin: true
                     ,zIndex: layer.zIndex //重点1

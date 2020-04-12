@@ -82,7 +82,7 @@
                     <div class="layui-inline">
                         <label th:text="出发地" class="layui-form-label"></label>
                         <div class="layui-input-block">
-                            <input name="starting" class="layui-input">
+                            <input name="startPosition" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -114,6 +114,11 @@
 
 
         <script type="text/html" id="order-table-toolbar-toolbarDemo">
+            <div class="layui-btn-container">
+                <a id="djA" class="djsA layui-btn layui-btn-xs" style="background-color: #b1b0b0" lay-event="in_progress" >拼车中</a>
+                <a id="djB" class="djsB layui-btn layui-btn-xs" style="" lay-event="complete">已完成</a>
+                <a id="djC" class="djsC layui-btn layui-btn-xs" style="" lay-event="cacel">取消状态</a>
+            </div>
             <div class="com-option-content">
                 <div class="layui-inline" th:title="筛选" lay-event="LAYTABLE_COLS"><i
                         class="layui-icon icon-tune"></i>

@@ -205,7 +205,11 @@ public class ResidentService {
             entity.setId(MyStringUtils.getIdDateStr("resident_registration"));
             entity.setActualName(dto.getActualName());
             entity.setIdNumber(dto.getIdNumber());
-            entity.setAddress(dto.getAddress());
+            entity.setCommunity(dto.getCommunity());
+            entity.setUnit(dto.getUnit());
+            entity.setFloor(dto.getFloor());
+            entity.setDoor(dto.getDoor());
+            entity.setAddress(dto.getCommunity()+dto.getUnit()+dto.getFloor()+dto.getDoor());
             entity.setPhoneNumber(dto.getPhoneNumber());
             entity.setCreateDate(new Date());
             entity.setUpdateDate(new Date());
