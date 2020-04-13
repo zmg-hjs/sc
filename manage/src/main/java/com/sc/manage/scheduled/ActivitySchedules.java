@@ -29,7 +29,7 @@ public class ActivitySchedules {
     private ActivityRepository activityRepository;
 
     @Scheduled(cron = "20 0 8 * * ?")
-    public Result enrolmentAcheduled(){
+    public Result unpublishedScheduled(){
         try {
             //根据时间倒序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
@@ -42,7 +42,7 @@ public class ActivitySchedules {
                 public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("startTime"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityStartTimeStr"),MyDateUtil.dateString3Date(dateStr)));
                         predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.UNPUBLISHED.getType()));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
@@ -60,7 +60,7 @@ public class ActivitySchedules {
         }
     }
     @Scheduled(cron = "20 0 18 * * ?")
-    public Result carScheduled(){
+    public Result enrolmentScheduled(){
         try {
             //根据时间倒序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
@@ -73,15 +73,79 @@ public class ActivitySchedules {
                 public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("startTime"),MyDateUtil.dateString3Date(dateStr)));
-                        predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.UNPUBLISHED.getType()));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityEndTimeStr"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.ENROLMENT.getType()));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }
             }, pageable);
             page.getContent().stream().forEach(e->{
                 ActivityEntity entity = activityRepository.findActivityEntityById(e.getActivityStatus());
-                entity.setActivityStatus(ActivityStatusEnum.ENROLMENT.getType());
+                entity.setActivityStatus(ActivityStatusEnum.IN_AUDIT.getType());
+                activityRepository.save(entity);
+            });
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    @Scheduled(cron = "30 0 8 * * ?")
+    public Result inAuditScheduled(){
+        try {
+            //根据时间倒序
+            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+            //页数与每页大小
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+            //条件
+            String dateStr = MyDateUtil.getDateString(new Date())+" 23:59:59";
+            Page<ActivityEntity> page = activityRepository.findAll(new Specification<ActivityEntity>() {
+                @Override
+                public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    if (StringUtils.isNotBlank(dateStr)){
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("votingStartTimeStr"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.IN_AUDIT.getType()));
+                    }
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            page.getContent().stream().forEach(e->{
+                ActivityEntity entity = activityRepository.findActivityEntityById(e.getActivityStatus());
+                entity.setActivityStatus(ActivityStatusEnum.VOTING.getType());
+                activityRepository.save(entity);
+            });
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    @Scheduled(cron = "20 0 18 * * ?")
+    public Result votingScheduled(){
+        try {
+            //根据时间倒序
+            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+            //页数与每页大小
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+            //条件
+            String dateStr = MyDateUtil.getDateString(new Date())+" 23:59:59";
+            Page<ActivityEntity> page = activityRepository.findAll(new Specification<ActivityEntity>() {
+                @Override
+                public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    if (StringUtils.isNotBlank(dateStr)){
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityEndTimeStr"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.VOTING.getType()));
+                    }
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            page.getContent().stream().forEach(e->{
+                ActivityEntity entity = activityRepository.findActivityEntityById(e.getActivityStatus());
+                entity.setActivityStatus(ActivityStatusEnum.END.getType());
                 activityRepository.save(entity);
             });
             return Result.createSimpleSuccessResult();
