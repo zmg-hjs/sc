@@ -6,11 +6,7 @@
 			<view class="weui-panel__bd">
 
 				<view class="weui-media-box weui-media-box_text">
-					<view class="weui-media-box__title weui-media-box__title_in-text">{{item.title}}</view>
-					<view class="weui-media-box__desc">活动状态：{{item.activityStatusStr}}</view>
-					<view class="weui-media-box__desc">举办人：{{item.hostParty}}</view>
-					<view class="weui-media-box__desc">活动时间：{{item.activityStartTimeStr}}——{{item.activityEndTimeStr}}</view>
-					<view class="weui-media-box__desc">投票时间：{{item.votingStartTimeStr}}——{{item.votingStartTimeStr}}</view>
+					<view class="weui-media-box__desc">{{item.residentUserActualName}}投给了{{item.votedPersonActualName}}</view>
 				</view>
 			</view>
 		</view>

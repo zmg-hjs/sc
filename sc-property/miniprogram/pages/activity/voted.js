@@ -1,4 +1,5 @@
 // miniprogram/pages/activity/voted.js
+const activityUrl=require("../../config").activityUrl
 Page({
 
   /**

@@ -1,4 +1,5 @@
 // miniprogram/pages/activity/inform.js
+const activityUrl=require("../../config").activityUrl
 Page({
 
   /**
@@ -8,7 +9,8 @@ Page({
     data: {
       id:'',
       activity:'',
-      content:''
+      content:'',
+      status:''
  },
   },
 
@@ -16,6 +18,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
+     wx.request({
+       url: activityUrl+'findOne',
+       method:'POST',
+       data:{
+         id:options.id
+       },
+       success:function(res){
+         that.setData({
+           activity:res.data.data,
+           id:options.id,
+           content:res.data.data.content,
+           status:res.data.data.activityStatus
+         })
+       }
+     })
 
   },
 

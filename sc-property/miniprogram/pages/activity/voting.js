@@ -1,19 +1,12 @@
 // miniprogram/pages/activity/voting.js
+const activityUrl=require("../../config").activityUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[
-      {
-       people:'张三 ：13票',
-      },
-      {
-        people:'黄景帅：12票',
-      },
-
-    ]
+    list:[],
 
   },
 
@@ -21,6 +14,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: activityUrl+'enroll/findSucess',
+      method:'POST',
+      data:{
+        activityId:options.id
+      },
+      success:function(res){
+        that.setData({
+          list:res.data.data
+        })
+      }
+    })
 
   },
 

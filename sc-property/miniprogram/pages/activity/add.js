@@ -8,7 +8,8 @@ Page({
     keyboardHeight: 0,
     isIOS: false,
     value6:'',
-    content:''
+    content:'',
+    info:''
   },
   readOnlyChange() {
     this.setData({
@@ -16,8 +17,9 @@ Page({
     })
   },
   onLoad(options) {
-    var info=JSON.parse(options.inf)
-    console.log(info)
+    this.setData({
+      info:JSON.parse(options.inf)
+    })
     const platform = wx.getSystemInfoSync().platform
     const isIOS = platform === 'ios'
     this.setData({ isIOS})

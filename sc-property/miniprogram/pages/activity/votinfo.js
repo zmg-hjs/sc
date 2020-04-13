@@ -1,10 +1,12 @@
 // miniprogram/pages/activity/votinfo.js
+const activityUrl=require("../../config").activityUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    list:[]
 
   },
 
@@ -12,6 +14,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: activityUrl+'vote/findAll',
+      method:'POST',
+      data:{
+        enrollId:options.id
+      },
+      success:function(res){
+        console.log(res.data)
+        that.setData({
+          list:res.data.data
+        })
+      }
+    })
 
   },
 

@@ -1,17 +1,31 @@
 // miniprogram/pages/activity/joiner.js
+const activityUrl=require("../../config").activityUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+   list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: activityUrl+'enroll/findAll',
+      method:'POST',
+      data:{
+        activityId:options.id
+      },
+      success:function(res){
+        that.setData({
+          list:res.data.data
+        })
+      }
+    })
 
   },
 
