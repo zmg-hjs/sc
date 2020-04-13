@@ -5,12 +5,16 @@ import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.activity.ManageActivityIndexOutDto;
 import com.sc.base.dto.common.BaseIntoDto;
 import com.sc.base.dto.enroll.EnrollDto;
+import com.sc.base.dto.vote.VoteDto;
 import com.sc.base.entity.activity.ActivityEntity;
 import com.sc.base.entity.enroll.EnrollEntity;
+import com.sc.base.entity.vote.VoteEntity;
 import com.sc.base.enums.ActivityStatusEnum;
+import com.sc.base.enums.AuditStatusEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.activity.ActivityRepository;
 import com.sc.base.repository.enroll.EnrollRepository;
+import com.sc.base.repository.vote.VoteRepository;
 import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
@@ -40,6 +44,8 @@ public class ActivityService {
     private ActivityRepository activityRepository;
     @Autowired
     private EnrollRepository enrollRepository;
+    @Autowired
+    private VoteRepository voteRepository;
 
     /**
      * 分页条件查询
@@ -121,8 +127,7 @@ public class ActivityService {
 
     /**
      * activityId、residentUserId、residentUserActualName、
-     * residentUserAddress、residentUserAddress、briefIntroduction、
-     *
+     * residentUserAddress、briefIntroduction
      * @param enrollDto
      * @return
      */
@@ -130,17 +135,103 @@ public class ActivityService {
         try {
             Date date = new Date();
             EnrollEntity enrollEntity = new EnrollEntity();
-            enrollEntity.setId(MyStringUtils.getIdDateStr("carpool"));
+            enrollEntity.setId(MyStringUtils.getIdDateStr("enroll"));
             enrollEntity.setCreateDate(date);
             enrollEntity.setUpdateDate(date);
             enrollEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            enrollEntity.setAuditStatus(AuditStatusEnum.UNAUDITED.getType());
+            enrollEntity.setActivityId(enrollDto.getActivityId());
+            enrollEntity.setResidentUserId(enrollDto.getResidentUserId());
+            enrollEntity.setResidentUserActualName(enrollDto.getResidentUserActualName());
+            enrollEntity.setResidentUserAddress(enrollDto.getResidentUserAddress());
+            enrollEntity.setBriefIntroduction(enrollDto.getBriefIntroduction());
+            enrollEntity.setVoteNumber(0);
+            enrollRepository.save(enrollEntity);
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
-    
+
+    /**
+     * activityId、auditStatus
+     * @param enrollDto
+     * @return
+     */
+    public Result<List<EnrollDto>> findEnrollEnitiesByActivityIdAndAuditStatus(EnrollDto enrollDto){
+        try {
+            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(enrollDto.getActivityId(), enrollDto.getAuditStatus());
+            if (enrollEntityList!=null&&enrollEntityList.size()>0){
+                List<EnrollDto> enrollDtoList = enrollEntityList.stream().map(e -> {
+                    return MyBeanUtils.copyPropertiesAndResTarget(e, EnrollDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    });
+                }).collect(Collectors.toList());
+                return new Result<List<EnrollDto>>().setSuccess(enrollDtoList);
+            }else return new Result<>().setCustomMessage("数据为空");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 传入参数id
+     * @param enrollDto
+     * @return
+     */
+    public Result<EnrollDto> findEnrollEnityById(EnrollDto enrollDto){
+        try {
+            EnrollEntity entity = enrollRepository.findEnrollEntityById(enrollDto.getId());
+            if (entity!=null){
+                EnrollDto dto = MyBeanUtils.copyPropertiesAndResTarget(entity, EnrollDto::new, d -> {
+                    d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
+                    d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
+                    d.setAuditStatusStr(AuditStatusEnum.getTypesName(entity.getAuditStatus()));
+                    d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
+                });
+                return new Result<EnrollDto>().setSuccess(dto);
+            }else return Result.createSimpleFailResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+
+    /**
+     * enrollId
+     * residentUserAddress、briefIntroduction
+     * @param enrollDto
+     * @return
+     */
+    public Result addVoteEnity(VoteDto voteDto){
+        try {
+            Date date = new Date();
+            VoteEntity voteEntity = new VoteEntity();
+            voteEntity.setId(MyStringUtils.getIdDateStr("vote"));
+            voteEntity.setCreateDate(date);
+            voteEntity.setUpdateDate(date);
+            voteEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            voteEntity.setEnrollId(voteDto.getId());
+            voteEntity.setResidentUserId(voteDto.getResidentUserId());
+            voteEntity.setResidentUserActualName(voteDto.getResidentUserActualName());
+            voteEntity.setVotedPersonId(voteDto.getVotedPersonId());
+            voteEntity.setVotedPersonActualName(voteDto.getVotedPersonActualName());
+            voteRepository.save(voteEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+
+
     private void getBaseIntoDtoPredicate(List<Predicate> predicateList, BaseIntoDto intoDto, Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
         if (StringUtils.isNotBlank(intoDto.getWhetherValid())){
             predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),intoDto.getWhetherValid()));

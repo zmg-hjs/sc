@@ -59,6 +59,9 @@ public class CarService {
                     if (StringUtils.isNotBlank(indexIntoDto.getUserActualName())){
                         predicateList.add(criteriaBuilder.like(root.get("userActualName"),"%"+indexIntoDto.getUserActualName()+"%"));
                     }
+                    if (StringUtils.isNotBlank(indexIntoDto.getCarpoolStatus())){
+                        predicateList.add(criteriaBuilder.equal(root.get("carpoolStatus"),indexIntoDto.getCarpoolStatus()));
+                    }
                     if (StringUtils.isNotBlank(indexIntoDto.getStartPosition())){
                         predicateList.add(criteriaBuilder.like(root.get("starting"),"%"+indexIntoDto.getStartPosition()+"%"));
                     }

@@ -13,7 +13,7 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<CarEntity,String> {
 
     CarEntity findCarEntityById(String id);
-    List<CarEntity> findCarEntitiesByCarpoolStatus(String carpoolStatus);
-    List<CarEntity> findCarEntitiesByIdIn(List<String> idList);
+    List<CarEntity> findCarEntitiesByCarpoolStatusOrderByCreateDateDesc(String carpoolStatus);
+    List<CarEntity> findCarEntitiesByIdInOrderByCreateDateDesc(List<String> idList);
     Page<CarEntity> findAll(Specification specification, Pageable pageable);
 }
