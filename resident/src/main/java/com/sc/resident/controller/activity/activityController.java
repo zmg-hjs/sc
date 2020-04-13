@@ -94,4 +94,15 @@ public class activityController {
         }
     }
 
+    @RequestMapping(value ="/vote/findOne",method = RequestMethod.POST)
+    @ResponseBody
+    public Result findVoteEnityByIdOrderByCreateDateDesc(@RequestBody VoteDto voteDto){
+        try {
+            Result result = activityService.findVoteEnityByIdOrderByCreateDateDesc(voteDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+
 }
