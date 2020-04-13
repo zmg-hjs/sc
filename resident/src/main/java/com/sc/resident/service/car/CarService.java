@@ -112,7 +112,7 @@ public class CarService {
      */
     public Result<List<CarDto>> findAllByCarpoolStatus(CarDto carDto){
         try {
-            List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByResidentUserIdAndCarpoolStatus(carDto.getUserId(), carDto.getCarpoolStatus());
+            List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByCarpoolUserIdAndCarpoolStatus(carDto.getUserId(), carDto.getCarpoolStatus());
             List<String> ResidentCarIdList = carpoolEntityList.stream().map(e -> {
                 return e.getResidentCarId();
             }).collect(Collectors.toList());
@@ -134,6 +134,7 @@ public class CarService {
             return Result.createSystemErrorResult();
         }
     }
+
 
     /**
      * 报名参与拼车

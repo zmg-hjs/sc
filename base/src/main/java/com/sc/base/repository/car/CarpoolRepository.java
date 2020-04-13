@@ -17,6 +17,7 @@ public interface CarpoolRepository extends JpaRepository<CarpoolEntity,String> {
     List<CarpoolEntity> findCarpoolEntitiesByResidentCarIdAndResidentUserId(String residentCarId,String residentUserId);
     CarpoolEntity findCarpoolEntityByIdIn(List<String> idList);
     List<CarpoolEntity> findCarpoolEntitiesByResidentUserIdAndCarpoolStatus(String id,String poolStatus);
+    List<CarpoolEntity> findCarpoolEntitiesByCarpoolUserIdAndCarpoolStatus(String id,String poolStatus);
 
     List<CarpoolEntity> findAll();
 }
