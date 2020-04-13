@@ -13,6 +13,7 @@ import java.util.List;
 public interface EnrollRepository extends JpaRepository<EnrollEntity,String> {
 
     EnrollEntity findEnrollEntityById(String id);
+    List<EnrollEntity> findEnrollEntitiesByResidentUserIdAndAuditStatus(String residentUserId,String auditStatus );
     List<EnrollEntity> findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(String activityId,String auditStatus );
     Page<EnrollEntity> findAll(Specification specification, Pageable pageable);
 

@@ -139,7 +139,6 @@ Page({
       var that = this;
       wx.createSelectorQuery().select('#editor').context(function (res) {
         that.editorCtx = res.context;
-        that.loadData();
       }).exec()
       that.editorCtx.getContents({
         success: function (res) {
@@ -148,7 +147,6 @@ Page({
           })
         },
         fail:function(res){
-
         }
       });
       var json = {
@@ -163,7 +161,6 @@ Page({
         success: function (res) {
           wx.createSelectorQuery().select('#editor').context(function (res) {
             that.editorCtx = res.context;
-            that.loadData();
           }).exec()
           that.editorCtx.getContents({
             success: function (res) {
@@ -181,7 +178,7 @@ Page({
             method: 'POST',
             data: json,
             success: function (res) {
-              wx.switchTab({
+              wx.navigateTo({
                 url: "/pages/myNews/myNews"
               }) 
             }
