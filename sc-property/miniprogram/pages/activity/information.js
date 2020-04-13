@@ -1,5 +1,4 @@
-// pages/vote/activity.js
-const activityUrl=require('../../config').activityUrl
+// miniprogram/pages/activity/information.js
 Page({
 
   /**
@@ -34,16 +33,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.request({
-      url: activityUrl+'findAll',
-      method:'POST',
-      data:{
-
-      },
-      success:function(res){
-        console.log(res.data)
-      }
-    })
 
   },
 

@@ -1,5 +1,4 @@
-// pages/vote/activity.js
-const activityUrl=require('../../config').activityUrl
+// miniprogram/pages/activity/voting.js
 Page({
 
   /**
@@ -8,22 +7,10 @@ Page({
   data: {
     list:[
       {
-        title:'小区居委会委员第二次选举',
-        content:'小区居委会委员第二次选举内容如下',
-        host_party:'小区物业',
-        activity_end_time:'4-8 8:00',
-        activity_start_time:'4-1 8:00',
-        voting_start_time:'4-5 8:00',
-        voting_end_time:'4-6 8:00'
+       people:'张三 ：13票',
       },
       {
-        title:'小区居委会委员第三次选举',
-        content:'小区居委会委员第三次选举内容如下',
-        host_party:'小区物业',
-        activity_end_time:'7-8 8:00',
-        activity_start_time:'7-1 8:00',
-        voting_start_time:'7-5 8:00',
-        voting_end_time:'7-6 8:00'
+        people:'黄景帅：12票',
       },
 
     ]
@@ -34,16 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.request({
-      url: activityUrl+'findAll',
-      method:'POST',
-      data:{
-
-      },
-      success:function(res){
-        console.log(res.data)
-      }
-    })
 
   },
 
