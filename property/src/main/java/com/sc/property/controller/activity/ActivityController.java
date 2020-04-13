@@ -3,6 +3,7 @@ package com.sc.property.controller.activity;
 import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.enroll.EnrollDto;
+import com.sc.base.dto.enroll.ManageEnrollIndexIntoDto;
 import com.sc.base.dto.vote.VoteDto;
 import com.sc.property.service.activity.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,17 @@ public class ActivityController {
     public Result findEnrollEnitiesByActivityIdAndAuditStatus(@RequestBody EnrollDto enrollDto){
         try {
             Result result = activityService.findEnrollEnitiesByActivityIdAndAuditStatus(enrollDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    @RequestMapping(value ="/enroll/findResult",method = RequestMethod.POST)
+    @ResponseBody
+    public Result enrollEntityResult(@RequestBody ManageEnrollIndexIntoDto indexIntoDto){
+        try {
+            Result result = activityService.enrollEntityResult(indexIntoDto);
             return result;
         }catch (Exception e){
             return Result.createSystemErrorResult();
