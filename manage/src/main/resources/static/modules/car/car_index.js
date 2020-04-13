@@ -113,9 +113,9 @@ layui.config({
                 $("#djC").css("background-color", "#ffffff");
                 $("#djB").css("background-color", "#b1b0b0");
                 break;
-            case 'cacel':
+            case 'cancel':
                 //获取查询表单数据
-                d.carpoolStatus='cacel';
+                d.carpoolStatus='cancel';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {

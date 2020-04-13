@@ -35,7 +35,7 @@ public class CarScheduled {
     @Autowired
     private CarRepository carRepository;
 
-    @Scheduled(cron = "0 55 23 * * ?")
+    @Scheduled(cron = "0 59 23 * * ?")
     public Result carScheduled(){
         try {
             //根据时间倒序
@@ -43,13 +43,14 @@ public class CarScheduled {
             //页数与每页大小
             Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
             //条件
-            String dateStr = MyDateUtil.getDateString(new Date());
+            String dateStr = MyDateUtil.getDateString(new Date())+" 23:59:59";
             Page<CarEntity> page = carRepository.findAll(new Specification<CarEntity>() {
                 @Override
                 public Predicate toPredicate(Root<CarEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("startTime"),dateStr));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("startTime"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.equal(root.get("carpoolStatus"),CarpoolStatusEnum.IN_PROGRESS.getType()));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }

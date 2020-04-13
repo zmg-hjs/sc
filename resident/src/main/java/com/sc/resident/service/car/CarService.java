@@ -67,6 +67,7 @@ public class CarService {
             carpoolEntity.setResidentUserActualName(carEntity.getUserActualName());
             carpoolEntity.setCarpoolUserId(carEntity.getUserId());
             carpoolEntity.setCarpoolUserActualName(carEntity.getUserActualName());
+            carpoolEntity.setCarpoolNumber(0);
             carpoolRepository.save(carpoolEntity);
             return  new Result().setSuccess(carEntity);
         }catch (Exception e){
@@ -83,7 +84,7 @@ public class CarService {
      */
     public Result<List<CarDto>> findCarEntitiesByCarpoolStatus(CarDto carDto){
         try {
-            List<CarEntity> carEntityList = carRepository.findCarEntitiesByCarpoolStatus(CarpoolStatusEnum.IN_PROGRESS.getType());
+            List<CarEntity> carEntityList = carRepository.findCarEntitiesByCarpoolStatusOrderByCreateDateDesc(CarpoolStatusEnum.IN_PROGRESS.getType());
             if (carEntityList!=null&&carEntityList.size()>0){
                 List<CarDto> carDtoList = carEntityList.stream().map(e -> {
                     return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
@@ -116,7 +117,7 @@ public class CarService {
             List<String> ResidentCarIdList = carpoolEntityList.stream().map(e -> {
                 return e.getResidentCarId();
             }).collect(Collectors.toList());
-            List<CarEntity> carEntityList = carRepository.findCarEntitiesByIdIn(ResidentCarIdList);
+            List<CarEntity> carEntityList = carRepository.findCarEntitiesByIdInOrderByCreateDateDesc(ResidentCarIdList);
             if (carEntityList!=null&&carEntityList.size()>0){
                 List<CarDto> carDtoList = carEntityList.stream().map(e -> {
                     return MyBeanUtils.copyPropertiesAndResTarget(e, CarDto::new, d -> {
