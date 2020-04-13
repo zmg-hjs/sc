@@ -4,7 +4,7 @@
   </view>
 <view class="weui-cells weui-cells_after-title">
 	<block wx:for="{{list}}" wx:key="id">
-		<navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+		<navigator url="./votinfo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 			<view class="weui-cell__hd">
 				<image src="../../images/user.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
 			</view>

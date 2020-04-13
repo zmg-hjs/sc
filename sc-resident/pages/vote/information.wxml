@@ -1,7 +1,7 @@
 <!--pages/vote/information.wxml-->
         <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
-                <view>小区居委会第二次选举</view>
+                <view>{{activity.title}}</view>
             </view>
             <view class="weui-form-preview__db">
              <rich-text nodes="{{content}}"></rich-text>
@@ -44,7 +44,7 @@
             </block>
             <block wx:if="{{status=='voting'}}">
             <view class="weui-form-preview__ft">       
-                <navigator url="./voting" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">投票</navigator>
+                <navigator url="./voting?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">投票</navigator>
             </view>
             </block>
         </view>
