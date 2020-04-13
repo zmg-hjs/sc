@@ -4,9 +4,7 @@
     <view class="avatar">
       <image class="image" src="{{avatarUrl}}"></image>
     </view>
-    <view class="nickname">
     <button class="nickname" wx:if="{{canIUse}}" style="font-size:23px;" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">{{nickName}}</button>
-    </view>
   </view>
 <!-- 菜单 -->
   <view class="menuitems">
