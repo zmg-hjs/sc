@@ -137,7 +137,7 @@ public class CarService {
 
     /**
      * 报名参与拼车
-     * 1.carId,userId
+     * 1.carId,userId,carpoolNumber
      * @param carDto
      * @return
      */
@@ -158,6 +158,7 @@ public class CarService {
             carpoolEntity.setResidentUserActualName(carEntity.getUserActualName());
             carpoolEntity.setCarpoolUserId(residentUserEntity.getId());
             carpoolEntity.setCarpoolUserActualName(residentUserEntity.getActualName());
+            carpoolEntity.setCarpoolNumber(carDto.getCarpoolNumber());
             carpoolRepository.save(carpoolEntity);
             //现有人数加一
             carEntity.setPeopleNow(carEntity.getPeopleNow()-carDto.getCarpoolNumber());
