@@ -5,3 +5,7 @@
   flex: 2;
   
 }
+
+.weui-btn{
+  margin: 20px 15px
+}

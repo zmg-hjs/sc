@@ -88,4 +88,6 @@
 		<input class="weui-input" placeholder="请输入举办方" bindchange="bindNumChange"/>
 	</view>
 </view>
+<view class="weui-cells weui-cells_after-title"></view>
+ <button class="weui-btn" type="primary" bindtap="submit">确定</button>
 </view>
