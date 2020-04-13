@@ -47,7 +47,7 @@ public class CarService {
             carEntity.setDestination(carDto.getDestination());
             carEntity.setStartTime(MyDateUtil.dateString3Date(carDto.getStartTimeStr()));
             carEntity.setPeopleNum(carDto.getPeopleNum());
-            carEntity.setPeopleNow(0);
+            carEntity.setPeopleNow(carDto.getPeopleNum());
             carEntity.setCarpoolStatus(CarpoolStatusEnum.IN_PROGRESS.getType());
             carEntity.setCreateDate(date);
             carEntity.setUpdateDate(date);
@@ -66,7 +66,7 @@ public class CarService {
             carpoolEntity.setResidentUserId(carEntity.getUserId());
             carpoolEntity.setResidentUserActualName(carEntity.getUserActualName());
             carpoolEntity.setCarpoolUserId(carEntity.getUserId());
-            carpoolEntity.setCarpoolActualName(carEntity.getUserActualName());
+            carpoolEntity.setCarpoolUserActualName(carEntity.getUserActualName());
             carpoolRepository.save(carpoolEntity);
             return  new Result().setSuccess(carEntity);
         }catch (Exception e){
@@ -157,10 +157,10 @@ public class CarService {
             carpoolEntity.setResidentUserId(carEntity.getUserId());
             carpoolEntity.setResidentUserActualName(carEntity.getUserActualName());
             carpoolEntity.setCarpoolUserId(residentUserEntity.getId());
-            carpoolEntity.setCarpoolActualName(residentUserEntity.getActualName());
+            carpoolEntity.setCarpoolUserActualName(residentUserEntity.getActualName());
             carpoolRepository.save(carpoolEntity);
             //现有人数加一
-            carEntity.setPeopleNow(carEntity.getPeopleNow()+1);
+            carEntity.setPeopleNow(carEntity.getPeopleNow()-carDto.getCarpoolNumber());
             carRepository.save(carEntity);
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
@@ -194,6 +194,8 @@ public class CarService {
                     }).forEach(e->{
                         e.setCarpoolStatus(CarpoolStatusEnum.CANCEL.getType());
                         carpoolRepository.save(e);
+                        carEntity.setPeopleNow(carEntity.getPeopleNow()+e.getCarpoolNumber());
+                        carRepository.save(carEntity);
                     });
                 }
             }

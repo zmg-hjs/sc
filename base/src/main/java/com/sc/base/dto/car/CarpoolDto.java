@@ -18,8 +18,9 @@ public class CarpoolDto {
     private String residentUserId;//拼车发起人id
     private String residentUserActualName;//拼车发起人姓名
     private String carpoolUserId;//拼车人id
-    private String carpoolActualName;//拼车人姓名
+    private String carpoolUserActualName;//拼车人姓名
     private String carpoolStatus;
     private String carpoolStatusStr;
+    private Integer carpoolNumber;//拼车人数
 
 }
