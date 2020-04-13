@@ -15,7 +15,9 @@ Page({
       readOnly: !this.data.readOnly
     })
   },
-  onLoad() {
+  onLoad(options) {
+    var info=JSON.parse(options.inf)
+    console.log(info)
     const platform = wx.getSystemInfoSync().platform
     const isIOS = platform === 'ios'
     this.setData({ isIOS})

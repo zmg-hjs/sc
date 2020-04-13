@@ -13,7 +13,8 @@ Page({
        votStaD:'',
        votStaT:'',
        votEndD:'',
-       votEndT:''
+       votEndT:'',
+       name:''
      },
   },
 
@@ -27,7 +28,53 @@ Page({
     this.setData({
       ['inf.actStaD']:e.detail.value
     })
-    console.log(this.data.inf.actStaD)
+  },
+  bindActStaT:function(e){
+    this.setData({
+      ['inf.actStaT']:e.detail.value
+    })
+  },
+  bindActEndD:function(e){
+    this.setData({
+      ['inf.actEndD']:e.detail.value
+    })
+  },
+  bindActEndT:function(e){
+    this.setData({
+      ['inf.actEndT']:e.detail.value
+    })
+  },
+  bindVotStaD:function(e){
+    this.setData({
+      ['inf.votStaD']:e.detail.value
+    })
+  },
+  bindVotStaT:function(e){
+    this.setData({
+      ['inf.votStaT']:e.detail.value
+    })
+  },
+  bindVotEndD:function(e){
+    this.setData({
+      ['inf.voEndD']:e.detail.value
+    })
+  },
+  bindVotEndT:function(e){
+    this.setData({
+      ['inf.votEndT']:e.detail.value
+    })
+  },
+  bindNameChange:function(e){
+    this.setData({
+      ['inf.name']:e.detail.value
+    })
+  },
+  submit:function(){
+    var info=JSON.stringify(this.data.inf)
+    console.log(info)
+    wx.navigateTo({
+      url: './add?inf='+info,
+    })
   },
   
 

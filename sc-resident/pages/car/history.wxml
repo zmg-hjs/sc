@@ -3,7 +3,7 @@
 	<view class="weui-panel__hd">历史拼车信息</view>
   </view>
   <view wx:for="{{list}}"  wx:key="id">
-	<i-swipeout  i-class="i-swipeout-demo-item" actions="{{actions}}" bind:change="submit" id="{{item.id}}">
+	<i-swipeout  i-class="i-swipeout-demo-item">
         <view slot="content">
             <i-cell 
                 i-class="i-cell-padding" 

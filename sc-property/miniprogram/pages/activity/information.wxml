@@ -1,7 +1,7 @@
-<!--pages/vote/activity.wxml-->
+<!--miniprogram/pages/activity/information.wxml-->
 <view class="page">
 	<view class="weui-panel weui-panel_access">
-		<view class="weui-panel__hd">活动信息</view>
+		<view class="weui-panel__hd">活动纪录</view>
 		<block wx:for="{{list}}" wx:key="id">
 			<view class="weui-panel weui-panel_access">
 				<view class="weui-panel__bd">
@@ -13,7 +13,7 @@
 						<view class="weui-media-box__desc">投票时间：{{item.voting_start_time}}---{{item.voting_start_time}}</view>
 					</view>
 				</view>
-				<navigator url="/pages/vote/information?id={{item.id}}&telephone={{item.telephone}}&starting={{item.starting}}&destination={{item.destination}}">
+				<navigator url="/pages/activity/inform?id={{item.id}}&telephone={{item.telephone}}&starting={{item.starting}}&destination={{item.destination}}">
 					<view class="weui-panel__ft">
 						<view class="weui-cell weui-cell_access weui-cell_link">
 							<view class="weui-cell__bd">查看活动详情</view>

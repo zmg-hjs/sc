@@ -1,0 +1,8 @@
+/* miniprogram/pages/activity/voting.wxss */
+.i-swipeout-demo-item{
+  border-bottom:#333 solid 1px;
+}
+.i-cell-padding{
+  padding:5px 0px!important;
+  font-size:14px;
+}

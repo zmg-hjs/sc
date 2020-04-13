@@ -1,12 +1,10 @@
-// pages/car/history.js
-const carUrl=require('../../config').carUrl
+// miniprogram/pages/activity/voted.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[]
 
   },
 
@@ -14,33 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this
-     wx.request({
-       url: carUrl+'my',
-       method:'POST',
-       data:{
-        carpoolStatus:options.carpoolStatus,
-        userId:wx.getStorageSync('userInfo').id
-       },
-       success:function(res){
-          that.setData({
-            list:res.data.data
-          })
-          console.log(that.data.list)
-          if(that.data.list==''){
-           wx.showModal({
-             title: '提示',
-             content: '您还未拼过车',
-             showCancel: false,
-             confirmText: "确定",
-             success:function(res){
-               wx.navigateBack()
-             }
-          })
-         }
-       }
-     })
-    
+
   },
 
   /**

@@ -1,6 +1,6 @@
 <!--miniprogram/pages/activity/index.wxml-->
 <view class="weui-cells weui-cells_after-title">
-	<navigator url="/pages/repair/information" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+	<navigator url="/pages/activity/information" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 		<view class="weui-cell__hd">
 			<image src="/images/activity.png" style="margin-right: 35px;vertical-align: middle;width:40px; height:40px;"></image>
 		</view>

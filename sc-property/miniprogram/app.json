@@ -10,7 +10,11 @@
     "pages/activity/index",
     "pages/activity/add",
     "pages/news/index",
-    "pages/activity/add1"
+    "pages/activity/add1",
+    "pages/activity/information",
+    "pages/activity/inform",
+    "pages/activity/voted",
+    "pages/activity/voting"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
