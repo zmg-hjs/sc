@@ -1,12 +1,10 @@
-// pages/vote/join.js
-const activityUrl=require('../../config').activityUrl
+// pages/vote/final.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    activityId:'',
 
   },
 
@@ -14,36 +12,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      activityId:options.id
-    })
-    console.log(options.id)
-
-
-  },
-  submit: function(){
-    wx.request({
-      url: activityUrl+'vote/findOne',
-      method:'POST',
-      data:{
-        residentUserId:wx.getStorageSync('userInfo').id,
-        activityId:this.data.activityId
-      },
-      success:function(res){
-        console.log(res.data)
-      }
-    })
-    wx.showModal({
-      title: '提示',
-      content: '提交成功',
-      showCancel: false,
-      confirmText: "确定",
-      success: function(res) {
-        wx.navigateBack({
-          delta: 2
-      })
-      }
-    })
 
   },
 
