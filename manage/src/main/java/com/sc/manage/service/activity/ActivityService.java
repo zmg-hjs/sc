@@ -82,7 +82,9 @@ public class ActivityService {
                 outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 outDto.setActivityStatusStr(ActivityStatusEnum.getTypesName(e.getActivityStatus()));
                 outDto.setActivityStartTimeStr(MyDateUtil.getDateAndTime(e.getActivityStartTime()));
+                outDto.setActivityEndTimeStr(MyDateUtil.getDateAndTime(e.getActivityEndTime()));
                 outDto.setVotingEndTimeStr(MyDateUtil.getDateAndTime(e.getVotingEndTime()));
+                outDto.setVotingStartTimeStr(MyDateUtil.getDateAndTime(e.getVotingStartTime()));
                 outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                 return outDto;
             }).collect(Collectors.toList());

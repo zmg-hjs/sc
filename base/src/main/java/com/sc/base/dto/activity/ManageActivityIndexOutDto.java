@@ -12,6 +12,9 @@ public class ManageActivityIndexOutDto extends BaseOutDto {
     private String activityStatusStr;// 活动状态name
     private Integer committeesNumber;//委员会人数
     private String activityStartTimeStr;// 活动开始时间
+    private String activityEndTimeStr;//  活动结束时间
+    private String votingStartTimeStr;// 投票开始时间
     private String votingEndTimeStr;// 投票结束时间
+    private String content;//选举活动内容
 
 }
