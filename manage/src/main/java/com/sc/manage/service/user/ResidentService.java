@@ -235,6 +235,11 @@ public class ResidentService {
                 entity.setIdNumber(dto.getIdNumber());
                 entity.setAddress(dto.getAddress());
                 entity.setPhoneNumber(dto.getPhoneNumber());
+                entity.setCommunity(dto.getCommunity());
+                entity.setUnit(dto.getUnit());
+                entity.setFloor(dto.getFloor());
+                entity.setDoor(dto.getDoor());
+                entity.setAddress(dto.getCommunity()+dto.getUnit()+dto.getFloor()+dto.getDoor());
                 entity.setUpdateDate(new Date());
                 residentRegistrationRepository.save(entity);
                 return Result.createSimpleSuccessResult();

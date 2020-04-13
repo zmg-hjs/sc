@@ -195,26 +195,46 @@
                     </div>
                 </div>
                 <hr>
-
+                <div class="layui-row">
+                    <div class="layui-col-xs4">
+                        <div class="layui-form-item">
+                            <div>拼车人员姓名</div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="layui-form-item">
+                            <div>拼车状态</div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="layui-form-item">
+                            <div>操作</div>
+                        </div>
+                    </div>
+                </div>
                 <tr th:each="carpoolDto:${carpoolDtoList}">
                     <div class="layui-row">
                         <div class="layui-col-xs12">
-                            <hr>
                             <input id="carpoolUserId" type="hidden" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
                         </div>
                     </div>
                     <div class="layui-row">
-                        <div class="layui-col-xs12">
+                        <div class="layui-col-xs4">
                             <div class="layui-form-item">
-                                <label th:text="拼车人姓名" class="layui-form-label"></label>
-                                <div th:text="${carpoolDto.getCarpoolActualName()}" class="edit-module-title"></div>
-                                <div th:text="${carpoolDto.getCarpoolStatusStr()}" class="edit-module-title"></div>
-                                <button id="testListAction3" th:text="查询信息" class="layui-btn" lay-submit=""
-                                        lay-filter="component-form"></button>
+                                <div th:text="${carpoolDto.getCarpoolActualName()}" ></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4">
+                            <div class="layui-form-item">
+                                <div th:text="${carpoolDto.getCarpoolStatusStr()}"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4">
+                            <div class="layui-form-item">
+                                <button id="testListAction3" th:text="查询信息" type="button" class="layui-btn" ></button>
                             </div>
                         </div>
                     </div>
-                    <hr>
                 </tr>
 
                 <div class="edit-options-content">
