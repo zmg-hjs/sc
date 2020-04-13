@@ -37,7 +37,7 @@
                  <navigator url="./voting?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">审核成功信息</navigator>
             </view>
             <view class="weui-form-preview__ft">       
-               <navigator url="./voted?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">查看结果</navigator>
+               <navigator url="./voted?id={{id}}&title={{activity.title}}" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">查看结果</navigator>
             </view>
             </block>
             <block wx:if="{{status=='enrolment'}}">
