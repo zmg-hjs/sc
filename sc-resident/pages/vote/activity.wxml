@@ -8,12 +8,12 @@
 
 					<view class="weui-media-box weui-media-box_text">
 						<view class="weui-media-box__title weui-media-box__title_in-text">{{item.title}}</view>
-						<view class="weui-media-box__desc">举办人：{{item.host_party}}</view>
-						<view class="weui-media-box__desc">活动时间：{{item.activity_start_time}}---{{item.activity_end_time}} {{item.time}}</view>
-						<view class="weui-media-box__desc">投票时间：{{item.voting_start_time}}---{{item.voting_start_time}}</view>
+						<view class="weui-media-box__desc">举办人：{{item.hostParty}}</view>
+						<view class="weui-media-box__desc">活动时间：{{item.activityStartTimeStr}}---{{item.activityEndTimeStr}}</view>
+						<view class="weui-media-box__desc">投票时间：{{item.votingStartTimeStr}}---{{item.votingStartTimeStr}}</view>
 					</view>
 				</view>
-				<navigator url="/pages/vote/information?id={{item.id}}&telephone={{item.telephone}}&starting={{item.starting}}&destination={{item.destination}}">
+				<navigator url="/pages/vote/information?id={{item.id}}&status={{item.activityStatus}}">
 					<view class="weui-panel__ft">
 						<view class="weui-cell weui-cell_access weui-cell_link">
 							<view class="weui-cell__bd">查看活动详情</view>

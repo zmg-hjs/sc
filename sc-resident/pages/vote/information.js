@@ -1,17 +1,30 @@
 // pages/vote/information.js
+const activityUrl=require('../../config').activityUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+       id:'',
+       status:'',
+       activity:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: activity+'findOne',
+      method:'POST',
+      data:{
+        id:options.id
+      },
+      success:function(res){
+        console.log(res.data)
+      }
+    })
 
   },
 
