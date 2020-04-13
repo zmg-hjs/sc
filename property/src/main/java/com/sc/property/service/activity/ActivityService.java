@@ -1,4 +1,4 @@
-package com.sc.property.service;
+package com.sc.property.service.activity;
 
 import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
@@ -159,6 +159,27 @@ public class ActivityService {
             return Result.createSystemErrorResult();
         }
     }
+
+    public Result<List<EnrollDto>> findEnrollEntitiesByActivityIdOrderByCreateDateDesc(EnrollDto enrollDto){
+        try {
+            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByActivityIdOrderByCreateDateDesc(enrollDto.getActivityId());
+            if (enrollEntityList!=null&&enrollEntityList.size()>0){
+                List<EnrollDto> enrollDtoList = enrollEntityList.stream().map(e -> {
+                    return MyBeanUtils.copyPropertiesAndResTarget(e, EnrollDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    });
+                }).collect(Collectors.toList());
+                return new Result<List<EnrollDto>>().setSuccess(enrollDtoList);
+            }else return new Result<>().setCustomMessage("数据为空");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 
     public Result<EnrollDto> findEnrollEnityById(EnrollDto enrollDto){
         try {
