@@ -14,7 +14,8 @@
     "pages/activity/information",
     "pages/activity/inform",
     "pages/activity/voted",
-    "pages/activity/voting"
+    "pages/activity/voting",
+    "pages/allNews/allNews"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

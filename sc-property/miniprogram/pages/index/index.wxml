@@ -21,18 +21,6 @@
         </view>
         <view bindtap="service" data-type='mes' class="index-exam-inlets-list col-hg-6">
             <view class="icon-index-xx"></view>
-            <view class="text">消息发布</view>
+            <view class="text">消息通知</view>
         </view>
 </view>
-<view class="index-exam-h1">
-  <view class="index-exam-span">消息通知</view>
-</view>
-<!-- ------------------------------------------- -->
-<block wx:for="{{list}}" wx:key="id">
-<view style="margin: 5px"></view>
-<navigator url="../newsDetail/newsDetail?id={{item.id}}">
-	<i-card title="{{item.title}}" extra="查看详情">
-		<view slot="footer">时间:{{item.createDateStr}}</view>
-	</i-card>
-  </navigator>
-</block>

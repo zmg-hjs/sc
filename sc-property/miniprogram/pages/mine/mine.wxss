@@ -5,32 +5,32 @@ page {
   justify-content: flex-start;
 }
 .head{
-  height: 125px;
+  height: 175rpx;
   width: 100%;
   background: #fff;
   
 }
 .avatar{
-  height: 125px;
-  width: 125px;
+  height: 175rpx;
+  width: 175rpx;
 }
 .image{
-  margin-top: 13px;
-  margin-left: 10px;
-  height:100px;
-  width: 100px;
+  margin-top: 25rpx;
+  margin-left: 10rpx;
+  height:125rpx;
+  width: 125rpx;
   border-radius: 50%;
 }
 .nickname{
-  margin-top: -80px;
-  margin-left: 60px;
-  height: 100px;
-  width: 125px;
+  margin-top: -80rpx;
+  margin-right: 40rpx;
+  height: 100rpx;
+  width: 125rpx;
 }
 
 .menuitems{
   width: 100%;
-  margin-top: 20px;
+  margin-top: 20rpx;
   background: #fff;
 }
 

@@ -3,6 +3,7 @@ package com.sc.resident.controller.activity;
 import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.enroll.EnrollDto;
+import com.sc.base.dto.enroll.ManageEnrollIndexIntoDto;
 import com.sc.base.dto.vote.VoteDto;
 import com.sc.resident.service.activity.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +73,32 @@ public class activityController {
             return Result.createSystemErrorResult();
         }
     }
+    @RequestMapping(value ="/enroll/findResult",method = RequestMethod.POST)
+    @ResponseBody
+    public Result enrollEntityResult(@RequestBody ManageEnrollIndexIntoDto indexIntoDto){
+        try {
+            Result result = activityService.enrollEntityResult(indexIntoDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
     @RequestMapping(value ="/vote/add",method = RequestMethod.POST)
     @ResponseBody
     public Result addCarAndCarpool(@RequestBody VoteDto voteDto){
         try {
             Result result = activityService.addVoteEnity(voteDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    @RequestMapping(value ="/vote/findOne",method = RequestMethod.POST)
+    @ResponseBody
+    public Result findVoteEnityByIdOrderByCreateDateDesc(@RequestBody VoteDto voteDto){
+        try {
+            Result result = activityService.findVoteEnityByIdOrderByCreateDateDesc(voteDto);
             return result;
         }catch (Exception e){
             return Result.createSystemErrorResult();

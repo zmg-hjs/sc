@@ -16,6 +16,7 @@ public class VoteDto {
     private String whetherValid;//该数据是否有效type
     private String whetherValidStr;//该数据是否有效name
 
+    private String activityId;
     private String enrollId;  // 报名登记表id
     private String residentUserId;  // 投票居民id
     private String votedPersonId;  // 被投票人员id

@@ -20,6 +20,35 @@ layui.config({
         // window.parent.location.reload();
     });
 
+    var activityStartTimeStr= laydate.render({
+        elem: '#activity_start_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=8;
+        }
+    });
+    var activityEndTimeStr= laydate.render({
+        elem: '#activity_end_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=18;
+        }
+    });
+    var votingStartTimeStr= laydate.render({
+        elem: '#voting_start_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=8;
+        }
+    });
+    var votingEndTimeStr= laydate.render({
+        elem: '#voting_end_time_str',//选择器结束时间
+        type: 'datetime',
+        ready: function(date){
+            this.dateTime.hours=18;
+        }
+    });
+
     //注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
     layedit.set({
         uploadImage: {
