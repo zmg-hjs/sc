@@ -7,6 +7,8 @@ Page({
    */
   data: {
     activityId:'',
+    list:[],
+    title:''
 
   },
 
@@ -14,11 +16,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
     wx.request({
       url: activityUrl+'/enroll/findResult',
       method:'POST',
       data:{
-        activityId:this.data.activityId
+        activityId:options.id
+      },
+      success:function(res){
+         that.setData({
+           list:res.data.data,
+           title:options.title
+         })
       }
     })
 

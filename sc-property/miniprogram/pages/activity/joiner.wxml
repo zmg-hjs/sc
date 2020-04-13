@@ -1,0 +1,13 @@
+<!--miniprogram/pages/activity/joiner.wxml-->
+<view class="weui-panel__hd">参选人员信息</view>
+<view class="caption-wrap">
+	<i-collapse name="{{name}}" accordion>
+	<block wx:for="{{list}}" wx:key="id">
+		<i-collapse-item name="{{item.id}}" title="{{item.residentUserActualName}}" i-class-title="collapse-item-title" i-class-content="collapse-item-content">
+			<view slot="content">
+				{{item.briefIntroduction}}
+			</view>
+		</i-collapse-item>
+		</block>
+	</i-collapse>
+</view>

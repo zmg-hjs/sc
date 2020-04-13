@@ -34,7 +34,7 @@
             </view>
             <block wx:if="{{status=='end'}}">
             <view class="weui-form-preview__ft">       
-                <navigator url="./final?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看结果</navigator>
+                <navigator url="./final?id={{id}}&title={{activity.title}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看结果</navigator>
             </view>
             </block>
             <block wx:if="{{status=='enrolment'}}">
