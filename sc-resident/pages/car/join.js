@@ -1,4 +1,5 @@
 // pages/car/join.js
+const carUrl=require('../../config').carUrl
 Page({
 
   /**
@@ -16,9 +17,29 @@ bindNumChange:function(e){
     num: e.detail.value
   })
 },
-  submit:function(){
-    console.log('num',this.data.num)
-  },
+submit: function(){
+  wx.request({
+    url: carUrl+'addCarpool',
+    method:'POST',
+    data:{
+      id:this.data.num,
+      userId:wx.getStorageSync('userInfo').id
+     }
+    })
+  wx.showModal({
+    title: '提示',
+    content: '提交成功',
+    showCancel: false,
+    confirmText: "确定",
+    success: function(res) {
+      wx.navigateBack({
+        delta: 2
+    })
+    }
+  })
+
+},
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -30,6 +51,7 @@ bindNumChange:function(e){
       starting:options.starting,
       telephone:options.telephone
     })
+    console.log(this.data.id)
   },
 
   /**

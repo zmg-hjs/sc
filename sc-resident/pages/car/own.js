@@ -1,18 +1,16 @@
 // pages/car/My.js
+const carUrl=require('../../config').carUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    starting:'郑州',
-    destination:'南阳',
-    id:'',
-    telephone:'1264552',
-    num:'2',
+    list:[],
+    carpoolStatus:'',
     actions : [
       {
-          name : '删除',
+          name : '取消',
           color : '#fff',
           fontsize : '20',
           width : 100,
@@ -21,46 +19,62 @@ Page({
       }
     ]
   },
-  handleCancel2 () {
-    this.setData({
-        visible2: false,
-        toggle : this.data.toggle ? false : true
-    });
-    console.log( this.data.toggle,111111111 )
-},
-handleClickItem2 () {
-    const action = [...this.data.actions2];
-    action[0].loading = true;
-
-    this.setData({
-        actions2: action
-    });
-
-    setTimeout(() => {
-        action[0].loading = false;
-        this.setData({
-            visible2: false,
-            actions2: action,
-            toggle: this.data.toggle ? false : true
-        });
-        
-    }, 2000);
-},
-handlerCloseButton(){
-    this.setData({
-        toggle2: this.data.toggle2 ? false : true
-    });
-},
-actionsTap(){
-    this.setData({
-        visible2: true
-    });
-},
+  submit(e){
+      var that=this
+      wx.showModal({
+        title: '提示',
+        content: '确定取消拼车吗',
+        showCancel: true,
+        confirmText: "确定",
+        success: function(res) {
+        wx.request({
+          url: carUrl+'cancel',
+          method:'POST',
+          data:{
+              id:e.currentTarget.id,
+              userId:wx.getStorageSync('userInfo').id
+          },
+          success:function(res){
+              wx.request({
+                url: carUrl+'my',
+                method:'POST',
+                data:{
+                    carpoolStatus:that.data.carpoolStatus,
+                    userId:wx.getStorageSync('userInfo').id
+                },
+                success:function(res){
+                    that.setData({
+                        list:res.data.data
+                    })
+                    console.log('修改后',that.data.list)
+                }
+              })
+          }
+          
+        })
+        }
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      var that=this
+     wx.request({
+        url: carUrl+'my',
+        method:'POST',
+        data:{
+            carpoolStatus:options.carpoolStatus,
+            userId:wx.getStorageSync('userInfo').id
+        },
+        success:function(res){
+            that.setData({
+                list:res.data.data,
+                carpoolStatus:options.carpoolStatus
+            })
+            console.log(that.data.list)
+        }
+      })
   },
 
   /**

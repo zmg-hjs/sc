@@ -1,31 +1,18 @@
-// pages/car/seek.js
-const carUrl=require('../../config').carUrl
+// miniprogram/pages/news/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      list:[]
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      var that=this
-       wx.request({
-         url: carUrl+'find',
-         method:'POST',
-         data:{
 
-         },
-         success:function(res){
-           that.setData({
-             list:res.data.data
-           })
-         }
-       })
   },
 
   /**

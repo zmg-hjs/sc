@@ -1,6 +1,6 @@
 <!--pages/car/car‘.wxml-->
 <view class="weui-cells weui-cells_after-title">
-	<navigator url="/pages/car/own" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+	<navigator url="/pages/car/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 		<view class="weui-cell__hd">
 			<image src="/images/car.png" style="margin-right: 35px;vertical-align: middle;width:40px; height:40px;"></image>
 		</view>

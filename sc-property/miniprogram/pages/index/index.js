@@ -13,7 +13,19 @@ Page({
       // { text: '联系我们', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' }
     ]
   },
-
+  service:function(e){
+     let type=e.currentTarget.dataset.type
+     var _url
+     if(type=='mes'){
+       _url="/pages/myNews/myNews"
+     }
+     if(type=='act'){
+       _url='/pages/activity/index'
+     }
+     wx.navigateTo({
+       url: _url,
+     })
+  },
   onLoad: function(e) {
     var that =this;
     wx.request({
@@ -27,11 +39,6 @@ Page({
         that.setData({
           list: res.data.data
         })
-        if(that.data.list.length>0){
-          for (var i = 0; i < that.data.list.length;i++){
-            that.data.list.createDateStr = that.data.list.createDateStr.substring(0,10)
-          }
-        }
       }
 
     })

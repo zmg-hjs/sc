@@ -10,8 +10,8 @@ Page({
     destination:'',
     flag1: false,
     flag2: false,
-    date:"2020-3-9",
-    time:"12.01",
+    date:'',
+    time:'',
     peopleNum:'',
     carNum:'',
     telephone:''
@@ -41,15 +41,16 @@ Page({
   calculate: function () {
     console.log(this.data)
     wx.request({
-      url: carUrl+'addCar',
+      url: carUrl+'add',
       method:'POST',
       data:{
-        starting:this.data.starting,
+        startPosition:this.data.starting,
         destination:this.data.destination,
         peopleNum:this.data.peopleNum,
-        time:this.data.time,
+        startTimeStr:this.data.date+" "+this.data.time+":00",
         telephone:this.data.telephone,
-        userId:wx.getStorageSync('userInfo').id
+        userId:wx.getStorageSync('userInfo').id,
+        carNum:this.data.carNum
       },
       success:function(res){
         console.log(res.data)

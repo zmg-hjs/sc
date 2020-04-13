@@ -1,7 +1,6 @@
 package com.sc.base.repository.car;
 
 import com.sc.base.entity.car.CarEntity;
-import jdk.nashorn.internal.runtime.Specialization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
