@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     wx.request({
-      url: activity+'findOne',
+      url: activityUrl+'findOne',
       method:'POST',
       data:{
         id:options.id
