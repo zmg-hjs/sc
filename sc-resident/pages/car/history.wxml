@@ -15,7 +15,7 @@
             </i-cell>
             <i-cell 
                 i-class="i-cell-padding" 
-                label="现有拼车人数：{{item.peopleNow}}, 出发时间：{{item.startTimeStr}}">
+                label="座位数：{{item.peopleNum}}, 出发时间：{{item.startTimeStr}}">
             </i-cell>
         </view>
     </i-swipeout>

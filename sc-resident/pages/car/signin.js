@@ -39,7 +39,6 @@ Page({
     })
   },
   calculate: function () {
-    console.log(this.data)
     wx.request({
       url: carUrl+'add',
       method:'POST',
@@ -53,6 +52,15 @@ Page({
         carNum:this.data.carNum
       },
       success:function(res){
+        wx.showModal({
+          title: '提示',
+          content: '提交成功',
+          showCancel: false,
+          confirmText: "确定",
+          success: function(res) {
+            wx.navigateBack()
+          }
+        })
         console.log(res.data)
       }
       
