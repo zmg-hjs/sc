@@ -105,4 +105,15 @@ public class activityController {
         }
     }
 
+    @RequestMapping(value ="/my",method = RequestMethod.POST)
+    @ResponseBody
+    public Result myActivity(@RequestBody EnrollDto enrollDto){
+        try {
+            Result result = activityService.myActivity(enrollDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
+
 }

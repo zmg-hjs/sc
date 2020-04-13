@@ -1,21 +1,20 @@
-package com.sc.manage.service.activity;
+package com.sc.property.service;
 
 import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.activity.ManageActivityIndexOutDto;
 import com.sc.base.dto.common.BaseIntoDto;
 import com.sc.base.dto.enroll.EnrollDto;
-import com.sc.base.dto.enroll.ManageEnrollIndexIntoDto;
-import com.sc.base.dto.enroll.ManageEnrollIndexOutDto;
+import com.sc.base.dto.vote.VoteDto;
 import com.sc.base.entity.activity.ActivityEntity;
 import com.sc.base.entity.enroll.EnrollEntity;
+import com.sc.base.entity.vote.VoteEntity;
 import com.sc.base.enums.ActivityStatusEnum;
 import com.sc.base.enums.AuditStatusEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.activity.ActivityRepository;
 import com.sc.base.repository.enroll.EnrollRepository;
 import com.sc.base.repository.vote.VoteRepository;
-import com.sc.manage.service.enroll.EnrollService;
 import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
@@ -43,21 +42,67 @@ public class ActivityService {
 
     @Autowired
     private ActivityRepository activityRepository;
-
     @Autowired
-    private EnrollService enrollService;
+    private EnrollRepository enrollRepository;
+    @Autowired
+    private VoteRepository voteRepository;
 
-    /**
-     * 分页条件查询
-     * @param indexIntoDto
-     * @return
-     */
-    public Result<List<ManageActivityIndexOutDto>> ManageActivityIndex(ManageActivityIndexIntoDto indexIntoDto){
+    public Result addActivityEntity(ActivityDto dto){
+        try {
+            Date date = new Date();
+            ActivityEntity entity = new ActivityEntity();
+            entity.setId(MyStringUtils.getIdDateStr("activity"));
+            entity.setTitle(dto.getTitle());
+            entity.setContent(dto.getContent());
+            entity.setHostParty(dto.getHostParty());
+            entity.setCommitteesNumber(dto.getCommitteesNumber());
+            entity.setActivityStartTime(MyDateUtil.dateString3Date(dto.getActivityStartTimeStr()));
+            entity.setActivityEndTime(MyDateUtil.dateString3Date(dto.getActivityEndTimeStr()));
+            entity.setVotingStartTime(MyDateUtil.dateString3Date(dto.getVotingStartTimeStr()));
+            entity.setVotingEndTime(MyDateUtil.dateString3Date(dto.getVotingEndTimeStr()));
+            entity.setActivityStatus(ActivityStatusEnum.UNPUBLISHED.getType());
+            entity.setCreateDate(date);
+            entity.setUpdateDate(date);
+            entity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            activityRepository.save(entity);
+            return Result.createSimpleSuccessResult();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    public Result findActivityEntityById(ActivityDto dto){
+        try {
+            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
+            if (entity!=null){
+                ActivityDto newsDto = MyBeanUtils.copyPropertiesAndResTarget(entity, ActivityDto::new, d -> {
+                    d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
+                    d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
+                    d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
+                    d.setActivityStartTimeStr(MyDateUtil.getDateAndTime(entity.getActivityStartTime()));
+                    d.setActivityEndTimeStr(MyDateUtil.getDateAndTime(entity.getActivityEndTime()));
+                    d.setVotingStartTimeStr(MyDateUtil.getDateAndTime(entity.getVotingStartTime()));
+                    d.setVotingEndTimeStr(MyDateUtil.getDateAndTime(entity.getVotingEndTime()));
+                    d.setActivityStatusStr(ActivityStatusEnum.getTypesName(entity.getActivityStatus()));
+                });
+                return new Result().setSuccess(newsDto);
+            }else {
+                return Result.createSimpleFailResult();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    public Result<List<ManageActivityIndexOutDto>> activityIndex(ManageActivityIndexIntoDto indexIntoDto){
         try {
             //根据时间倒序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
             //页数与每页大小
-            Pageable pageable = PageRequest.of(indexIntoDto.getPage()-1, indexIntoDto.getLimit(),sort);
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
             //条件
             Page<ActivityEntity> page = activityRepository.findAll(new Specification<ActivityEntity>() {
                 @Override
@@ -95,133 +140,66 @@ public class ActivityService {
         }
     }
 
-
-    public Result findActivityEntityById(ActivityDto dto){
+    public Result<List<EnrollDto>> findEnrollEnitiesByActivityIdAndAuditStatus(EnrollDto enrollDto){
         try {
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
+            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(enrollDto.getActivityId(), AuditStatusEnum.SUCCESS.getType());
+            if (enrollEntityList!=null&&enrollEntityList.size()>0){
+                List<EnrollDto> enrollDtoList = enrollEntityList.stream().map(e -> {
+                    return MyBeanUtils.copyPropertiesAndResTarget(e, EnrollDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    });
+                }).collect(Collectors.toList());
+                return new Result<List<EnrollDto>>().setSuccess(enrollDtoList);
+            }else return new Result<>().setCustomMessage("数据为空");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    public Result<EnrollDto> findEnrollEnityById(EnrollDto enrollDto){
+        try {
+            EnrollEntity entity = enrollRepository.findEnrollEntityById(enrollDto.getId());
             if (entity!=null){
-                ActivityDto activityDto = MyBeanUtils.copyPropertiesAndResTarget(entity, ActivityDto::new, d -> {
+                EnrollDto dto = MyBeanUtils.copyPropertiesAndResTarget(entity, EnrollDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
                     d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
+                    d.setAuditStatusStr(AuditStatusEnum.getTypesName(entity.getAuditStatus()));
                     d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
-                    d.setActivityStartTimeStr(MyDateUtil.getDateAndTime(entity.getActivityStartTime()));
-                    d.setActivityEndTimeStr(MyDateUtil.getDateAndTime(entity.getActivityEndTime()));
-                    d.setVotingStartTimeStr(MyDateUtil.getDateAndTime(entity.getVotingStartTime()));
-                    d.setVotingEndTimeStr(MyDateUtil.getDateAndTime(entity.getVotingEndTime()));
-                    d.setActivityStatusStr(ActivityStatusEnum.getTypesName(entity.getActivityStatus()));
                 });
-                return new Result().setSuccess(activityDto);
-            }else {
-                return Result.createSimpleFailResult();
-            }
+                return new Result<EnrollDto>().setSuccess(dto);
+            }else return Result.createSimpleFailResult();
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
 
-    public Result result(ActivityDto dto){
+    public Result<List<VoteDto>> findAll(VoteDto voteDto){
         try {
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
-            ManageEnrollIndexIntoDto indexIntoDto = new ManageEnrollIndexIntoDto();
-            indexIntoDto.setPage(1);
-            indexIntoDto.setLimit(entity.getCommitteesNumber());
-            indexIntoDto.setActivityId(dto.getId());
-            indexIntoDto.setAuditStatus(AuditStatusEnum.SUCCESS.getType());
-            Result<List<ManageEnrollIndexOutDto>> result = enrollService.ManageEnrollIndex(indexIntoDto);
-            List<EnrollDto> dtoList = result.getData().stream().map(outDto -> {
-                EnrollDto enrollDto = MyBeanUtils.copyPropertiesAndResTarget(outDto, EnrollDto::new);
-                return enrollDto;
-            }).collect(Collectors.toList());
-            if (entity!=null){
-                ActivityDto activityDto = MyBeanUtils.copyPropertiesAndResTarget(entity, ActivityDto::new, d -> {
-                    d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
-                    d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
-                    d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
-                    d.setActivityStartTimeStr(MyDateUtil.getDateAndTime(entity.getActivityStartTime()));
-                    d.setActivityEndTimeStr(MyDateUtil.getDateAndTime(entity.getActivityEndTime()));
-                    d.setVotingStartTimeStr(MyDateUtil.getDateAndTime(entity.getVotingStartTime()));
-                    d.setVotingEndTimeStr(MyDateUtil.getDateAndTime(entity.getVotingEndTime()));
-                    d.setActivityStatusStr(ActivityStatusEnum.getTypesName(entity.getActivityStatus()));
-                    d.setEnrollDtoList(dtoList);
-                });
-                return new Result().setSuccess(activityDto);
-            }else {
-                return Result.createSimpleFailResult();
-            }
+            List<VoteEntity> voteEntityList = voteRepository.findVoteEntitiesByEnrollId(voteDto.getEnrollId());
+            if (voteEntityList!=null){
+                List<VoteDto> voteDtoList = voteEntityList.stream().map(e -> {
+                    VoteDto voteDto1 = MyBeanUtils.copyPropertiesAndResTarget(e, VoteDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    });
+                    return voteDto1;
+                }).collect(Collectors.toList());
+                return new Result<List<VoteDto>>().setSuccess(voteDtoList);
+            }else  return Result.createSimpleFailResult();
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
+
     }
 
-    public Result updateActivityEntityById(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
-            if (entity!=null){
-                entity.setTitle(dto.getTitle());
-                entity.setContent(dto.getContent());
-                entity.setActivityStartTime(MyDateUtil.dateString3Date(dto.getActivityStartTimeStr()));
-                entity.setActivityEndTime(MyDateUtil.dateString3Date(dto.getActivityEndTimeStr()));
-                entity.setVotingStartTime(MyDateUtil.dateString3Date(dto.getVotingStartTimeStr()));
-                entity.setVotingEndTime(MyDateUtil.dateString3Date(dto.getVotingEndTimeStr()));
-                entity.setUpdateDate(date);
-                activityRepository.save(entity);
-                return Result.createSimpleSuccessResult();
-            }else {
-                return Result.createSimpleFailResult();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
 
-    public Result updateActivityEntityWhetherValid(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
-            if (entity!=null){
-                entity.setWhetherValid(dto.getWhetherValid());
-                entity.setUpdateDate(date);
-                activityRepository.save(entity);
-                return Result.createSimpleSuccessResult();
-            }else {
-                return Result.createSimpleFailResult();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
-
-    public Result addActivityEntity(ActivityDto dto){
-        try {
-            Date date = new Date();
-            ActivityEntity entity = new ActivityEntity();
-            entity.setId(MyStringUtils.getIdDateStr("activity"));
-            entity.setTitle(dto.getTitle());
-            entity.setContent(dto.getContent());
-            entity.setHostParty(dto.getHostParty());
-            entity.setCommitteesNumber(dto.getCommitteesNumber());
-            entity.setActivityStartTime(MyDateUtil.dateString3Date(dto.getActivityStartTimeStr()));
-            entity.setActivityEndTime(MyDateUtil.dateString3Date(dto.getActivityEndTimeStr()));
-            entity.setVotingStartTime(MyDateUtil.dateString3Date(dto.getVotingStartTimeStr()));
-            entity.setVotingEndTime(MyDateUtil.dateString3Date(dto.getVotingEndTimeStr()));
-            entity.setActivityStatus(ActivityStatusEnum.UNPUBLISHED.getType());
-            entity.setCreateDate(date);
-            entity.setUpdateDate(date);
-            entity.setWhetherValid(WhetherValidEnum.VALID.getType());
-            activityRepository.save(entity);
-            return Result.createSimpleSuccessResult();
-
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
-    
     private void getBaseIntoDtoPredicate(List<Predicate> predicateList, BaseIntoDto intoDto, Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
         if (StringUtils.isNotBlank(intoDto.getWhetherValid())){
             predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),intoDto.getWhetherValid()));
@@ -241,5 +219,7 @@ public class ActivityService {
             predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("updateDate"),intoDto.getStartUpdateDateStr()));
         }
     }
+
+
 
 }

@@ -208,41 +208,45 @@ public class ActivityService {
 
 
     /**
-     * 传入参数 voteNumber(选举人数)、activityId（活动id）
+     * activityId（活动id）
      * @param indexIntoDto
      * @return
      */
     public Result<List<ManageEnrollIndexOutDto>> enrollEntityResult(ManageEnrollIndexIntoDto indexIntoDto){
         try {
-            //根据时间倒序
-            Sort sort = Sort.by(Sort.Direction.DESC,"voteNumber");
-            //页数与每页大小
-            Pageable pageable = PageRequest.of(0,indexIntoDto.getVoteNumber(),sort);
-            //条件
-            Page<EnrollEntity> page = enrollRepository.findAll(new Specification<EnrollEntity>() {
-                @Override
-                public Predicate toPredicate(Root<EnrollEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    ArrayList<Predicate> predicateList = new ArrayList<>();
-                    predicateList.add(criteriaBuilder.equal(root.get("activityId"),indexIntoDto.getActivityId()));
-                    predicateList.add(criteriaBuilder.equal(root.get("auditStatus"),AuditStatusEnum.SUCCESS.getType()));
-                    getBaseIntoDtoPredicate1(predicateList,(BaseIntoDto) indexIntoDto,root,criteriaQuery,criteriaBuilder);
-                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
-                }
-            }, pageable);
-            List<ManageEnrollIndexOutDto> manageEnrollIndexOutDtoList = page.getContent().stream().map(e -> {
-                ManageEnrollIndexOutDto outDto = MyBeanUtils.copyPropertiesAndResTarget(e, ManageEnrollIndexOutDto::new);
-                outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
-                outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
-                outDto.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
-                outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
-                return outDto;
-            }).collect(Collectors.toList());
-            return new Result<List<ManageEnrollIndexOutDto>>().setSuccess(manageEnrollIndexOutDtoList).setCount(page.getTotalElements());
-        }catch (Exception e){
+            ActivityEntity entity = activityRepository.findActivityEntityById(indexIntoDto.getActivityId());
+            if (entity!=null){
+                //根据时间倒序
+                Sort sort = Sort.by(Sort.Direction.DESC,"voteNumber");
+                //页数与每页大小
+                Pageable pageable = PageRequest.of(0,entity.getCommitteesNumber(),sort);
+                //条件
+                Page<EnrollEntity> page = enrollRepository.findAll(new Specification<EnrollEntity>() {
+                    @Override
+                    public Predicate toPredicate(Root<EnrollEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                        ArrayList<Predicate> predicateList = new ArrayList<>();
+                        predicateList.add(criteriaBuilder.equal(root.get("activityId"),indexIntoDto.getActivityId()));
+                        predicateList.add(criteriaBuilder.equal(root.get("auditStatus"),AuditStatusEnum.SUCCESS.getType()));
+                        getBaseIntoDtoPredicate1(predicateList,(BaseIntoDto) indexIntoDto,root,criteriaQuery,criteriaBuilder);
+                        return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                    }
+                }, pageable);
+                List<ManageEnrollIndexOutDto> manageEnrollIndexOutDtoList = page.getContent().stream().map(e -> {
+                    ManageEnrollIndexOutDto outDto = MyBeanUtils.copyPropertiesAndResTarget(e, ManageEnrollIndexOutDto::new);
+                    outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                    outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                    outDto.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                    outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    return outDto;
+                }).collect(Collectors.toList());
+                return new Result<List<ManageEnrollIndexOutDto>>().setSuccess(manageEnrollIndexOutDtoList).setCount(page.getTotalElements());
+            }else return Result.createSimpleFailResult();
+            }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
+
 
     /**
      * 投票人员id 投票人员姓名 参选人员id 参选人员姓名
@@ -286,6 +290,51 @@ public class ActivityService {
             if (voteEntityList!=null&&voteEntityList.size()>0){
                 return new Result().setSuccess(voteEntityList.get(0));
             }else return Result.createSimpleFailResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 分页条件查询
+     * 无参数
+     * @param
+     * @return
+     */
+    public Result<List<ActivityDto>> myActivity(EnrollDto enrollDto){
+        try {
+            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByResidentUserIdAndAuditStatus(enrollDto.getResidentUserId(), AuditStatusEnum.SUCCESS.getType());
+            if (enrollEntityList!=null&&enrollEntityList.size()>0){
+                List<ActivityDto> activityDtoList = enrollEntityList.stream().map(e -> {
+                    ActivityEntity entity = activityRepository.findActivityEntityById(e.getActivityId());
+                    ActivityDto activityDto = MyBeanUtils.copyPropertiesAndResTarget(entity, ActivityDto::new, d -> {
+                        d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
+                        d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
+                        d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
+                        d.setActivityStartTimeStr(MyDateUtil.getDateAndTime(entity.getActivityStartTime()));
+                        d.setActivityEndTimeStr(MyDateUtil.getDateAndTime(entity.getActivityEndTime()));
+                        d.setVotingStartTimeStr(MyDateUtil.getDateAndTime(entity.getVotingStartTime()));
+                        d.setVotingEndTimeStr(MyDateUtil.getDateAndTime(entity.getVotingEndTime()));
+                        d.setActivityStatusStr(ActivityStatusEnum.getTypesName(entity.getActivityStatus()));
+                    });
+                    List<EnrollEntity> enrollEntityList1 = enrollRepository.findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(activityDto.getId(), AuditStatusEnum.SUCCESS.getType());
+                    if (enrollEntityList != null && enrollEntityList.size() > 0) {
+                        List<EnrollDto> enrollDtoList = enrollEntityList1.stream().map(enrollEntity -> {
+                            return MyBeanUtils.copyPropertiesAndResTarget(enrollEntity, EnrollDto::new, d -> {
+                                d.setCreateDateStr(MyDateUtil.getDateAndTime(enrollEntity.getCreateDate()));
+                                d.setUpdateDateStr(MyDateUtil.getDateAndTime(enrollEntity.getUpdateDate()));
+                                d.setAuditStatusStr(AuditStatusEnum.getTypesName(enrollEntity.getAuditStatus()));
+                                d.setWhetherValidStr(WhetherValidEnum.getTypesName(enrollEntity.getWhetherValid()));
+                            });
+                        }).collect(Collectors.toList());
+                        activityDto.setEnrollDtoList(enrollDtoList);
+                    }
+                    return activityDto;
+                }).collect(Collectors.toList());
+                return new Result<List<ActivityDto>>().setSuccess(activityDtoList);
+            }else return Result.createSimpleFailResult();
+
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();

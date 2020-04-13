@@ -22,8 +22,7 @@ page {
   border-radius: 50%;
 }
 .nickname{
-  margin-top: -80rpx;
-  margin-right: 40rpx;
+  margin-top: -135rpx;
   height: 100rpx;
   width: 125rpx;
 }
