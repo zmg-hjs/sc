@@ -1,4 +1,4 @@
-<!--pages/vote/voting.wxml-->
+<!--miniprogram/pages/activity/joiner.wxml-->
 <view class="weui-panel__hd">参选人员信息</view>
 <view class="caption-wrap">
 	<i-collapse name="{{name}}" accordion>
@@ -11,11 +11,3 @@
 		</block>
 	</i-collapse>
 </view>
-<view class="weui-panel__hd">投票</view>
-<view>
-	<i-radio-group current="{{current}}" bindchange="handleVoterChange">
-		<i-radio wx:for="{{list}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.residentUserActualName}}">
-		</i-radio>
-	</i-radio-group>
-</view>
-<button class="weui-btn" type="primary" bindtap="submit">提交投票</button>

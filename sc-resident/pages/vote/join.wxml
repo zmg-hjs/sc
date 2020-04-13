@@ -5,7 +5,7 @@
 			<view class="weui-label">姓名</view>
 		</view>
 		<view class="weui-cell__bd">
-			<input class="weui-input" placeholder="请输入姓名" />
+			<input class="weui-input" placeholder="请输入姓名" bindchange="bindNameChange" />
 		</view>
 	</view>
 	<view class="weui-cell ">
@@ -13,14 +13,14 @@
 			<view class="weui-label">地址</view>
 		</view>
 		<view class="weui-cell__bd">
-			<input class="weui-input" placeholder="请输入地址" />
+			<input class="weui-input" placeholder="请输入地址" bindchange="bindAdrChange"/>
 		</view>
 	</view>
   <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请在此处输入简介" style="height: 3.3em" />
-                    <view class="weui-textarea-counter">0/200</view>
+                    <textarea class="weui-textarea" placeholder="请在此处输入简介" style="height: 3.3em"  bindinput="bindConChange"/> 
+                    <view class="weui-textarea-counter">不超过200字</view>
                 </view>
             </view>
         </view>

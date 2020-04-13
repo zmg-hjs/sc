@@ -1,12 +1,10 @@
-// pages/vote/myVote.js
-const activityUrl=require('../../config').activityUrl
+// miniprogram/pages/activity/votinfo.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[]
 
   },
 
@@ -14,19 +12,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that =this
-    wx.request({
-      url: activityUrl+'my',
-      method:'POST',
-      data:{
-        residentUserId:wx.getStorageSync('userInfo').id
-      },
-      success:function(res){
-        that.setData({
-          list:res.data.data
-        })
-      }
-    })
 
   },
 

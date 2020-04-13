@@ -22,7 +22,8 @@
     "pages/vote/myVote",
     "pages/repair/information",
     "pages/car/index",
-    "pages/car/history"
+    "pages/car/history",
+    "pages/vote/final"
   ],
   "window": {
     "backgroundTextStyle": "light",

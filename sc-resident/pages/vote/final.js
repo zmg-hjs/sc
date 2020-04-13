@@ -1,4 +1,4 @@
-// pages/vote/myVote.js
+// pages/vote/final.js
 const activityUrl=require('../../config').activityUrl
 Page({
 
@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[]
+    activityId:'',
+    list:[],
+    title:''
 
   },
 
@@ -14,17 +16,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that =this
+    var that=this
     wx.request({
-      url: activityUrl+'my',
+      url: activityUrl+'/enroll/findResult',
       method:'POST',
       data:{
-        residentUserId:wx.getStorageSync('userInfo').id
+        activityId:options.id
       },
       success:function(res){
-        that.setData({
-          list:res.data.data
-        })
+         that.setData({
+           list:res.data.data,
+           title:options.title
+         })
       }
     })
 

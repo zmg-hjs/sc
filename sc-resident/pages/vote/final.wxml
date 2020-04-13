@@ -1,11 +1,9 @@
-<!--pages/vote/myVote.wxml-->
-<block wx:for="{{list}}" wx:key="id">
+<!--pages/vote/final.wxml-->
 <i-panel class="cell-panel-demo">
-	<i-cell title="{{item.title}}"></i-cell>
+	<i-cell title="{{title}}"></i-cell>
 </i-panel>
-<block wx:for="{{item.enrollDtoList}}" wx:key="id">
+<block wx:for="{{list}}" wx:key="id">
 <i-cell title="{{item.residentUserActualName}}" value="得票数：{{item.voteNumber}}">
 	<i-icon type="addressbook_fill" slot="icon" />
 </i-cell>
-</block>
 </block>

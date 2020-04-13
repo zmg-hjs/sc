@@ -1,36 +1,59 @@
-<!--miniprogram/pages/activity/inform.wxml-->
-  <view class="weui-form-preview">
+        <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
-                <view>小区居委会第二次选举</view>
+                <view>{{activity.title}}</view>
             </view>
             <view class="weui-form-preview__db">
-             <view>  小区居委会委员第二次选举，选举的目的在于帮助管理小区，服务与小区居民，本次选举秉持公平公正的态度进行选举，希望大家踊跃参加，谢谢配合</view>
+             <rich-text nodes="{{content}}"></rich-text>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">活动状态：</view>
+                    <view class="weui-form-preview__value">{{activity.activityStatusStr}}</view>
+                </view>
+                <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">举办方:</view>
-                    <view class="weui-form-preview__value">小区物业</view>
+                    <view class="weui-form-preview__value">{{activity.hostParty}}</view>
                 </view>
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">活动时间：</view>
-                    <view class="weui-form-preview__value">4-1 8:00 —— 4-10 8:00</view>
+                    <view class="weui-form-preview__label">活动开始时间：</view>
+                    <view class="weui-form-preview__value">{{activity.activityStartTimeStr}}</view>
+                </view>
+                                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">活动结束时间：</view>
+                    <view class="weui-form-preview__value">{{activity.activityEndTimeStr}}</view>
                 </view>
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">投票时间：</view>
-                    <view class="weui-form-preview__value">4-5 8:00 —— 4-8 8:00</view>
+                    <view class="weui-form-preview__label">投票开始时间：</view>
+                    <view class="weui-form-preview__value">{{activity.votingStartTimeStr}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">投票开始时间：</view>
+                    <view class="weui-form-preview__value">{{activity.votingStartTimeStr}}</view>
                 </view>
             </view>
-            <block wx:if="{{2>5}}">
-            <view class="weui-form-preview__ft">
-                <navigator url="./join" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">投票查询</navigator>
-                <navigator url="./voting" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">取消</navigator>
+            <block wx:if="{{status=='end'}}">
+            <view class="weui-form-preview__ft">       
+                <navigator url="./joiner?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看参选人员</navigator>
+                 <navigator url="./voting?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">审核成功信息</navigator>
+            </view>
+            <view class="weui-form-preview__ft">       
+               <navigator url="./voted?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">查看结果</navigator>
             </view>
             </block>
-            <block  wx:if= "{{6>5}}">
-            <view class="weui-form-preview__ft">
-                <navigator url="./voted" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">投票结果</navigator>
-                <navigator url="./voting" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">投票进行中</navigator>
+            <block wx:if="{{status=='enrolment'}}">
+            <view class="weui-form-preview__ft">       
+                <navigator url="./joiner?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看参选人员</navigator>
             </view>
             </block>
-            
+            <block wx:if="{{status=='voting'}}">
+            <view class="weui-form-preview__ft">       
+                <navigator url="./joiner?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看参选人员</navigator>
+                <navigator url="./voting?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">审核成功信息</navigator>
+            </view>
+            </block>
+            <block wx:if="{{status=='in_audit'}}">
+            <view class="weui-form-preview__ft">       
+                <navigator url="./joiner?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看参选人员</navigator>
+            </view>
+            </block>
         </view>
