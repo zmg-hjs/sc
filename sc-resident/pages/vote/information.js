@@ -7,14 +7,15 @@ Page({
    */
   data: {
        id:'',
-       status:'',
-       activity:''
+       activity:'',
+       content:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that =this
     wx.request({
       url: activityUrl+'findOne',
       method:'POST',
@@ -22,6 +23,13 @@ Page({
         id:options.id
       },
       success:function(res){
+        that.setData({
+          id:options.id,
+          activity:res.data.data,
+          content:res.data.data.content,
+          status:res.data.data.activityStatus
+
+        })
         console.log(res.data)
       }
     })
