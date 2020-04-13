@@ -97,4 +97,14 @@ public class ActivityController {
             return Result.createSystemErrorResult();
         }
     }
+    @RequestMapping(value ="/vote/add",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addActivityEntity(@RequestBody ActivityDto activityDto){
+        try {
+            Result result = activityService.addActivityEntity(activityDto);
+            return result;
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
 }
