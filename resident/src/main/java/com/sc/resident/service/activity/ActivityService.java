@@ -5,6 +5,8 @@ import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.activity.ManageActivityIndexOutDto;
 import com.sc.base.dto.common.BaseIntoDto;
 import com.sc.base.dto.enroll.EnrollDto;
+import com.sc.base.dto.enroll.ManageEnrollIndexIntoDto;
+import com.sc.base.dto.enroll.ManageEnrollIndexOutDto;
 import com.sc.base.dto.vote.VoteDto;
 import com.sc.base.entity.activity.ActivityEntity;
 import com.sc.base.entity.enroll.EnrollEntity;
@@ -163,7 +165,7 @@ public class ActivityService {
      */
     public Result<List<EnrollDto>> findEnrollEnitiesByActivityIdAndAuditStatus(EnrollDto enrollDto){
         try {
-            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(enrollDto.getActivityId(), enrollDto.getAuditStatus());
+            List<EnrollEntity> enrollEntityList = enrollRepository.findEnrollEntitiesByActivityIdAndAuditStatusOrderByVoteNumberDesc(enrollDto.getActivityId(), AuditStatusEnum.SUCCESS.getType());
             if (enrollEntityList!=null&&enrollEntityList.size()>0){
                 List<EnrollDto> enrollDtoList = enrollEntityList.stream().map(e -> {
                     return MyBeanUtils.copyPropertiesAndResTarget(e, EnrollDto::new, d -> {
@@ -206,9 +208,46 @@ public class ActivityService {
 
 
     /**
-     * enrollId
-     * residentUserAddress、briefIntroduction
-     * @param enrollDto
+     * 传入参数 voteNumber(选举人数)、activityId（活动id）
+     * @param indexIntoDto
+     * @return
+     */
+    public Result<List<ManageEnrollIndexOutDto>> enrollEntityResult(ManageEnrollIndexIntoDto indexIntoDto){
+        try {
+            //根据时间倒序
+            Sort sort = Sort.by(Sort.Direction.DESC,"voteNumber");
+            //页数与每页大小
+            Pageable pageable = PageRequest.of(0,indexIntoDto.getVoteNumber(),sort);
+            //条件
+            Page<EnrollEntity> page = enrollRepository.findAll(new Specification<EnrollEntity>() {
+                @Override
+                public Predicate toPredicate(Root<EnrollEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    predicateList.add(criteriaBuilder.equal(root.get("activityId"),indexIntoDto.getActivityId()));
+                    predicateList.add(criteriaBuilder.equal(root.get("auditStatus"),AuditStatusEnum.SUCCESS.getType()));
+                    getBaseIntoDtoPredicate1(predicateList,(BaseIntoDto) indexIntoDto,root,criteriaQuery,criteriaBuilder);
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            List<ManageEnrollIndexOutDto> manageEnrollIndexOutDtoList = page.getContent().stream().map(e -> {
+                ManageEnrollIndexOutDto outDto = MyBeanUtils.copyPropertiesAndResTarget(e, ManageEnrollIndexOutDto::new);
+                outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                outDto.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                return outDto;
+            }).collect(Collectors.toList());
+            return new Result<List<ManageEnrollIndexOutDto>>().setSuccess(manageEnrollIndexOutDtoList).setCount(page.getTotalElements());
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 投票人员id 投票人员姓名 参选人员id 参选人员姓名
+     * VotedPersonId VotedPersonActualName ResidentUserId ResidentUserActualName
+     * @param voteDto
      * @return
      */
     public Result addVoteEnity(VoteDto voteDto){
@@ -232,7 +271,44 @@ public class ActivityService {
         }
     }
 
+    /**
+     * 投票人员id 活动id
+     * @param voteDto
+     * @return
+     */
+    public Result findVoteEnityByIdOrderByCreateDateDesc(VoteDto voteDto){
+        try {
+            List<VoteEntity> voteEntityList = voteRepository.findVoteEntitiesByResidentUserIdAndActivityIdOrderByCreateDateDesc(voteDto.getResidentUserId(), voteDto.getActivityId());
+            if (voteEntityList!=null&&voteEntityList.size()>0){
+                return new Result().setSuccess(voteEntityList.get(0));
+            }else return Result.createSimpleFailResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 
+
+
+    private void getBaseIntoDtoPredicate1(List<Predicate> predicateList, BaseIntoDto intoDto, Root<EnrollEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
+        if (StringUtils.isNotBlank(intoDto.getWhetherValid())){
+            predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),intoDto.getWhetherValid()));
+        }else {
+            predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+        }
+        if (StringUtils.isNotBlank(intoDto.getStartCreateDateStr())){
+            predicateList.add(criteriaBuilder.greaterThanOrEqualTo(root.get("createDate"),intoDto.getStartCreateDateStr()));
+        }
+        if (StringUtils.isNotBlank(intoDto.getStartCreateDateStr())){
+            predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("createDate"),intoDto.getStartCreateDateStr()));
+        }
+        if (StringUtils.isNotBlank(intoDto.getStartUpdateDateStr())){
+            predicateList.add(criteriaBuilder.greaterThanOrEqualTo(root.get("updateDate"),intoDto.getStartUpdateDateStr()));
+        }
+        if (StringUtils.isNotBlank(intoDto.getStartUpdateDateStr())){
+            predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("updateDate"),intoDto.getStartUpdateDateStr()));
+        }
+    }
 
     private void getBaseIntoDtoPredicate(List<Predicate> predicateList, BaseIntoDto intoDto, Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
         if (StringUtils.isNotBlank(intoDto.getWhetherValid())){

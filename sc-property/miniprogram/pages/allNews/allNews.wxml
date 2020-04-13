@@ -1,0 +1,8 @@
+<block wx:for="{{list}}" wx:key="id">
+<view style="margin: 16px"></view>
+<navigator url="../newsDetail/newsDetail?id={{item.id}}">
+	<i-card title="{{item.title}}" extra="查看详情">
+		<view slot="footer">时间:{{item.createDateStr}}</view>
+	</i-card>
+  </navigator>
+</block>

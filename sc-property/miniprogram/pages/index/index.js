@@ -17,7 +17,7 @@ Page({
      let type=e.currentTarget.dataset.type
      var _url
      if(type=='mes'){
-       _url="/pages/myNews/myNews"
+       _url="/pages/allNews/allNews"
      }
      if(type=='act'){
        _url='/pages/activity/index'
@@ -27,21 +27,7 @@ Page({
      })
   },
   onLoad: function(e) {
-    var that =this;
-    wx.request({
-      url: app.globalData.domainName + '/sc/property/news/resident_news_index',
-      method: 'POST',
-      data: {
-        page: 1,
-        limit: 50
-      },
-      success: function (res) {
-        that.setData({
-          list: res.data.data
-        })
-      }
-
-    })
+    
   },
 
   
