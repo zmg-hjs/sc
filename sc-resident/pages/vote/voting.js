@@ -11,7 +11,8 @@ Page({
     list:[],
     position:'right',
     current: '',
-    id:''
+    id:'',
+    enrollId:''
   },
 
   /**
@@ -54,7 +55,8 @@ Page({
     for(var i=0;i<this.data.list.length;i++){
       if(this.data.list[i].residentUserActualName==this.data.current)
       this.setData({
-        id:this.data.list[i].residentUserId
+        id:this.data.list[i].residentUserId,
+        enrollId:this.data.list[i].id
       })
     }
     console.log(this.data.id)
@@ -77,7 +79,8 @@ Page({
             votedPersonId:that.data.id,
             residentUserId:wx.getStorageSync('userInfo').id,
             residentUserActualName:wx.getStorageSync('userInfo').actualName,
-            votedPersonActualName:that.data.current
+            votedPersonActualName:that.data.current,
+            enrollId:that.data.enrollId
           },
           success:function(res){
             wx.showModal({

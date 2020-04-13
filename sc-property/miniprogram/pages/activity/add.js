@@ -1,4 +1,5 @@
 const app = getApp()
+const activityUrl=require("../../config").activityUrl
 Page({
   data: {
     formats: {},
@@ -158,10 +159,17 @@ Page({
       var json = {
         title: e.detail.value.title,
         content: that.data.content,
-        staffUserId: app.globalData.userId
+        committeesNumber:e.detail.value.committeesNumber,
+        hostParty:that.data.info.name,
+        activityStartTimeStr:that.data.info.actStrD+" "+that.data.info.actStrT+":00",
+        activityEndTimeStr:that.data.info.actEndD+" "+that.data.info.actEndT+":00",
+        votingStartTimeStr:that.data.info.votStrD+" "+that.data.info.votStrT+":00",
+        votingEndTimeStr:that.data.info.votEndD+" "+that.data.info.votEndT+":00"
+
+        
       }
       wx.request({
-        url: app.globalData.domainName + '/sc/property/news/resident_news_add_data1',
+        url: app.globalData.domainName + '/sc/property/activity/vote/add1',
         method: 'POST',
         data: json,
         success: function (res) {
@@ -181,7 +189,7 @@ Page({
           });
           json.content=that.data.content;
           wx.request({
-            url: app.globalData.domainName + '/sc/property/news/resident_news_add_data',
+            url: app.globalData.domainName + '/sc/property/activity/vote/add',
             method: 'POST',
             data: json,
             success: function (res) {

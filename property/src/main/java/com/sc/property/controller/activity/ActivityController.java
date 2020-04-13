@@ -107,4 +107,13 @@ public class ActivityController {
             return Result.createSystemErrorResult();
         }
     }
+    @RequestMapping(value ="/vote/add1",method = RequestMethod.POST)
+    @ResponseBody
+    public Result add1(@RequestBody ActivityDto activityDto){
+        try {
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            return Result.createSystemErrorResult();
+        }
+    }
 }
