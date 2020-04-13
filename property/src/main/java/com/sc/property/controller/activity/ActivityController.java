@@ -99,9 +99,9 @@ public class ActivityController {
     }
     @RequestMapping(value ="/vote/add",method = RequestMethod.POST)
     @ResponseBody
-    public Result addActivityEntity(@RequestBody ActivityDto activityDto){
+    public Result findAllVote(@RequestBody ActivityDto voteDto){
         try {
-            Result result = activityService.addActivityEntity(activityDto);
+            Result result = activityService.addActivityEntity(voteDto);
             return result;
         }catch (Exception e){
             return Result.createSystemErrorResult();
