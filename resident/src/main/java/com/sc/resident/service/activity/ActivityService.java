@@ -259,11 +259,15 @@ public class ActivityService {
             voteEntity.setUpdateDate(date);
             voteEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
             voteEntity.setEnrollId(voteDto.getId());
+            voteEntity.setActivityId(voteDto.getActivityId());
             voteEntity.setResidentUserId(voteDto.getResidentUserId());
             voteEntity.setResidentUserActualName(voteDto.getResidentUserActualName());
             voteEntity.setVotedPersonId(voteDto.getVotedPersonId());
             voteEntity.setVotedPersonActualName(voteDto.getVotedPersonActualName());
             voteRepository.save(voteEntity);
+            EnrollEntity entity = enrollRepository.findEnrollEntityById(voteDto.getEnrollId());
+            entity.setVoteNumber(entity.getVoteNumber()+1);
+            enrollRepository.save(entity);
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
