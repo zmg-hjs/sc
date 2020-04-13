@@ -4,10 +4,14 @@ import com.sc.base.dto.activity.ActivityDto;
 import com.sc.base.dto.activity.ManageActivityIndexIntoDto;
 import com.sc.base.dto.activity.ManageActivityIndexOutDto;
 import com.sc.base.dto.common.BaseIntoDto;
+import com.sc.base.dto.enroll.EnrollDto;
 import com.sc.base.entity.activity.ActivityEntity;
+import com.sc.base.entity.enroll.EnrollEntity;
 import com.sc.base.enums.ActivityStatusEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.activity.ActivityRepository;
+import com.sc.base.repository.enroll.EnrollRepository;
+import myString.MyStringUtils;
 import mydate.MyDateUtil;
 import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +29,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +38,12 @@ public class ActivityService {
 
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private EnrollRepository enrollRepository;
 
     /**
      * 分页条件查询
+     * 无参数
      * @param indexIntoDto
      * @return
      */
@@ -44,7 +52,7 @@ public class ActivityService {
             //根据时间倒序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
             //页数与每页大小
-            Pageable pageable = PageRequest.of(indexIntoDto.getPage()-1, indexIntoDto.getLimit(),sort);
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
             //条件
             Page<ActivityEntity> page = activityRepository.findAll(new Specification<ActivityEntity>() {
                 @Override
@@ -81,6 +89,12 @@ public class ActivityService {
     }
 
 
+    /**
+     * 查看活动详情
+     * 传入参数id
+     * @param dto
+     * @return
+     */
     public Result findActivityEntityById(ActivityDto dto){
         try {
             ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
@@ -105,6 +119,27 @@ public class ActivityService {
         }
     }
 
+    /**
+     * activityId、residentUserId、residentUserActualName、
+     * residentUserAddress、residentUserAddress、briefIntroduction、
+     *
+     * @param enrollDto
+     * @return
+     */
+    public Result addEnrollEnity(EnrollDto enrollDto){
+        try {
+            Date date = new Date();
+            EnrollEntity enrollEntity = new EnrollEntity();
+            enrollEntity.setId(MyStringUtils.getIdDateStr("carpool"));
+            enrollEntity.setCreateDate(date);
+            enrollEntity.setUpdateDate(date);
+            enrollEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
     
     private void getBaseIntoDtoPredicate(List<Predicate> predicateList, BaseIntoDto intoDto, Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder){
         if (StringUtils.isNotBlank(intoDto.getWhetherValid())){
