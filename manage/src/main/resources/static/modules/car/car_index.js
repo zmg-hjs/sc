@@ -34,7 +34,7 @@ layui.config({
             , {field: 'carNum', title: '车牌号',  width: 200, align: 'center'}
             , {field: 'startPosition', title: '起始地', width: 200, align: 'center'}
             , {field: 'destination', title: '目的地', width: 200, align: 'center'}
-            , {field: 'startTime', title: '出发时间', width: 200, align: 'center'}
+            , {field: 'startTimeStr', title: '出发时间', width: 200, align: 'center'}
             , {field: 'peopleNum', title: '拼车人数', width: 200, align: 'center'}
             , {field: 'peopleNow', title: '现有人数', width: 200, align: 'center'}
             , {field: 'createDateStr', title: '创建时间', width: 200, align: 'center'}

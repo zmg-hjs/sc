@@ -7,7 +7,7 @@ import lombok.Data;
 public class ManageCarIndexOutDto extends BaseOutDto {
     private String userActualName; //拼车发起者name
     private String telephone; //发起人电话
-    private String starting; //起始地
+    private String startPosition; //起始地
     private String destination; //目的地
     private String carNum; //车牌号
     private String startTimeStr; //出发时间

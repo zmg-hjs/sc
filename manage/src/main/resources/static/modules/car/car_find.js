@@ -29,11 +29,16 @@ layui.config({
     });
 
     $(document).on('click',"#testListAction3",function(){
-        var searchObj = {};
-        searchObj.id = document.getElementById("carpoolUserId").value;
-        $.simpleAjax('/sc/manage/resident/manage_resident_user_find_page', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
-        return false;//这一行代码必须加，不然会自动刷新页面，这个和layui的封装有关，且returnFunction 也不会调用
-        layer.msg("按钮点击");
+        var id = document.getElementById("carpoolUserId").value;
+        var width = document.documentElement.scrollWidth * 0.5 + "px";
+        var height = document.documentElement.scrollHeight * 0.5 + "px";
+        layer.open({
+            type: 2,
+            skin: 'open-class',
+            area: [width, height],
+            title: '委员会选举活动发布页面',
+            content: "/sc/manage/resident/manage_resident_user_find_page?id="+id
+        });
     });
 
     function returnFunction(data) {

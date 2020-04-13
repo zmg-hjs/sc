@@ -92,6 +92,7 @@ public class ResidentUserService {
         residentUserEntity.setUnit(registerDto.getUnit());
         residentUserEntity.setFloor(registerDto.getFloor());
         residentUserEntity.setDoor(registerDto.getDoor());
+        residentUserEntity.setAddress(registerDto.getUnit()+registerDto.getFloor()+registerDto.getDoor());
         //创建roleEnum(居民，委员会成员)
         residentUserEntity.setRole(RoleEnum.RESIDENT.getType());
         residentUserEntity.setUserAuditId(residentRegistrationEntity.getId());
@@ -150,14 +151,19 @@ public class ResidentUserService {
         ResidentUserEntity residentUserEntity=residentUserRepository.findResidentUserEntityByOpenId(updateUserDto.getOpenId());
         if(updateUserDto.getChange().equals("unit")){
             residentUserEntity.setUnit(updateUserDto.getValue());
+            residentUserEntity.setAddress(residentUserEntity.getUnit()+residentUserEntity.getFloor()+residentUserEntity.getDoor());
         }else if(updateUserDto.getChange().equals("floor")){
             residentUserEntity.setFloor(updateUserDto.getValue());
+            residentUserEntity.setAddress(residentUserEntity.getUnit()+residentUserEntity.getFloor()+residentUserEntity.getDoor());
         }else if(updateUserDto.getChange().equals("door")){
             residentUserEntity.setDoor(updateUserDto.getValue());
+            residentUserEntity.setAddress(residentUserEntity.getUnit()+residentUserEntity.getFloor()+residentUserEntity.getDoor());
         }else if(updateUserDto.getChange().equals("actualName")){
             residentUserEntity.setActualName(updateUserDto.getValue());
+            residentUserEntity.setAddress(residentUserEntity.getUnit()+residentUserEntity.getFloor()+residentUserEntity.getDoor());
         }else if(updateUserDto.getChange().equals("phoneNumber")){
             residentUserEntity.setPhoneNumber(updateUserDto.getValue());
+            residentUserEntity.setAddress(residentUserEntity.getUnit()+residentUserEntity.getFloor()+residentUserEntity.getDoor());
         }
         residentUserRepository.saveAndFlush(residentUserEntity);
         return new Result().setSuccess(residentUserEntity);

@@ -24,4 +24,5 @@ public class CarDto {
     private String whetherValidStr;
     private String carpoolStatus;
     private String carpoolStatusStr;
+    private Integer carpoolNumber;//拼车人数
 }
