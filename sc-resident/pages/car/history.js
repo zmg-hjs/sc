@@ -27,20 +27,20 @@ Page({
             list:res.data.data
           })
           console.log(that.data.list)
+          if(that.data.list==''){
+           wx.showModal({
+             title: '提示',
+             content: '您还未拼过车',
+             showCancel: false,
+             confirmText: "确定",
+             success:function(res){
+               wx.navigateBack()
+             }
+          })
+         }
        }
      })
-     if(this.data.list==''){
-       console.log('jajaj')
-      wx.showModal({
-        title: '提示',
-        content: '您还未拼过车',
-        showCancel: false,
-        confirmText: "确定",
-        success:function(res){
-          wx.navigateBack()
-        }
-     })
-    }
+    
   },
 
   /**

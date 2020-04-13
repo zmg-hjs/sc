@@ -1,5 +1,4 @@
 <!--pages/vote/activity.wxml-->
-<!--pages/car/seek.wxml-->
 <view class="page">
 	<view class="weui-panel weui-panel_access">
 		<view class="weui-panel__hd">活动信息</view>

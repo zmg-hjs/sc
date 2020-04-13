@@ -1,11 +1,15 @@
 /* miniprogram/pages/activity/add1.wxss */
-.weui-cell__bd {
-  -webkit-box-flex: 2;
-  -webkit-flex: 2;
-  flex: 2;
-  
+.weui-label {
+  width: 150px;
+  word-wrap: break-word;
+  word-break: break-all
 }
 
+.weui-input {
+  height: 1.41176471em;
+  min-height: 1.41176471em;
+  line-height: 1.41176471
+}
 .weui-btn{
   margin: 20px 15px
 }

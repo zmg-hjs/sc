@@ -16,78 +16,78 @@
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindActStaT">
-			<view class="weui-input">{{time}}</view>
+			<view class="weui-input">{{inf.actStaT}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动结束日期</view>
+		<view class="weui-label">活动结束日期:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindActEndD">
-			<view class="weui-input">{{date}}</view>
+			<view class="weui-input">{{inf.actEndD}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动结束时间</view>
+		<view class="weui-label">活动结束时间:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindActEndT">
-			<view class="weui-input">{{time}}</view>
+			<view class="weui-input">{{inf.actEndT}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">投票开始日期</view>
+		<view class="weui-label">投票开始日期:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindVotStaD">
-			<view class="weui-input">{{date}}</view>
+			<view class="weui-input">{{inf.votStaD}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">投票开始时间</view>
+		<view class="weui-label">投票开始时间:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindVotStaT">
-			<view class="weui-input">{{time}}</view>
+			<view class="weui-input">{{inf.votStaT}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">投票结束日期</view>
+		<view class="weui-label">投票结束日期:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindVotEndD">
-			<view class="weui-input">{{date}}</view>
+			<view class="weui-input">{{inf.voEndD}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">投票结束时间</view>
+		<view class="weui-label">投票结束时间:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindVotEndT">
-			<view class="weui-input">{{time}}</view>
+			<view class="weui-input">{{inf.votEndT}}</view>
 		</picker>
 	</view>
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">举办方</view>
+		<view class="weui-label">举办方:</view>
 	</view>
 	<view class="weui-cell__bd">
-		<input class="weui-input" placeholder="请输入举办方" bindchange="bindNumChange"/>
+		<input class="weui-input" placeholder="请输入举办方" bindchange="bindNameChange"/>
 	</view>
 </view>
 <view class="weui-cells weui-cells_after-title"></view>
- <button class="weui-btn" type="primary" bindtap="submit">确定</button>
+ <button class="weui-btn" type="primary" bindtap="submit">下一步</button>
 </view>
