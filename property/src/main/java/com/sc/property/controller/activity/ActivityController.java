@@ -53,7 +53,7 @@ public class ActivityController {
         }
     }
 
-    @RequestMapping(value ="/enroll/findAll",method = RequestMethod.POST)
+    @RequestMapping(value ="/enroll/findSucess",method = RequestMethod.POST)
     @ResponseBody
     public Result findEnrollEnitiesByActivityIdAndAuditStatus(@RequestBody EnrollDto enrollDto){
         try {
