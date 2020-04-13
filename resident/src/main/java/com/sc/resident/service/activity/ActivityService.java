@@ -53,7 +53,7 @@ public class ActivityService {
      * @param indexIntoDto
      * @return
      */
-    public Result<List<ManageActivityIndexOutDto>> ManageActivityIndex(ManageActivityIndexIntoDto indexIntoDto){
+    public Result<List<ManageActivityIndexOutDto>> activityIndex(ManageActivityIndexIntoDto indexIntoDto){
         try {
             //根据时间倒序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");

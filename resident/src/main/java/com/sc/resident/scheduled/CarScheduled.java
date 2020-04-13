@@ -35,7 +35,7 @@ public class CarScheduled {
     @Autowired
     private CarRepository carRepository;
 
-    @Scheduled(cron = "0 7 14 * * ?")
+    @Scheduled(cron = "0 59 23 * * ?")
     public Result carScheduled(){
         try {
             //根据时间倒序
