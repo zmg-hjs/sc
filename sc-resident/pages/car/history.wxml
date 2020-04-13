@@ -1,6 +1,6 @@
-<!--pages/car/My.wxml-->
+<!--pages/car/history.wxml-->
 <view class="weui-panel weui-panel_access">
-	<view class="weui-panel__hd">我的拼车信息</view>
+	<view class="weui-panel__hd">历史拼车信息</view>
   </view>
   <view wx:for="{{list}}"  wx:key="id">
 	<i-swipeout  i-class="i-swipeout-demo-item" actions="{{actions}}" bind:change="submit" id="{{item.id}}">
@@ -15,7 +15,7 @@
             </i-cell>
             <i-cell 
                 i-class="i-cell-padding" 
-                label="剩余可拼人数：{{item.peopleNow}}, 出发时间：{{item.startTimeStr}}">
+                label="座位数：{{item.peopleNum}}, 出发时间：{{item.startTimeStr}}">
             </i-cell>
         </view>
     </i-swipeout>

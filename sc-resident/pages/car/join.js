@@ -10,7 +10,8 @@ Page({
      destination:'',
      id:'',
      telephone:'',
-     num:'2'
+     num:'2',
+     now:''
   },
 bindNumChange:function(e){
   this.setData({
@@ -18,25 +19,39 @@ bindNumChange:function(e){
   })
 },
 submit: function(){
+  if(this.data.num<=this.data.now){
   wx.request({
     url: carUrl+'addCarpool',
     method:'POST',
     data:{
-      id:this.data.num,
+      id:this.data.id,
+      carpoolNumber:this.data.num,
       userId:wx.getStorageSync('userInfo').id
+     },
+     success:function(res){
+      wx.showModal({
+        title: '提示',
+        content: '拼车成功',
+        showCancel: false,
+        confirmText: "确定",
+        success: function(res) {
+          wx.navigateBack()
+        }
+      })
+      console.log(res.data)
      }
     })
+}else{
   wx.showModal({
     title: '提示',
-    content: '提交成功',
+    content: '剩余座位不足',
     showCancel: false,
     confirmText: "确定",
     success: function(res) {
-      wx.navigateBack({
-        delta: 2
-    })
+      wx.navigateBack()
     }
   })
+}
 
 },
 
@@ -49,8 +64,20 @@ submit: function(){
       id:options.id,
       destination:options.destination,
       starting:options.starting,
-      telephone:options.telephone
+      telephone:options.telephone,
+      now:options.now
     })
+    if(this.data.now=='0'){
+      wx.showModal({
+        title: '提示',
+        content: '拼车人员已满',
+        showCancel: false,
+        confirmText: "确定",
+        success: function(res) {
+          wx.navigateBack()
+        }
+      })
+    }
     console.log(this.data.id)
   },
 
