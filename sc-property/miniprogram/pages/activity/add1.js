@@ -56,7 +56,7 @@ Page({
   },
   bindVotEndD:function(e){
     this.setData({
-      ['inf.voEndD']:e.detail.value
+      ['inf.votEndD']:e.detail.value
     })
   },
   bindVotEndT:function(e){

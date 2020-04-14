@@ -164,7 +164,7 @@ Page({
         activityStartTimeStr:that.data.info.actStaD+" "+that.data.info.actStaT+":00",
         activityEndTimeStr:that.data.info.actEndD+" "+that.data.info.actEndT+":00",
         votingStartTimeStr:that.data.info.votStaD+" "+that.data.info.votStaT+":00",
-        votingEndTimeStr:that.data.info.votEndD+" "+that.data.info.votEndT+":00"
+        votingEndTimeStr: that.data.info.votEndD+" "+that.data.info.votEndT+":00"
 
         
       }
