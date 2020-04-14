@@ -185,7 +185,7 @@ public class CarService {
                 if (carEntity.getUserId().equals(carDto.getUserId())){
                     carEntity.setCarpoolStatus(CarpoolStatusEnum.CANCEL.getType());
                     carRepository.save(carEntity);
-                    List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByResidentCarIdAndCarpoolUserId(carDto.getId(),carDto.getUserId());
+                    List<CarpoolEntity> carpoolEntityList = carpoolRepository.findCarpoolEntitiesByResidentCarIdAndCarpoolStatus(carDto.getId(),CarpoolStatusEnum.IN_PROGRESS.getType());
                     carpoolEntityList.stream().forEach(e->{
                         e.setCarpoolStatus(CarpoolStatusEnum.CANCEL.getType());
                         carpoolRepository.save(e);

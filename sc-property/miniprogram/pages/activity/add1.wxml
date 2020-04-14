@@ -2,7 +2,7 @@
  <view class="weui-cells weui-cells_after-title">
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动开始日期</view>
+		<view class="weui-label">报名开始日期</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindActStaD">
@@ -12,7 +12,7 @@
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动开始时间</view>
+		<view class="weui-label">报名开始时间</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindActStaT">
@@ -22,7 +22,7 @@
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动结束日期:</view>
+		<view class="weui-label">报名结束日期:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-01-01" bindchange="bindActEndD">
@@ -32,7 +32,7 @@
 </view>
 <view class="weui-cell ">
 	<view class="weui-cell__hd">
-		<view class="weui-label">活动结束时间:</view>
+		<view class="weui-label">报名结束时间:</view>
 	</view>
 	<view class="weui-cell__bd">
 		<picker mode="time" value="{{time}}" start="00:01" end="24:00" bindchange="bindActEndT">
