@@ -193,8 +193,8 @@ Page({
             method: 'POST',
             data: json,
             success: function (res) {
-              wx.switchTab({
-                url: "/pages/myNews/myNews"
+              wx.navigateTo({
+                url: "/pages/activity/information"
               }) 
             }
 
