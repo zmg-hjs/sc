@@ -23,7 +23,8 @@
     "pages/repair/information",
     "pages/car/index",
     "pages/car/history",
-    "pages/vote/final"
+    "pages/vote/final",
+    "pages/repair/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
