@@ -1,0 +1,26 @@
+<!--miniprogram/pages/task/information.wxml-->
+<view class="weui-panel__hd">报修信息</view>
+<i-cell-group>
+	<i-cell title="维修状态：" value="{{status}}"></i-cell>
+	<i-cell title="报修人姓名：" value="黄景帅"></i-cell>
+	<i-cell title="报修人电话：" value="详细信息"></i-cell>
+	<i-cell title="维修地址：" value="详细信息"></i-cell>
+	<i-cell title="维修内容：" value="详细信息"></i-cell>
+	<view wx:if="{{status!='派遣中'}}">
+		<i-cell title="维修人员姓名：" value="详细信息"></i-cell>
+		<i-cell title="维修人员电话：" value="详细信息"></i-cell>
+	</view>
+	<i-cell></i-cell>
+</i-cell-group>
+<view wx:if="{{status=='派遣中'}}">
+	<button class="weui-btn" type="primary" bindtap="cancle">取消报修</button>
+</view>
+<view wx:if="{{status=='派遣成功'}}">
+	<view class="button-sp-area">
+		<button class="weui-btn mini-btn" type="primary">到达</button>
+		<button class="weui-btn mini-btn" type="default">取消接受</button>
+	</view>
+</view>
+<view wx:if="{{status=='维修中'}}">
+	<button class="weui-btn" type="primary" bindtap="cancle">维修成功</button>
+</view>

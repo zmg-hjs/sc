@@ -1,4 +1,4 @@
-/* pages/repair/repair.wxss */
+/* pages/shop/index.wxss */
 .weui-cells {
   position: relative;
   margin-top: 8px;

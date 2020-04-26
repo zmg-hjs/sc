@@ -1,4 +1,4 @@
-// pages/repair/information.js
+// pages/shop/commodity.js
 Page({
 
   /**
@@ -7,29 +7,23 @@ Page({
   data: {
     list:[
       {
+        title:'小台芒 2斤/袋',
+        url:'http://5b0988e595225.cdn.sohucs.com/images/20170910/551ced4e517b4828a841142e056a6b4c.jpeg',
         id:'1',
-        status:'维修成功',
-        name:'鲁班大师',
-        process:'100'
+        seller:'18.6'
       },
       {
-        id:'1',
-        status:'派遣中',
-        name:'鲁班大师',
-        process:'0'
+        title:'红富士苹果 2斤/袋',
+        url:'http://img.chemcp.com/201910/187099201910191014583088.jpg',
+        id:'2',
+        seller:'10'
       },
       {
+        title:'小黄瓜 2斤/袋',
+        url:'http://img.mp.sohu.com/upload/20170712/280d28acfe3643bab859b38a61d1cccd_th.png',
         id:'1',
-        status:'派遣成功',
-        name:'鲁班大师',
-        process:'25'
+        seller:'13'
       },
-      {
-        id:'1',
-        status:'维修中',
-        name:'鲁班大师',
-        process:'50'
-      }
     ]
 
   },
@@ -37,22 +31,6 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  cancle:function(){
-    wx.showModal({
-      title: '提示',
-      content: '确定取消报修吗',
-      showCancel: true,
-      confirmText: "确定",
-      success: function(res) {
-        wx.navigateBack()
-      }
-    })
-  },
-  response:function(){
-      wx.navigateTo({
-        url: '/pages/repair/res',
-      })
-  },
   onLoad: function (options) {
 
   },

@@ -1,0 +1,4 @@
+/* pages/repair/res.wxss */
+.weui-btn{
+  margin: 20px 15px
+}

@@ -17,7 +17,11 @@
     "pages/activity/voting",
     "pages/allNews/allNews",
     "pages/activity/joiner",
-    "pages/activity/votinfo"
+    "pages/activity/votinfo",
+    "pages/repair/repair",
+    "pages/repair/index",
+    "pages/task/task",
+    "pages/task/information"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

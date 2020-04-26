@@ -24,7 +24,10 @@
     "pages/car/index",
     "pages/car/history",
     "pages/vote/final",
-    "pages/repair/index"
+    "pages/repair/index",
+    "pages/shop/index",
+    "pages/shop/commodity",
+    "pages/repair/res"
   ],
   "window": {
     "backgroundTextStyle": "light",

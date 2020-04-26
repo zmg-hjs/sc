@@ -1,0 +1,11 @@
+<!--pages/shop/commodity.wxml-->
+<block wx:for="{{list}}" wx:key="id">
+	<view class="i-class i-card">
+		<image class="i-card-header-thumb" src="{{ item.url }}" mode="aspectFit" wx:if="{{ item.url }}" />
+		<view class="i-class i-card-body">{{ item.title }}</view>
+    <view class="i-class i-card-content">
+		<view class="i-class i-card-footer">¥ {{ item.seller }}</view>
+    <button class="weui-btn i-class i-card-buy" type="primary" size="mini" icon="">去下单</button>
+    </view>
+	</view>
+</block>

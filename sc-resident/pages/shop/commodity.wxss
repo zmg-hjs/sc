@@ -1,0 +1,61 @@
+/* pages/shop/commodity.wxss */
+.i-card {
+  margin:4vw;
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  border: 2rpx solid #dddee1;
+  border-radius: 5px
+}
+.i-card-header-thumb {
+  display: flex;
+  align-items: center;
+  padding: 3px 2vw;
+  position: relative;
+  width: 88vw;
+  overflow: hidden;
+  background-size: cover;
+  vertical-align: middle;
+}
+
+.i-card-body {
+  position: relative;
+  padding: 6px 16px;
+  color: #495060;
+  font-size: 16px
+}
+
+.i-card-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 1rpx solid #e9eaec;
+  border-top-width: 1px
+}
+
+.i-card-footer {
+  flex: 4;
+  text-align: left;
+  position: relative;
+  padding: 6px 16px;
+  color: #e40d11;
+  font-size: 20px;
+  font-weight:bold
+}
+.i-card-content{
+  display: flex;
+  align-items: center
+}
+.i-card-buy{
+  flex: 1;
+  text-align: right;
+  margin: 0 10px;
+}

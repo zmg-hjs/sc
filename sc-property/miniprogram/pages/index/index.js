@@ -22,6 +22,12 @@ Page({
      if(type=='act'){
        _url='/pages/activity/index'
      }
+     if(type=='repair'){
+       _url='/pages/repair/repair'
+     }
+     if(type=='info'){
+       _url='/pages/task/task'
+     }
      wx.navigateTo({
        url: _url,
      })
