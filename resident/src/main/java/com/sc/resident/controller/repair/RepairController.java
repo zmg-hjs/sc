@@ -93,7 +93,7 @@ public class RepairController {
 
     /**
      * 报修反馈
-     * 传入参数 id维修表id  maintenanceFeedback报修反馈
+     * 传入参数 id维修表id  maintenanceFeedback报修反馈 score评分
      * @param repairDto
      * @return
      */

@@ -50,14 +50,15 @@ public class RepairService {
             Date date = new Date();
             RepairEntity repairEntity = new RepairEntity();
             repairEntity.setId(MyStringUtils.getIdDateStr("repair"));
-            repairEntity.setCreateDate(new Date());
-            repairEntity.setUpdateDate(new Date());
+            repairEntity.setCreateDate(date);
+            repairEntity.setUpdateDate(date);
             repairEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
             repairEntity.setResidentUserId(repairDto.getResidentUserId());
             repairEntity.setResidentUserActualName(repairDto.getResidentUserActualName());
             repairEntity.setResidentUserPhoneNumber(repairDto.getResidentUserPhoneNumber());
             repairEntity.setMaintenanceAddress(repairDto.getMaintenanceAddress());
             repairEntity.setMaintenanceContent(repairDto.getMaintenanceContent());
+            repairEntity.setScore(3);
             List<WorkEntity> workEntityList = findStaffUserList().getData();
             if (workEntityList!=null&&workEntityList.size()>0){
                 repairEntity.setStaffUserId(workEntityList.get(0).getStaffUserId());
@@ -65,6 +66,24 @@ public class RepairService {
                 repairEntity.setStaffUserPhoneNumber(workEntityList.get(0).getStaffUserPhoneNumber());
                 repairEntity.setMaintenanceStatus(RepairStatusEnum.SUCCESSFUL_DISPATCH.getType());
                 repairRepository.save(repairEntity);
+                //添加维修订单表
+                RepairOrderEntity repairOrderEntity = new RepairOrderEntity();
+                repairOrderEntity.setId(MyStringUtils.getIdDateStr("repair_order"));
+                repairOrderEntity.setCreateDate(date);
+                repairOrderEntity.setUpdateDate(date);
+                repairOrderEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+                repairOrderEntity.setScore(3);
+                repairOrderEntity.setRepairId(repairDto.getId());
+                repairOrderEntity.setStaffUserId(repairDto.getStaffUserId());
+                repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
+                repairOrderRepository.save(repairOrderEntity);
+                //修改工作表
+                Page<WorkEntity> page = findWorkEntity(repairDto.getStaffUserId());
+                page.getContent().stream().forEach(e->{
+                    e.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+                    e.setUpdateDate(date);
+                    workRepository.save(e);
+                });
             }else {
                 repairEntity.setMaintenanceStatus(RepairStatusEnum.DISPATCH.getType());
                 repairRepository.save(repairEntity);
@@ -150,7 +169,7 @@ public class RepairService {
             if (RepairStatusEnum.DISPATCH.getType().equals(repairEntity.getMaintenanceStatus())){
                 return Result.createSimpleSuccessResult();
             }
-            //修改订单表
+            //修改维修订单表
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
             Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
             Page<RepairOrderEntity> page = repairOrderRepository.findAll(new Specification<RepairOrderEntity>() {
@@ -167,9 +186,16 @@ public class RepairService {
             page.getContent().stream().filter(e->{
                 return !RepairOrderStatusEnum.CANCEL.getType().equals(e.getRepairmanStatus());
             }).forEach(e->{
-                e.setRepairmanStatus(RepairStatusEnum.CANCEL.getType());
+                e.setRepairmanStatus(RepairOrderStatusEnum.CANCEL.getType());
                 e.setUpdateDate(date);
                 repairOrderRepository.save(e);
+            });
+            //修改工作表
+            Page<WorkEntity> page1 = findWorkEntity(repairDto.getStaffUserId());
+            page1.getContent().stream().forEach(e->{
+                e.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
+                e.setUpdateDate(date);
+                workRepository.save(e);
             });
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
@@ -192,22 +218,14 @@ public class RepairService {
             repairEntity.setUpdateDate(date);
             repairRepository.save(repairEntity);
             //修改工作表
-            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
-            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
-            Page<WorkEntity> page = workRepository.findAll(new Specification<WorkEntity>() {
-                @Override
-                public Predicate toPredicate(Root<WorkEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    ArrayList<Predicate> predicateList = new ArrayList<>();
-                    predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), repairEntity.getStaffUserId()));
-                    predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
-                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
-                }
-            }, pageable);
+            Page<WorkEntity> page = findWorkEntity(repairDto.getStaffUserId());
             page.getContent().stream().forEach(e->{
                 e.setWeight(e.getWeight()-3+repairDto.getScore());
+                e.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
                 e.setUpdateDate(date);
                 workRepository.save(e);
             });
+            //修改维修订单表
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
@@ -248,5 +266,18 @@ public class RepairService {
         }
     }
 
-
+    private Page<WorkEntity> findWorkEntity(String staffUserId){
+        Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+        Page<WorkEntity> page = workRepository.findAll(new Specification<WorkEntity>() {
+            @Override
+            public Predicate toPredicate(Root<WorkEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                ArrayList<Predicate> predicateList = new ArrayList<>();
+                predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), staffUserId));
+                predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+            }
+        }, pageable);
+        return page;
+    }
 }
