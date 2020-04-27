@@ -171,8 +171,16 @@
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="角色" class="layui-form-label"></label>
-                            <div th:text="${residentUser.getRoleStr()}" class="edit-module-title"></div>
+                            <div class="layui-input-block">
+                                <label th:text="角色" class="layui-form-label"></label>
+                                <select id="role" name="role" lay-filter="aihao" th:value="${residentUser.getRoleStr()}">
+                                    <option th:text="居民" th:selected="${residentUser.getRole() eq 'resident'}"
+                                            value="resident"></option>
+                                    <option th:text="委员会委员" th:selected="${residentUser.getRole() eq 'committee_member'}"
+                                            value="committee_member"></option>
+                                </select>
+                            </div>
+                            <!--<div th:text="${residentUser.getRoleStr()}" class="edit-module-title"></div>-->
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@
 			<view class="weui-panel__bd">
 
 				<view class="weui-media-box weui-media-box_text">
-					<view class="weui-media-box__desc">{{item.residentUserActualName}}投给了{{item.votedPersonActualName}}</view>
+					<view class="weui-media-box__desc">{{item.residentUserActualName}}投给了{{item.votedPersonActualName}}1票</view>
 				</view>
 			</view>
 		</view>

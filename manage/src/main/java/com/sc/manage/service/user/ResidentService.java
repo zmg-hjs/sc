@@ -110,6 +110,7 @@ public class ResidentService {
             if (userEntity!=null&&residentRegistrationEntity!=null){
                 userEntity.setWhetherValid(residentUserDto.getWhetherValid());
                 userEntity.setUpdateDate(date);
+                userEntity.setRole(residentUserDto.getRole());
 
                 residentRegistrationEntity.setWhetherValid(userEntity.getWhetherValid());
                 residentRegistrationEntity.setUpdateDate(date);

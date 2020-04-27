@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.sc.base.dto.user.RegisterDto;
 import com.sc.base.entity.user.StaffRegistrationEntity;
 import com.sc.base.entity.user.StaffUserEntity;
+import com.sc.base.entity.work.WorkEntity;
 import com.sc.base.enums.WhetherValidEnum;
+import com.sc.base.enums.WorkStatusEnum;
 import com.sc.base.repository.user.StaffRegistrationRepository;
 import com.sc.base.repository.user.StaffUserRepository;
+import com.sc.base.repository.work.WorkRepository;
 import myJson.MyJsonUtil;
 import myString.MyStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +25,8 @@ import java.util.Date;
 @Service
 public class StaffUserService {
 
+    @Autowired
+    private WorkRepository workRepository;
 
     @Autowired
     private StaffUserRepository staffUserRepository;
@@ -130,11 +135,37 @@ public class StaffUserService {
         return Result.createSimpleFailResult();
     }
 
+    /**
+     * 员工注册
+     * @param staffUserEntity
+     */
     public void addUserEntity(StaffUserEntity staffUserEntity){
         staffUserEntity.setCreateDate(new Date());
         staffUserEntity.setUpdateDate(new Date());
         staffUserEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
         staffUserRepository.save(staffUserEntity);
+        addWorkEntity(staffUserEntity);
+    }
+
+    /**
+     * 创建员工工作表
+     * @param staffUserEntity
+     */
+    public void addWorkEntity(StaffUserEntity staffUserEntity){
+        WorkEntity workEntity = new WorkEntity();
+        workEntity.setStaffUserId(staffUserEntity.getId());
+        workEntity.setStaffUserActualName(staffUserEntity.getActualName());
+        workEntity.setStaffUserPhoneNumber(staffUserEntity.getPhoneNumber());
+        workEntity.setStaffUserPosition(staffUserEntity.getPosition());
+        workEntity.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
+        workEntity.setNewsNumber(0);
+        workEntity.setRepairNumber(0);
+        workEntity.setWeight(100);
+        workEntity.setId(MyStringUtils.getIdDateStr("work"));
+        workEntity.setCreateDate(new Date());
+        workEntity.setUpdateDate(new Date());
+        workEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
+        workRepository.save(workEntity);
     }
 
 }
