@@ -2,30 +2,30 @@
 <block  wx:for="{{list}}" wx:key="id">
 <view class="repair-card">
 <i-panel class="cell-panel-demo">
-	<i-cell title="19楼层廊灯维修进度"></i-cell>
+	<i-cell title="{{item.maintenanceAddress}}{{item.maintenanceContent}}维修进度"></i-cell>
 </i-panel>
 <view class="progress-item">
 <i-progress percent="{{item.process}}" status="active"></i-progress>
 </view>
 <view class="cell-panel-demo">
-<i-cell title="提交时间：" value="{{item.status}}">
+<i-cell title="提交时间：" value="{{item.createDateStr}}">
 	<i-icon type="activity" slot="icon" />
 </i-cell>
-<i-cell title="派遣工人：" value="{{item.name}}">
-	<i-icon type="businesscard_fill" slot="icon" />
-</i-cell>
-<i-cell title="联系电话：" value="{{item.name}}">
-	<i-icon type="businesscard_fill" slot="icon" />
-</i-cell>
-<i-cell title="目前进度：" value="{{item.status}}">
+<i-cell title="目前进度：" value="{{item.maintenanceStatusStr}}">
 	<i-icon type="activity" slot="icon" />
 </i-cell>
+<i-cell wx:if="{{item.staffUserActualName}}" title="派遣工人：" value="{{item.staffUserActualName}}">
+	<i-icon type="businesscard_fill" slot="icon" />
+</i-cell>
+<i-cell wx:if="{{item.staffUserPhoneNumber}}" title="联系电话：" value="{{item.staffUserPhoneNumber}}">
+	<i-icon type="businesscard_fill" slot="icon" />
+</i-cell>
 </view>
-<view wx:if="{{item.status=='派遣中'||item.status=='派遣成功'}}">
-<button class="weui-btn" type="warn"style="margin-bottom:10px"bindtap="cancle">取消</button>
+<view wx:if="{{item.maintenanceStatusStr=='派遣中'||item.maintenanceStatusStr=='完成派遣'}}">
+<button class="weui-btn" type="warn"style="margin-bottom:10px"bindtap="cancle" id="{{item.id}}">取消</button>
 </view>
-<view wx:if="{{item.status=='维修成功'}}">
-<button class="weui-btn" type="primary"style="margin-bottom:10px" bindtap="response">反馈</button>
+<view wx:if="{{item.maintenanceStatusStr=='完成维修'}}">
+<button class="weui-btn" type="primary"style="margin-bottom:10px" bindtap="response" id="{{item.id}}">反馈</button>
 </view>
 </view>
 </block>

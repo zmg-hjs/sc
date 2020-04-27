@@ -1,12 +1,14 @@
 // pages/repair/res.js
+const repairUrl=require('../../config').repairUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    starIndex:'4',
-    content:''
+    starIndex:3,
+    content:'',
+    id:''
   },
   onChange:function(e){
     const index = e.detail.index;
@@ -14,17 +16,45 @@ Page({
       'starIndex' : index
   })
   },
-  sunmit:function(){
+  bindContentChange:function(e){
     this.setData({
       content:e.detail.value
    })
+   console.log(this.data.content)
+  },
+  submit:function(){
+    var that=this
+    wx.request({
+      url: repairUrl+'resident_repair_feedback',
+      data:{
+        id:that.data.id,
+        maintenanceFeedback:this.data.content,
+        score:this.data.starIndex
+      },
+      method:'POST',
+      success:function(res){
+        wx.showModal({
+          title: '提示',
+          content: '成功',
+          showCancel: false,
+          confirmText: "确定",
+          success: function(res) {
+            wx.navigateBack()
+          }
+        })
+      }
+    })
+  
 
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      this.setData({
+        id:options.id
+      })
+      console.log(this.data.id)
   },
 
   /**

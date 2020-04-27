@@ -1,13 +1,48 @@
 // pages/repair/index.js
+const repairUrl=require('../../config').repairUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+     palce:'',
+     what:''
   },
-
+  bindPlaceChange:function(e){
+     this.setData({
+       place:e.detail.value 
+     })
+  },
+  bindWhatChange:function(e){
+     this.setData({
+       what:e.detail.value
+     })
+  },
+  submit:function(){
+    wx.request({
+      url: repairUrl+'resident_repair_add',
+      data:{
+        residentUserId:wx.getStorageSync('userInfo').id,
+        residentUserActualName:wx.getStorageSync('userInfo').actualName,
+        residentUserPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
+        maintenanceContent:this.data.what,
+        maintenanceAddress:this.data.place
+      },
+      method:'POST',
+      success:function(res){
+        wx.showModal({
+          title: '提示',
+          content: '提交成功',
+          showCancel: false,
+          confirmText: "确定",
+          success: function(res) {
+            wx.navigateBack()
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
