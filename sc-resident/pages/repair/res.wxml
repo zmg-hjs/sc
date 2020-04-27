@@ -1,0 +1,15 @@
+<!--pages/repair/res.wxml-->
+<view>
+	<i-cell title="请为本次服务打分">
+		<i-rate bind:change="onChange" value="{{starIndex}}">
+		</i-rate>
+	</i-cell>
+	<view class="weui-cells weui-cells_after-title">
+		<view class="weui-cell">
+			<view class="weui-cell__bd">
+				<textarea class="weui-textarea" placeholder="请在此处输入建议" style="height: 3.3em" />
+				</view>
+            </view>
+        </view>
+         <button class="weui-btn" type="primary" bindtap="submit">确定</button>
+</view>

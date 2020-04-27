@@ -21,7 +21,7 @@ Page({
     }else if(type == 'repair'){
       _url="/pages/repair/repair"
     }else if(type == 'shop'){
-      _url="/pages/shop/shop"
+      _url="/pages/shop/index"
     }
     wx.navigateTo({
       url: _url,

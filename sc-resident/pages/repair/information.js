@@ -5,12 +5,54 @@ Page({
    * 页面的初始数据
    */
   data: {
+    list:[
+      {
+        id:'1',
+        status:'维修成功',
+        name:'鲁班大师',
+        process:'100'
+      },
+      {
+        id:'1',
+        status:'派遣中',
+        name:'鲁班大师',
+        process:'0'
+      },
+      {
+        id:'1',
+        status:'派遣成功',
+        name:'鲁班大师',
+        process:'25'
+      },
+      {
+        id:'1',
+        status:'维修中',
+        name:'鲁班大师',
+        process:'50'
+      }
+    ]
 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  cancle:function(){
+    wx.showModal({
+      title: '提示',
+      content: '确定取消报修吗',
+      showCancel: true,
+      confirmText: "确定",
+      success: function(res) {
+        wx.navigateBack()
+      }
+    })
+  },
+  response:function(){
+      wx.navigateTo({
+        url: '/pages/repair/res',
+      })
+  },
   onLoad: function (options) {
 
   },

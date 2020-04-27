@@ -1,0 +1,38 @@
+<!--miniprogram/pages/task/task.wxml-->
+<view class="weui-cells weui-cells_after-title">
+	<navigator url="/pages/task/information?status=派遣中" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+		<view class="weui-cell__hd">
+			<image src="/images/pqz.png" style="margin-right: 35px;vertical-align: middle;width:50px; height:40px;"></image>
+		</view>
+		<view class="weui-cell__bd">派遣中</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+	<navigator url="/pages/task/information?status=派遣成功" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+		<view class="weui-cell__hd">
+			<image src="/images/ypq.png" style="margin-right: 35px;vertical-align: middle;width:50px; height: 40px;"></image>
+		</view>
+		<view class="weui-cell__bd">派遣成功</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+	<navigator url="/pages/task/information?status=维修中" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+		<view class="weui-cell__hd">
+			<image src="/images/wxz.png" style="margin-right: 35px;vertical-align: middle;width:50px; height: 40px;"></image>
+		</view>
+		<view class="weui-cell__bd">维修中</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+	<navigator url="/pages/task/information?status=维修完成" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+		<view class="weui-cell__hd">
+			<image src="/images/wxc.png" style="margin-right: 35px;vertical-align: middle;width:50px; height: 40px;"></image>
+		</view>
+		<view class="weui-cell__bd">维修完成</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+  	<navigator url="/pages/task/information?status=已反馈" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+		<view class="weui-cell__hd">
+			<image src="/images/fk.png" style="margin-right: 35px;vertical-align: middle;width:50px; height: 40px;"></image>
+		</view>
+		<view class="weui-cell__bd">已反馈</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+</view>

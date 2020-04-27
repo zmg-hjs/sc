@@ -34,7 +34,7 @@ Page({
           createDate:res.data.data.createDateStr,
           title:res.data.data.title,
           user:res.data.data.staffUserActualName,
-          content:res.data.data.content
+          content: res.data.data.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto"')
         })
       }
     })

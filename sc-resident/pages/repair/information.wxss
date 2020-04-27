@@ -5,5 +5,8 @@
 
 .cell-panel-demo{
   display: block;
-  margin-top: 15px;
+}
+.repair-card{
+  border: 2rpx solid #dddee1;
+  margin:3px;
 }

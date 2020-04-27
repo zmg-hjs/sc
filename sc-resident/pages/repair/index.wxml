@@ -1,0 +1,24 @@
+<!--pages/repair/index.wxml-->
+<view class="weui-panel weui-panel_access">
+	<view class="weui-panel__hd">提交维修信息</view>
+	<view class="weui-panel__bd">
+	</view>
+	<view class="weui-cell ">
+		<view class="weui-cell__hd">
+			<view class="weui-label">维修区域:</view>
+		</view>
+		<view class="weui-cell__bd">
+			<input class="weui-input" placeholder="请输入维修区域" bindchange="bindNumChange" />
+		</view>
+	</view>
+  	<view class="weui-cell ">
+		<view class="weui-cell__hd">
+			<view class="weui-label">维修设备:</view>
+		</view>
+		<view class="weui-cell__bd">
+			<input class="weui-input" placeholder="请输入要维修的设备" bindchange="bindNumChange" />
+		</view>
+	</view>
+</view>
+<view class="weui-cells weui-cells_after-title"></view>
+ <button class="weui-btn" type="primary" bindtap="submit">确定</button>
