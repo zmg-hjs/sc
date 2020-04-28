@@ -1,11 +1,12 @@
 // miniprogram/pages/repair/index.js
+const repairUrl=require('../../config').repairUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    info:''
   },
 
   /**
@@ -14,16 +15,40 @@ Page({
   cancle:function(){
     wx.showModal({
       title: '提示',
-      content: '确定取消报修吗',
+      content: '接受报修',
       showCancel: true,
       confirmText: "确定",
       success: function(res) {
+        wx.request({
+          url: repairUrl+'property_repair_add',
+          method:'POST',
+          data:{
+            id:info.id,
+            staffUserId:wx.getStorageSync('userInfo').id,
+            workId:wx.getStorageSync('userInfo').workDto.id
+          },
+          success:function(res){
+            console.log(res.data.data)
+          }
+        })
         wx.navigateBack()
       }
     })
   },
   onLoad: function (options) {
-
+    var that=this
+    wx.request({
+      url: repairUrl+'property_repair_one',
+      data:{
+        id:options.id
+      },
+      method:'POST',
+      success:function(res){
+        that.setData({
+          info:res.data.data
+        })
+      }
+    })
   },
 
   /**

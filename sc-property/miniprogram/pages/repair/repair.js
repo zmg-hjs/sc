@@ -1,4 +1,5 @@
 // miniprogram/pages/repair/repair.js
+const repairUrl=require('../../config').repairUrl
 Page({
 
   /**
@@ -6,22 +7,25 @@ Page({
    */
   data: {
 
-    list:[
-      {
-        id:'1',
-        title:'九单元走廊灯坏了'
-      },
-      {
-        id:'2',
-        title:'十单元灯坏了'
-      }
-    ]
+    list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: repairUrl+'property_repair_list',
+      data:{},
+      method:'POST',
+      success:function(res){
+        console.log(res.data)
+       that.setData({
+         list:res.data.data
+       })
+      }
+    })
 
   },
 
