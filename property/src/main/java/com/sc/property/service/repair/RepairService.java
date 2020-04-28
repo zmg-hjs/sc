@@ -293,6 +293,7 @@ public class RepairService {
             //修改工作表
             WorkEntity workEntity = workRepository.findWorkEntityById(repairEntity.getWorkId());
             workEntity.setWeight(workEntity.getWeight()+3);
+            workEntity.setRepairNumber(workEntity.getRepairNumber()+1);
             workEntity.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
             workEntity.setUpdateDate(date);
             workRepository.save(workEntity);
