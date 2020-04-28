@@ -24,13 +24,52 @@ Page({
         id:'1',
         seller:'13'
       },
-    ]
+    ],
+    list1:[
+      {
+        title:'小黄瓜 2斤/袋',
+        url:'http://img.mp.sohu.com/upload/20170712/280d28acfe3643bab859b38a61d1cccd_th.png',
+        id:'1',
+        seller:'13'
+      },
+      {
+        title:'红富士苹果 2斤/袋',
+        url:'http://img.chemcp.com/201910/187099201910191014583088.jpg',
+        id:'2',
+        seller:'10'
+      },
+      {
+        title:'小台芒 2斤/袋',
+        url:'http://5b0988e595225.cdn.sohucs.com/images/20170910/551ced4e517b4828a841142e056a6b4c.jpeg',
+        id:'1',
+        seller:'18.6'
+      }
+    ],
+    current_scroll: 'tab1'
 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  
+  handleChangeScroll ({ detail }) {
+    console.log(detail.key)
+    this.setData({
+        current_scroll: detail.key,
+        list:this.data.list1
+    });
+},
+submit:function(e){
+  wx.navigateTo({
+    url: './shop?id='+e.currentTarget.id,
+  })
+},
+handleChange ({ detail }) {
+  wx.navigateTo({
+    url: './publish',
+  })
+},
   onLoad: function (options) {
 
   },
