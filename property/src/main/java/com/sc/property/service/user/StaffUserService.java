@@ -132,8 +132,23 @@ public class StaffUserService {
             addUserEntity(staffUserEntity);
         }
         StaffUserEntity entity = staffUserRepository.findStaffUserEntityById(staffUserEntity.getId());
-        if (entity!=null) return new Result().setSuccess(entity);
-        else return Result.createSimpleFailResult();
+        if (StringUtils.isNotBlank(staffUserEntity.getId())){
+            StaffUserDto staffUserDto = MyBeanUtils.copyPropertiesAndResTarget(staffUserEntity, StaffUserDto::new, d -> {
+                d.setCreateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getCreateDate()));
+                d.setUpdateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getUpdateDate()));
+                d.setPositionStr(PositionEnum.getTypesName(staffUserEntity.getPosition()));
+                d.setWhetherValidStr(WhetherValidEnum.getTypesName(staffUserEntity.getWhetherValid()));
+            });
+            WorkEntity workEntity = findWorkEntity(staffUserDto.getId()).getContent().get(0);
+            WorkDto workDto = MyBeanUtils.copyPropertiesAndResTarget(workEntity, WorkDto::new, d -> {
+                d.setCreateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getCreateDate()));
+                d.setUpdateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getUpdateDate()));
+                d.setWorkStatusStr(WorkStatusEnum.getTypesName(d.getWorkStatus()));
+                d.setWhetherValidStr(WhetherValidEnum.getTypesName(staffUserEntity.getWhetherValid()));
+            });
+            staffUserDto.setWorkDto(workDto);
+            return new Result().setSuccess(staffUserDto);
+        }else return Result.createSimpleFailResult();
     }
 
     /**
