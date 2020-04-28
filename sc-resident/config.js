@@ -10,6 +10,7 @@ var config={
   newsUrl:`${apiUrl}/sc/resident/news/`,
   carUrl:`${apiUrl}/sc/resident/car/`,
   activityUrl:`${apiUrl}/sc/resident/activity/`,
-  voteUrl:`${apiUrl}/sc/resident/activity/vote/`
+  voteUrl:`${apiUrl}/sc/resident/activity/vote/`,
+  repairUrl:`${apiUrl}/sc/resident/repair/`
 };
 module.exports = config

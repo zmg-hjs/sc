@@ -8,7 +8,7 @@
 			<view class="weui-label">维修区域:</view>
 		</view>
 		<view class="weui-cell__bd">
-			<input class="weui-input" placeholder="请输入维修区域" bindchange="bindNumChange" />
+			<input class="weui-input" placeholder="请输入维修区域" bindchange="bindPlaceChange" />
 		</view>
 	</view>
   	<view class="weui-cell ">
@@ -16,7 +16,7 @@
 			<view class="weui-label">维修设备:</view>
 		</view>
 		<view class="weui-cell__bd">
-			<input class="weui-input" placeholder="请输入要维修的设备" bindchange="bindNumChange" />
+			<input class="weui-input" placeholder="请输入要维修的设备" bindchange="bindWhatChange" />
 		</view>
 	</view>
 </view>
