@@ -64,7 +64,7 @@ Page({
         that.setData({
           list:res.data.data
         })
-        for(var i=0;i<that.data.list.length;i++){
+        for(var i=0;i<that.data.list.length;i++){  
           that.data.list[i].createDateStr=that.data.list[i].createDateStr.substr(5,11)
           if(that.data.list[i].maintenanceStatusStr=='派遣中'){
             that.data.list[i].process=25
@@ -98,13 +98,13 @@ Page({
         that.data.list=that.data.list.concat(that.data.list4)
         that.data.list=that.data.list.concat(that.data.list5)
         that.data.list=that.data.list.concat(that.data.list6)
-        
         that.setData({
           list:that.data.list
         })
-        console.log(that.data.list)
       }
       })
+      
+    
   },
   response:function(e){
       wx.navigateTo({

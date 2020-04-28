@@ -1,4 +1,4 @@
-// miniprogram/pages/repair/repair.js
+// miniprogram/pages/task/list.js
 const repairUrl=require('../../config').repairUrl
 Page({
 
@@ -6,26 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    list:[]
+     status:'',
+     list:[]
   },
-   getInfo:function(res){
-    var that=this
-    wx.request({
-      url: repairUrl+'property_repair_list',
-      data:{},
-      method:'POST',
-      success:function(res){
-       that.setData({
-         list:res.data.data
-       })
-      }
-    })
-   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      status:options.status
+    })
+
+
+    console.log(this.data.status)
   },
 
   /**
@@ -39,7 +33,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getInfo();
+    var that=this
+    wx.request({
+      url: repairUrl+'property_repair_my_list',
+      data:{
+        staffUserId:wx.getStorageSync('userInfo').id,
+        maintenanceStatus:that.data.status
+      },
+      method:'POST',
+      success:function(res){
+        that.setData({
+          list:res.data.data
+        })
+        console.log(res.data.data)
+      }
+    })
+
   },
 
   /**

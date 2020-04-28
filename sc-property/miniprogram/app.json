@@ -21,7 +21,8 @@
     "pages/repair/repair",
     "pages/repair/index",
     "pages/task/task",
-    "pages/task/information"
+    "pages/task/information",
+    "pages/task/list"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

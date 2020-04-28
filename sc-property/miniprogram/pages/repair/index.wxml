@@ -2,7 +2,7 @@
 <i-cell-group>
 	<i-cell title="维修状态："  value="派遣中"></i-cell>
 	<i-cell title="报修人姓名："  value="{{info.residentUserActualName}}"></i-cell>
-	<i-cell title="报修人电话："  value="{{info.staffUserPhoneNumber}}"></i-cell>
+	<i-cell title="报修人电话："  value="{{info.residentUserPhoneNumber}}"></i-cell>
 	<i-cell title="维修地址："  value="{{info.maintenanceAddress}}"></i-cell>
 	<i-cell title="维修内容："  value="{{info.maintenanceContent}}"></i-cell>
 	<i-cell></i-cell>
