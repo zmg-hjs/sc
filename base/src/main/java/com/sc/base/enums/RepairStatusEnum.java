@@ -12,7 +12,7 @@ public enum RepairStatusEnum {
 
     CANCEL("cancel","取消"),
     DISPATCH("dispatch","派遣中"),
-    SUCCESSFUL_DISPATCH("complete_dispatch","完成派遣"),
+    SUCCESSFUL_DISPATCH("complete_dispatch","已派遣"),
     UNDER_MAINTENANCE("under_repair","维修中"),
     REPAIR_SUCCESSFUL("repair_complete","完成维修"),
     FEEDBACK("feedback","反馈");

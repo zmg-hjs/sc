@@ -98,6 +98,7 @@ public class RepairService {
     }
 
     /**
+     * 接受报修
      * 修改报修信息，添加维修订单表信息
      * @param repairDto
      * @return
@@ -105,17 +106,10 @@ public class RepairService {
     public Result addRepairOrderEntity(RepairDto repairDto){
         try {
             Date date = new Date();
-            //修改维修表
-            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
-            repairEntity.setMaintenanceStatus(RepairStatusEnum.SUCCESSFUL_DISPATCH.getType());
-            repairEntity.setStaffUserId(repairDto.getStaffUserId());
-            repairEntity.setStaffUserActualName(repairDto.getStaffUserActualName());
-            repairEntity.setStaffUserPhoneNumber(repairDto.getStaffUserPhoneNumber());
-            repairEntity.setUpdateDate(date);
-            repairRepository.save(repairEntity);
             //添加维修订单表
             RepairOrderEntity repairOrderEntity = new RepairOrderEntity();
-            repairOrderEntity.setId(MyStringUtils.getIdDateStr("repair_order"));
+            String repairOrderId = MyStringUtils.getIdDateStr("repair_order");
+            repairOrderEntity.setId(repairOrderId);
             repairOrderEntity.setCreateDate(date);
             repairOrderEntity.setUpdateDate(date);
             repairOrderEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
@@ -125,12 +119,21 @@ public class RepairService {
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
             repairOrderRepository.save(repairOrderEntity);
             //修改工作表
-            Page<WorkEntity> page = findWorkEntity(repairDto.getStaffUserId());
-            page.getContent().stream().forEach(e->{
-                e.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
-                e.setUpdateDate(date);
-                workRepository.save(e);
-            });
+            WorkEntity workEntity = workRepository.findWorkEntityById(repairDto.getWorkId());
+            workEntity.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+            workEntity.setUpdateDate(date);
+            workRepository.save(workEntity);
+            //修改维修表
+            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
+            repairEntity.setWorkId(workEntity.getId());
+            repairEntity.setRepairOrderId(repairOrderId);
+            repairEntity.setMaintenanceStatus(RepairStatusEnum.SUCCESSFUL_DISPATCH.getType());
+            repairEntity.setStaffUserId(repairDto.getStaffUserId());
+            repairEntity.setStaffUserActualName(repairDto.getStaffUserActualName());
+            repairEntity.setStaffUserPhoneNumber(repairDto.getStaffUserPhoneNumber());
+            repairEntity.setUpdateDate(date);
+            repairRepository.save(repairEntity);
+
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
@@ -153,8 +156,8 @@ public class RepairService {
                 @Override
                 public Predicate toPredicate(Root<RepairEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
-                    if (StringUtils.isNotBlank(repairDto.getRepairmanStatus())){
-                        predicateList.add(criteriaBuilder.equal(root.get("repairmanStatus"), repairDto.getRepairmanStatus()));
+                    if (StringUtils.isNotBlank(repairDto.getMaintenanceStatus())){
+                        predicateList.add(criteriaBuilder.equal(root.get("maintenanceStatus"), repairDto.getMaintenanceStatus()));
                     }
                     predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), repairDto.getStaffUserId()));
                     predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
@@ -176,91 +179,65 @@ public class RepairService {
         }
     }
 
-    /**
-     * 查询RepairOrderEntity
-     * @param repairDto
-     * @return
-     */
-    public Result findRepairOrderEntity(RepairDto repairDto){
-        try {
-            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
-            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
-            Page<RepairOrderEntity> page = repairOrderRepository.findAll(new Specification<RepairOrderEntity>() {
-                @Override
-                public Predicate toPredicate(Root<RepairOrderEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    ArrayList<Predicate> predicateList = new ArrayList<>();
-                    predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), repairDto.getStaffUserId()));
-                    predicateList.add(criteriaBuilder.equal(root.get("repairId"), repairDto.getId()));
-                    predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
-                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
-                }
-            }, pageable);
-            List<RepairOrderDto> repairOrderDtoList = page.getContent().stream().map(e -> {
-                return MyBeanUtils.copyPropertiesAndResTarget(e, RepairOrderDto::new, dto -> {
-                    dto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
-                    dto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
-                    dto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
-                    dto.setRepairmanStatusStr(RepairOrderStatusEnum.getTypesName(e.getRepairmanStatus()));
-                });
-            }).collect(Collectors.toList());
-            return new Result().setSuccess(repairOrderDtoList.get(0));
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.createSystemErrorResult();
-        }
-    }
+
 
     /**
      * 取消维修
-     * @param repairOrderDto
+     * @param repairDto
      * @return
      */
-    public Result cacelRepair(RepairOrderDto repairOrderDto){
+    public Result cacelRepair(RepairDto repairDto){
         try {
             Date date = new Date();
             //修改维修订单表
-            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairOrderDto.getId());
+            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairDto.getRepairOrderId());
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.CANCEL.getType());
             repairOrderEntity.setScore(-1);
             repairOrderEntity.setUpdateDate(date);
             repairOrderRepository.save(repairOrderEntity);
             //修改工作表
-            Page<WorkEntity> page = findWorkEntity(repairOrderDto.getStaffUserId());
-            page.getContent().stream().forEach(e->{
-                e.setWeight(e.getWeight()-1);
-                e.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
-                e.setUpdateDate(date);
-                workRepository.save(e);
-            });
-            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairOrderDto.getRepairId());
+            WorkEntity workEntity = workRepository.findWorkEntityById(repairDto.getWorkId());
+            workEntity.setWeight(workEntity.getWeight()-1);
+            workEntity.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+            workEntity.setUpdateDate(date);
+            workRepository.save(workEntity);
+            //查询报修表
+            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
             //修改维修表1.查询工作表是否有空闲维修员
-            List<WorkEntity> workEntityList = findStaffUserList(repairOrderDto.getStaffUserId()).getData();
+            List<WorkEntity> workEntityList = findStaffUserList(repairDto.getStaffUserId()).getData();
             if (workEntityList!=null&&workEntityList.size()>0){
+                //添加维修订单表
+                RepairOrderEntity repairOrderEntity1 = new RepairOrderEntity();
+                String repairOrderId1 = MyStringUtils.getIdDateStr("repair_order");
+                repairOrderEntity1.setId(repairOrderId1);
+                repairOrderEntity1.setCreateDate(date);
+                repairOrderEntity1.setUpdateDate(date);
+                repairOrderEntity1.setWhetherValid(WhetherValidEnum.VALID.getType());
+                repairOrderEntity1.setScore(3);
+                repairOrderEntity1.setRepairId(repairDto.getId());
+                repairOrderEntity1.setStaffUserId(repairDto.getStaffUserId());
+                repairOrderEntity1.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
+                repairOrderRepository.save(repairOrderEntity1);
+                //修改工作表
+                WorkEntity workEntity1 = workRepository.findWorkEntityById(workEntityList.get(0).getId());
+                workEntity1.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+                workEntity1.setUpdateDate(date);
+                workRepository.save(workEntity1);
+                //修改维修表
+                repairEntity.setRepairOrderId(repairOrderId1);
+                repairEntity.setWorkId(workEntityList.get(0).getId());
                 repairEntity.setStaffUserId(workEntityList.get(0).getStaffUserId());
                 repairEntity.setStaffUserActualName(workEntityList.get(0).getStaffUserActualName());
                 repairEntity.setStaffUserPhoneNumber(workEntityList.get(0).getStaffUserPhoneNumber());
                 repairEntity.setMaintenanceStatus(RepairStatusEnum.SUCCESSFUL_DISPATCH.getType());
                 repairRepository.save(repairEntity);
-                //添加维修订单表
-                RepairOrderEntity repairOrderEntity1 = new RepairOrderEntity();
-                repairOrderEntity1.setId(MyStringUtils.getIdDateStr("repair_order"));
-                repairOrderEntity1.setCreateDate(date);
-                repairOrderEntity1.setUpdateDate(date);
-                repairOrderEntity1.setWhetherValid(WhetherValidEnum.VALID.getType());
-                repairOrderEntity1.setScore(3);
-                repairOrderEntity1.setRepairId(repairEntity.getId());
-                repairOrderEntity1.setStaffUserId(repairEntity.getStaffUserId());
-                repairOrderEntity1.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
-                repairOrderRepository.save(repairOrderEntity);
-                //修改工作表
-                Page<WorkEntity> page1 = findWorkEntity(repairEntity.getStaffUserId());
-                page1.getContent().stream().forEach(e->{
-                    e.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
-                    e.setUpdateDate(date);
-                    workRepository.save(e);
-                });
             }else {
                 repairEntity.setMaintenanceStatus(RepairStatusEnum.DISPATCH.getType());
+                repairEntity.setRepairOrderId(null);
+                repairEntity.setWorkId(null);
+                repairEntity.setStaffUserId(null);
+                repairEntity.setStaffUserActualName(null);
+                repairEntity.setStaffUserPhoneNumber(null);
                 repairRepository.save(repairEntity);
             }
             return Result.createSimpleSuccessResult();
@@ -272,19 +249,19 @@ public class RepairService {
 
     /**
      * 开始维修
-     * @param repairOrderDto
+     * @param repairDto
      * @return
      */
-    public Result startRepair(RepairOrderDto repairOrderDto){
+    public Result startRepair(RepairDto repairDto){
         try {
             Date date = new Date();
             //修改维修订单表
-            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairOrderDto.getId());
+            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairDto.getRepairOrderId());
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.UNDER_MAINTENANCE.getType());
             repairOrderEntity.setUpdateDate(date);
             repairOrderRepository.save(repairOrderEntity);
-
-            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairOrderDto.getRepairId());
+            //修改报修表
+            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
             repairEntity.setMaintenanceStatus(RepairStatusEnum.UNDER_MAINTENANCE.getType());
             repairEntity.setUpdateDate(date);
             repairRepository.save(repairEntity);
@@ -297,30 +274,29 @@ public class RepairService {
 
     /**
      * 完成维修
-     * @param repairOrderDto
+     * @param repairDto
      * @return
      */
-    public Result endRepair(RepairOrderDto repairOrderDto){
+    public Result endRepair(RepairDto repairDto){
         try {
             Date date = new Date();
             //修改维修订单表
-            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairOrderDto.getId());
+            RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairDto.getRepairOrderId());
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.REPAIR_SUCCESSFUL.getType());
             repairOrderEntity.setUpdateDate(date);
             repairOrderRepository.save(repairOrderEntity);
 
-            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairOrderDto.getRepairId());
+            RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
             repairEntity.setMaintenanceStatus(RepairStatusEnum.REPAIR_SUCCESSFUL.getType());
             repairEntity.setUpdateDate(date);
             repairRepository.save(repairEntity);
             //修改工作表
-            Page<WorkEntity> page1 = findWorkEntity(repairEntity.getStaffUserId());
-            page1.getContent().stream().forEach(e->{
-                e.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
-                e.setWeight(e.getWeight()+3);
-                e.setUpdateDate(date);
-                workRepository.save(e);
-            });
+            WorkEntity workEntity = workRepository.findWorkEntityById(repairEntity.getWorkId());
+            workEntity.setWeight(workEntity.getWeight()+3);
+            workEntity.setRepairNumber(workEntity.getRepairNumber()+1);
+            workEntity.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
+            workEntity.setUpdateDate(date);
+            workRepository.save(workEntity);
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
@@ -381,4 +357,38 @@ public class RepairService {
         return page;
     }
 
+
+    /**
+     * 查询RepairOrderEntity
+     * @param repairDto
+     * @return
+     */
+    public Result findRepairOrderEntity(RepairDto repairDto){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+            Page<RepairOrderEntity> page = repairOrderRepository.findAll(new Specification<RepairOrderEntity>() {
+                @Override
+                public Predicate toPredicate(Root<RepairOrderEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), repairDto.getStaffUserId()));
+                    predicateList.add(criteriaBuilder.equal(root.get("repairId"), repairDto.getId()));
+                    predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            List<RepairOrderDto> repairOrderDtoList = page.getContent().stream().map(e -> {
+                return MyBeanUtils.copyPropertiesAndResTarget(e, RepairOrderDto::new, dto -> {
+                    dto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                    dto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                    dto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                    dto.setRepairmanStatusStr(RepairOrderStatusEnum.getTypesName(e.getRepairmanStatus()));
+                });
+            }).collect(Collectors.toList());
+            return new Result().setSuccess(repairOrderDtoList.get(0));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 }

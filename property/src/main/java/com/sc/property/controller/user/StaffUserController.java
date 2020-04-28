@@ -59,8 +59,8 @@ public class StaffUserController {
     @ResponseBody
     public Result automaticLogin(@RequestBody WeChatEntity weChatEntity){
         try {
-            Result automaticLoginREsult = staffUserService.automaticLogin(weChatEntity);
-            return automaticLoginREsult;
+            Result automaticLoginResult = staffUserService.automaticLogin(weChatEntity);
+            return automaticLoginResult;
         }catch (Exception e){
             return Result.createSystemErrorResult();
         }

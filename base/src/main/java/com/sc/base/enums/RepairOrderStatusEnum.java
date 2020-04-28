@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 @Getter
 public enum RepairOrderStatusEnum {
 
-    RECEIVE_DISPATCH("receive_repair","接受"),
+
+    RECEIVE_DISPATCH("complete_dispatch","已派遣"),
     UNDER_MAINTENANCE("under_repair","维修中"),
     REPAIR_SUCCESSFUL("repair_complete","完成维修"),
     CANCEL("cancel","取消维修");
