@@ -1,5 +1,6 @@
 package com.sc.base.dto.user;
 
+import com.sc.base.dto.work.WorkDto;
 import lombok.Data;
 
 @Data
@@ -26,5 +27,7 @@ public class StaffUserDto {
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效type
     private String whetherValidStr; //是否有效name
+
+    private WorkDto workDto = new WorkDto();
 
 }

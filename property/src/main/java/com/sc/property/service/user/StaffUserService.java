@@ -2,9 +2,12 @@ package com.sc.property.service.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.dto.user.StaffUserDto;
+import com.sc.base.dto.work.WorkDto;
 import com.sc.base.entity.user.StaffRegistrationEntity;
 import com.sc.base.entity.user.StaffUserEntity;
 import com.sc.base.entity.work.WorkEntity;
+import com.sc.base.enums.PositionEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.enums.WorkStatusEnum;
 import com.sc.base.repository.user.StaffRegistrationRepository;
@@ -12,14 +15,26 @@ import com.sc.base.repository.user.StaffUserRepository;
 import com.sc.base.repository.work.WorkRepository;
 import myJson.MyJsonUtil;
 import myString.MyStringUtils;
+import mydate.MyDateUtil;
+import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vo.Result;
 import weChat.entity.WeChatEntity;
 import weChat.util.GetWeChatInfoUtil;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -131,12 +146,28 @@ public class StaffUserService {
         weChatEntity.setAppSecret(appSecret);
         JSONObject jsonObject = JSONObject.parseObject(GetWeChatInfoUtil.getOpenIdAndSessionKey(weChatEntity).getData());
         StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByOpenId((String) jsonObject.get("openid"));
-        if (StringUtils.isNotBlank(staffUserEntity.getId())) return new Result().setSuccess(staffUserEntity);
+        if (StringUtils.isNotBlank(staffUserEntity.getId())){
+            StaffUserDto staffUserDto = MyBeanUtils.copyPropertiesAndResTarget(staffUserEntity, StaffUserDto::new, d -> {
+                d.setCreateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getCreateDate()));
+                d.setUpdateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getUpdateDate()));
+                d.setPositionStr(PositionEnum.getTypesName(staffUserEntity.getPosition()));
+                d.setWhetherValidStr(WhetherValidEnum.getTypesName(staffUserEntity.getWhetherValid()));
+            });
+            WorkEntity workEntity = findWorkEntity(staffUserDto.getId()).getContent().get(0);
+            WorkDto workDto = MyBeanUtils.copyPropertiesAndResTarget(workEntity, WorkDto::new, d -> {
+                d.setCreateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getCreateDate()));
+                d.setUpdateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getUpdateDate()));
+                d.setWorkStatusStr(WorkStatusEnum.getTypesName(d.getWorkStatus()));
+                d.setWhetherValidStr(WhetherValidEnum.getTypesName(staffUserEntity.getWhetherValid()));
+            });
+            staffUserDto.setWorkDto(workDto);
+            return new Result().setSuccess(staffUserDto);
+        }
         return Result.createSimpleFailResult();
     }
 
     /**
-     * 员工注册
+     * 员工注册,员工表注册和员工工作表创建
      * @param staffUserEntity
      */
     public void addUserEntity(StaffUserEntity staffUserEntity){
@@ -166,6 +197,21 @@ public class StaffUserService {
         workEntity.setUpdateDate(new Date());
         workEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
         workRepository.save(workEntity);
+    }
+
+    private Page<WorkEntity> findWorkEntity(String staffUserId){
+        Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+        Page<WorkEntity> page = workRepository.findAll(new Specification<WorkEntity>() {
+            @Override
+            public Predicate toPredicate(Root<WorkEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                ArrayList<Predicate> predicateList = new ArrayList<>();
+                predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), staffUserId));
+                predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+            }
+        }, pageable);
+        return page;
     }
 
 }

@@ -29,5 +29,7 @@ public class RepairEntity {
     private String staffUserId;//维修人员id
     private String staffUserActualName;//维修人员姓名
     private String staffUserPhoneNumber;//维修人员电话号码
+    private String repairOrderId;
+    private String workId;
 
 }
