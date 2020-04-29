@@ -1,8 +1,58 @@
 <!--pages/shop/publish.wxml-->
-	<view class="weui-cells weui-cells_after-title">
-		<view class="weui-cell">
-			<view class="weui-cell__bd">
-				<textarea class="weui-textarea" placeholder="请在此处输入商品描述" style="height: 3.3em" bindinput="bindContentChange" />
+<view class="weui-cells weui-cells_after-title">
+	<view class="weui-cell ">
+		<view class="weui-cell__hd">
+			<image src="../../images/good.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+		</view>
+		<view class="weui-cell__bd">商品名：</view>
+		<view class="weui-cell__db">
+			<input class="weui-input" placeholder="请输入商品名称" bindchange="bindGoodChange" />
+		</view>
+	</view>
+	<view class="weui-cell ">
+		<view class="weui-cell__hd">
+			<image src="../../images/money.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+		</view>
+		<view class="weui-cell__bd">价格：</view>
+		<view class="weui-cell__db">
+			<input class="weui-input" placeholder="请输入价格" type="digit" bindchange="bindMonChange" />
+		</view>
+	</view>
+</view>
+<view class="weui-cells weui-cells_after-title" style="height: 30vh;">
+	<view class="weui-cell">
+		<view class="weui-cell__bd">
+			<textarea class="weui-textarea" placeholder="请在此处输入商品描述" style="height: 9em" bindinput="bindContentChange" />
 			</view>
     </view>
+</view>
+<view class="page__bd">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                          <view class="weui-uploader__overview">
+                              <view class="weui-uploader__title">图片上传</view>
+                              <view class="weui-uploader__info">{{files.length}}/3</view>
+                          </view>
+                          <view class="weui-uploader__tips">
+                            只能上传三张图片且第一为封面图
+                          </view>
+                        </view>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files" id="uploaderFiles">
+                                <block wx:for="{{files}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
     </view>
+    <button class="weui-btn" type="primary" bindtap="submit">确定</button>

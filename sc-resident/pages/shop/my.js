@@ -1,35 +1,18 @@
-// pages/shop/shop.js
+// pages/shop/my.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      "http://img0.imgtn.bdimg.com/it/u=2394972844,3024358326&fm=26&gp=0.jpg",
-      "http://img5.imgtn.bdimg.com/it/u=3008142408,2229729459&fm=26&gp=0.jpg",
-      "http://img4.imgtn.bdimg.com/it/u=2939038876,2702387014&fm=26&gp=0.jpg"
-    ],
-    current:''
-},
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  
-  handleChange ({ detail }) {
-    this.setData({
-      current: detail.key
-  });
-    if(this.data.current=='homepage'){
-      wx.navigateBack()
-    }
-    console.log(this.data.current)
-},
   onLoad: function (options) {
-       this.setData({
-         id:options.id
-       })
-       console.log(this.data.id)
+
   },
 
   /**
