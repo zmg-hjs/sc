@@ -13,7 +13,12 @@
     flex: 2;
     
   }
-
+  .myui-select {
+    padding-right: 30px;
+    border-right: 1rpx solid rgba(0, 0, 0, .1);
+    
+    }
+    
   .weui-btn{
     margin: 20px 15px
   }

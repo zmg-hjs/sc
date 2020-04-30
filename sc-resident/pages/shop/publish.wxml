@@ -18,6 +18,21 @@
 			<input class="weui-input" placeholder="请输入价格" type="digit" bindchange="bindMonChange" />
 		</view>
 	</view>
+    <view class="weui-cell ">
+	<!-- <view class="weui-cell weui-cell_select"> -->
+		<!-- <view class="weui-cell__hd weui-cell__hd_in-select-after">
+			<view class="weui-label">类别：</view>
+		</view> -->
+		<view class="weui-cell__hd">
+			<image src="../../images/good.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+		</view>
+		<view class="weui-cell__bd">类别：</view>
+		<view class="weui-cell__db">
+			<picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
+				<view class="myui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+			</picker>
+		</view>
+	</view>
 </view>
 <view class="weui-cells weui-cells_after-title" style="height: 30vh;">
 	<view class="weui-cell">

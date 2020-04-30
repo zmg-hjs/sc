@@ -9,8 +9,17 @@ Page({
     files:[],
     goods:'',
     money:'',
-    count:0
+    count:0,
+    countries: ["衣服", "食品", "电器","美妆","家具","其他"],
+    countryIndex: 0
   },
+  bindCountryChange: function(e) {
+    console.log('picker country 发生选择改变，携带值为', this.data.countries[e.detail.value]);
+
+    this.setData({
+        countryIndex: e.detail.value
+    })
+},
    bindGoodChange:function(e){
     this.setData({
       goods: e.detail.value

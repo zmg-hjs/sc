@@ -30,7 +30,8 @@
     "pages/repair/res",
     "pages/shop/shop",
     "pages/shop/publish",
-    "pages/shop/my"
+    "pages/shop/my",
+    "pages/shop/information"
   ],
   "window": {
     "backgroundTextStyle": "light",

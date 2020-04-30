@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "社区购物",
   "usingComponents": {
     "i-card": "../../dist/card/index",
     "i-button": "../../dist/button/index",
