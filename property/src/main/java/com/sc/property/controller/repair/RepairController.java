@@ -55,7 +55,7 @@ public class RepairController {
 
     /**
      * 报修列表接受
-     * 传入参数 id维修表id、staffUserId、workId
+     * 传入参数 id维修表id、staffUserId、workId、staffUserActualName、staffUserPhoneNumber
      * @param repairDto
      * @return
      */
@@ -72,7 +72,7 @@ public class RepairController {
 
     /**
      * 我的维修列表
-     * 传入参数 staffUserId、
+     * 传入参数 staffUserId、maintenanceStatus
      * @param repairDto
      * @return
      */

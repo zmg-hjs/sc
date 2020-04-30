@@ -37,6 +37,7 @@ public class StaffUserController {
             Result login = staffUserService.login(weChatEntity);
             return login;
         }catch (Exception e){
+            e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
@@ -47,6 +48,7 @@ public class StaffUserController {
             Result register = staffUserService.register(registerDto);
             return register;
         }catch (Exception e){
+            e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
@@ -62,6 +64,7 @@ public class StaffUserController {
             Result automaticLoginResult = staffUserService.automaticLogin(weChatEntity);
             return automaticLoginResult;
         }catch (Exception e){
+            e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }

@@ -49,7 +49,8 @@ public class RepairService {
         try {
             Date date = new Date();
             RepairEntity repairEntity = new RepairEntity();
-            repairEntity.setId(MyStringUtils.getIdDateStr("repair"));
+            String repairId = MyStringUtils.getIdDateStr("repair");
+            repairEntity.setId(repairId);
             repairEntity.setCreateDate(date);
             repairEntity.setUpdateDate(date);
             repairEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
@@ -69,8 +70,8 @@ public class RepairService {
                 repairOrderEntity.setUpdateDate(date);
                 repairOrderEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
                 repairOrderEntity.setScore(3);
-                repairOrderEntity.setRepairId(repairDto.getId());
-                repairOrderEntity.setStaffUserId(repairDto.getStaffUserId());
+                repairOrderEntity.setRepairId(repairId);
+                repairOrderEntity.setStaffUserId(workEntityList.get(0).getStaffUserId());
                 repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
                 repairOrderRepository.save(repairOrderEntity);
                 //修改工作表
@@ -197,6 +198,7 @@ public class RepairService {
         try {
             Date date = new Date();
             RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
+            repairEntity.setScore(repairDto.getScore());
             repairEntity.setMaintenanceFeedback(repairDto.getMaintenanceFeedback());
             repairEntity.setMaintenanceStatus(RepairStatusEnum.FEEDBACK.getType());
             repairEntity.setUpdateDate(date);
