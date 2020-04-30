@@ -1,4 +1,6 @@
 // pages/shop/publish.js
+const shopUrl=require('../../config').shopUrl
+const imageUrl=require('../../config').imageUrl
 Page({
 
   /**
@@ -11,7 +13,8 @@ Page({
     money:'',
     count:0,
     countries: ["衣服", "食品", "电器","美妆","家具","其他"],
-    countryIndex: 0
+    countryIndex: 0,
+    imageUrls:[]
   },
   bindCountryChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', this.data.countries[e.detail.value]);
@@ -52,17 +55,24 @@ Page({
         success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
             that.data.count++;
-            that.setData({
-              files: that.data.files.concat(res.tempFilePaths)
-          });
-            // wx.uploadFile({
-            //   filePath: res.tempFilePaths[0],
-            //   name: 'file',
-            //   url: 'url',
-            //   success:function(ress){
-            //     console.log(ress)
-            //   }
-            // })
+          //   that.setData({
+          //     files: that.data.files.concat(res.tempFilePaths)
+          // });
+            wx.uploadFile({
+              filePath: res.tempFilePaths[0],
+              name: 'file',
+              url: imageUrl+'images',
+              success:function(ress){
+              //   that.setData({
+              //     imageUrls: that.data.imageUrls.concat(ress.data.data)
+              // });
+              debugger
+              console.log(ress.data)
+              that.setData({
+                files: that.data.files.concat(ress.data.data)
+            });
+              }
+            })
         }
     })
 },

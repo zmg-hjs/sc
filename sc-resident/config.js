@@ -11,6 +11,8 @@ var config={
   carUrl:`${apiUrl}/sc/resident/car/`,
   activityUrl:`${apiUrl}/sc/resident/activity/`,
   voteUrl:`${apiUrl}/sc/resident/activity/vote/`,
-  repairUrl:`${apiUrl}/sc/resident/repair/`
+  repairUrl:`${apiUrl}/sc/resident/repair/`,
+  shopUrl:`${apiUrl}/sc/resident/commodity/`,
+  imageUrl:`${apiUrl}/sc/resident/upload/`
 };
 module.exports = config
