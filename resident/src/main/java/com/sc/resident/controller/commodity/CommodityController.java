@@ -1,6 +1,7 @@
 package com.sc.resident.controller.commodity;
 
 import com.sc.base.dto.commodity.CommodityDto;
+import com.sc.base.dto.commodity.CommodityOrderDto;
 import com.sc.resident.service.commodity.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,7 +75,73 @@ public class CommodityController {
         }
     }
 
-    
+    /**
+     * 查询我的商品列表
+     * 传入参数 businessid、commoditystatus
+     * @param commodityDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_my_list",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityDto>> findMyCommodityEntityList(@RequestBody CommodityDto commodityDto){
+        try {
+            return commodityService.findCommodityEntityList(commodityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 查询我的商品详情,如果该商品存在commodityOrderId，需调用接口resident_commodity_order_one
+     * 传入参数 id
+     * @param commodityDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_my_one",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityDto>> findMyCommodityEntityById(@RequestBody CommodityDto commodityDto){
+        try {
+            return commodityService.findCommodityEntityById(commodityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 查询我的订单列表
+     * 传入参数 buyerId、commoditystatus
+     * @param commodityOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_order_list",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityOrderDto>> findCommodityOrderEntityList(@RequestBody CommodityOrderDto commodityOrderDto){
+        try {
+            return commodityService.findCommodityOrderEntityList(commodityOrderDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 查询我的订单详情,还需调用接口resident_commodity_my_one
+     * 传入参数 id
+     * @param commodityOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_order_one",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityOrderDto>> findCommodityOrderEntityById(@RequestBody CommodityOrderDto commodityOrderDto){
+        try {
+            return commodityService.findCommodityOrderEntityById(commodityOrderDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 
 
 

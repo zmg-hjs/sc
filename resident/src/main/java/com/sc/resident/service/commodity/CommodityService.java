@@ -88,10 +88,10 @@ public class CommodityService {
                         predicateList.add(criteriaBuilder.equal(root.get("commodityClassification"),commodityDto.getCommodityClassification()));
                     }
                     if (StringUtils.isNotBlank(commodityDto.getBusinessId())){
-                        predicateList.add(criteriaBuilder.equal(root.get("businessid"),commodityDto.getBusinessId()));
+                        predicateList.add(criteriaBuilder.equal(root.get("businessId"),commodityDto.getBusinessId()));
                     }
                     if (StringUtils.isNotBlank(commodityDto.getCommodityStatus())){
-                        predicateList.add(criteriaBuilder.equal(root.get("commoditystatus"),commodityDto.getCommodityStatus()));
+                        predicateList.add(criteriaBuilder.equal(root.get("commodityStatus"),commodityDto.getCommodityStatus()));
                     }
                     predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
@@ -207,10 +207,10 @@ public class CommodityService {
                 public Predicate toPredicate(Root<CommodityOrderEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(commodityOrderDto.getBuyerId())){
-                        predicateList.add(criteriaBuilder.equal(root.get("buyerid"),commodityOrderDto.getBuyerId()));
+                        predicateList.add(criteriaBuilder.equal(root.get("buyerId"),commodityOrderDto.getBuyerId()));
                     }
                     if (StringUtils.isNotBlank(commodityOrderDto.getCommodityStatus())){
-                        predicateList.add(criteriaBuilder.equal(root.get("commoditystatus"),commodityOrderDto.getCommodityStatus()));
+                        predicateList.add(criteriaBuilder.equal(root.get("commodityStatus"),commodityOrderDto.getCommodityStatus()));
                     }
                     predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
