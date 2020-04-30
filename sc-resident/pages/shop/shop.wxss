@@ -1,1 +1,49 @@
 /* pages/shop/shop.wxss */
+.weui-btn{
+  margin: 20px 15px
+}
+.container{
+  margin-top: 0px;
+}
+.page-section-spacing{
+  box-sizing: border-box;
+  padding: 0 0;
+}
+.swiper-item{
+  display: block;
+  height: 150px;
+  width: 100vw;
+}
+.page-section{
+  width: 100%;
+}
+.image {
+  width: 90vm;
+  height: 240px;
+  display: inline-block;
+  overflow: hidden;
+  }
+  .weui-cell__bd {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    font-weight:bold
+  }
+  
+  .weui-cell__ft {
+    text-align: right;
+    color: rgba(243, 30, 30, 0.748);
+    font-weight:bold
+  }
+  .my-tab-bar {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    -webkit-box-align: center;
+    background:#e9eaec;
+    height: 10vh;
+  }

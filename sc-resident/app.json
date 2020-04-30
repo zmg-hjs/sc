@@ -29,7 +29,8 @@
     "pages/shop/commodity",
     "pages/repair/res",
     "pages/shop/shop",
-    "pages/shop/publish"
+    "pages/shop/publish",
+    "pages/shop/my"
   ],
   "window": {
     "backgroundTextStyle": "light",

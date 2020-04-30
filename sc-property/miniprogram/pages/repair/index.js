@@ -13,25 +13,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   cancle:function(){
-    wx.showModal({
-      title: '提示',
-      content: '接受报修',
-      showCancel: true,
-      confirmText: "确定",
-      success: function(res) {
+    var that=this
         wx.request({
           url: repairUrl+'property_repair_add',
           method:'POST',
           data:{
-            id:info.id,
+            id:that.data.info.id,
             staffUserId:wx.getStorageSync('userInfo').id,
-            workId:wx.getStorageSync('userInfo').workDto.id
+            workId:wx.getStorageSync('userInfo').workDto.id,
+            staffUserActualName:wx.getStorageSync('userInfo').actualName,
+            staffUserPhoneNumber:wx.getStorageSync('userInfo').phoneNumber
           },
           success:function(res){
-            console.log(res.data.data)
-          }
+            wx.showModal({
+              title: '提示',
+              content: '接受报修成功',
+              showCancel: false,
+              confirmText: "确定",
+              success: function(res) {
+                wx.navigateBack()
+              }
         })
-        wx.navigateBack()
+       
       }
     })
   },

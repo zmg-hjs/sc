@@ -1,1 +1,20 @@
 /* pages/shop/publish.wxss */
+/* .weui-cells {
+  margin-top: 8px;
+  background-color: #fff;
+  line-height: 1.41176471;
+  font-size: 17px;
+  height: 30vh;
+  }
+   */
+   .weui-cell__db {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 2;
+    
+  }
+
+  .weui-btn{
+    margin: 20px 15px
+  }
+    

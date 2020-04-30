@@ -3,7 +3,7 @@
 	<i-cell title="请为本次服务打分">
 		<i-rate bind:change="onChange" value="{{starIndex}}">
 		</i-rate>
-	</i-cell>F
+	</i-cell>
 	<view class="weui-cells weui-cells_after-title">
 		<view class="weui-cell">
 			<view class="weui-cell__bd">

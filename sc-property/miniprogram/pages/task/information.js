@@ -1,21 +1,88 @@
 // miniprogram/pages/task/information.js
+const repairUrl=require('../../config').repairUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-     status:'',
+     info:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.setData({
-      status:options.status
+  cancle:function(){
+     wx.request({
+       url: repairUrl+'property_repair_my_cancel',
+       data:{
+         id:this.data.info.id,
+         repairOrderId:this.data.info.repairOrderId,
+         workId:wx.getStorageSync('userInfo').workDto.id,
+         staffUserId:wx.getStorageSync('userInfo').id
+       },
+       method:'POST',
+       success:function(res){
+         console.log(res.data)
+         wx.showModal({
+          title: '提示',
+          content: '取消维修成功',
+          showCancel: false,
+          confirmText: "确定",
+          success: function(res) {
+            wx.navigateBack()
+          }
     })
-    console.log(this.data.status)
+       }
+     })
+  },
+  complete:function(){
+    wx.request({
+      url: repairUrl+'property_repair_my_end',
+      data:{
+        id:this.data.info.id,
+        repairOrderId:this.data.info.repairOrderId,
+        workId:wx.getStorageSync('userInfo').workDto.id,
+        staffUserId:wx.getStorageSync('userInfo').id
+      },
+      method:'POST',
+      success:function(res){
+        console.log(res.data)
+        wx.navigateBack()
+      }
+    })
+
+  },
+  start:function(){
+    wx.request({
+      url: repairUrl+'property_repair_my_start',
+      data:{
+        id:this.data.info.id,
+        repairOrderId:this.data.info.repairOrderId,
+      },
+      method:'POST',
+      success:function(res){
+        console.log(res.data)
+        wx.navigateBack()
+      }
+    })
+
+  },
+  onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: repairUrl+'property_repair_one',
+      data:{
+        id:options.id
+      },
+      method:'POST',
+      success:function(res){
+        that.setData({
+          info:res.data.data
+        })
+        console.log(that.data.info)
+      }
+    })
   },
 
   /**

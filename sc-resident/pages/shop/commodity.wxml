@@ -1,5 +1,5 @@
 <!--pages/shop/commodity.wxml-->
-<i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll"  style="height:5vh">
+<i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll">
 	<i-tab key="tab1" title="选项1"></i-tab>
 	<i-tab key="tab2" title="选项2"></i-tab>
 	<i-tab key="tab3" title="选项3"></i-tab>
@@ -10,18 +10,18 @@
 	<i-tab key="tab8" title="选项8"></i-tab>
 	<i-tab key="tab9" title="选项9"></i-tab>
 </i-tabs>
-<scroll-view scroll-y="true" style="height: 85vh;">
-<block wx:for="{{list}}" wx:key="id">
-	<view class="i-class i-card">
-		<image class="i-card-header-thumb" src="{{ item.url }}" mode="aspectFit" wx:if="{{ item.url }}" />
-		<view class="i-class i-card-body">{{ item.title }}</view>
-		<view class="i-class i-card-content">
-			<view class="i-class i-card-footer">¥ {{ item.seller }}</view>
-			<button class="weui-btn i-class i-card-buy" type="primary" size="mini" id="{{item.id}}" bindtap="submit">去下单</button>
+<scroll-view scroll-y="true" style="height: 84vh;">
+	<block wx:for="{{list}}" wx:key="id">
+		<view class="i-class i-card">
+			<image class="i-card-header-thumb" src="{{ item.url }}" mode="aspectFit" wx:if="{{ item.url }}" />
+			<view class="i-class i-card-body">{{ item.title }}</view>
+			<view class="i-class i-card-content">
+				<view class="i-class i-card-footer">¥ {{ item.seller }}</view>
+				<button class="weui-btn i-class i-card-buy" type="primary" size="mini" id="{{item.id}}" bindtap="submit">查看详情</button>
+			</view>
 		</view>
-	</view>
-</block>
+	</block>
 </scroll-view>
-<i-tab-bar current="{{ current }}" color="#f759ab" bindchange="handleChange">
-    <i-tab-bar-item key="homepage" icon="add" title="发布商品"></i-tab-bar-item>
+<i-tab-bar i-tab-bar="my-tab-bar" current="{{ current }}" color="#f759ab" bindchange="handleChange">
+	<i-tab-bar-item key="homepage" icon="add" title="发布商品"></i-tab-bar-item>
 </i-tab-bar>

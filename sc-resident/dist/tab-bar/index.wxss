@@ -8,7 +8,7 @@
   align-items: center;
   -webkit-box-align: center;
   background:#e9eaec;
-  height: 10vh;
+  height: 8vh;
 }
 
 .i-tab-bar::after {

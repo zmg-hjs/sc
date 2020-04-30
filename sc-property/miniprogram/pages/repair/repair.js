@@ -9,24 +9,23 @@ Page({
 
     list:[]
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+   getInfo:function(res){
     var that=this
     wx.request({
       url: repairUrl+'property_repair_list',
       data:{},
       method:'POST',
       success:function(res){
-        console.log(res.data)
        that.setData({
          list:res.data.data
        })
       }
     })
-
+   },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
   },
 
   /**
@@ -40,7 +39,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getInfo();
   },
 
   /**
