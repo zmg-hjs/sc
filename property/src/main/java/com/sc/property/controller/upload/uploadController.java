@@ -37,7 +37,7 @@ public class uploadController {
 
     @RequestMapping(value = "/images",method = RequestMethod.POST)
     @ResponseBody
-    public Result up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
+    public String up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
         try {
             //得到原文件名
             String originalFilename = myfile.getOriginalFilename();
@@ -57,7 +57,7 @@ public class uploadController {
 //            map1.put("data",picUrl+imagePath+"/"+newName);
 //
 //            return MyJsonUtil.toJson(map1);
-            return new Result().setSuccess(picUrl+imagePath+"/"+newName);
+            return picUrl+imagePath+"/"+newName;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
