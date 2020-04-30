@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import vo.Result;
 import vsftpd.FtpUtil;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class uploadController {
 
     @RequestMapping(value = "/images",method = RequestMethod.POST)
     @ResponseBody
-    public String up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
+    public Result up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
         try {
             //得到原文件名
             String originalFilename = myfile.getOriginalFilename();
@@ -50,13 +51,13 @@ public class uploadController {
                 return null;
 //                return Result.createSimpleFailResult();
             }
-            HashMap<String, Object> map1 = new HashMap<>();
-            map1.put("code",0);
-            map1.put("msg","上传图片成功");
-            map1.put("data",picUrl+imagePath+"/"+newName);
-
-            return MyJsonUtil.toJson(map1);
-//            return new Result().setSuccess("{\"src\":\""+picUrl+imagePath+"/"+newName+"\"}");
+//            HashMap<String, Object> map1 = new HashMap<>();
+//            map1.put("code",0);
+//            map1.put("msg","上传图片成功");
+//            map1.put("data",picUrl+imagePath+"/"+newName);
+//
+//            return MyJsonUtil.toJson(map1);
+            return new Result().setSuccess(picUrl+imagePath+"/"+newName);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -40,6 +40,42 @@ public class CommodityController {
     }
 
     /**
+     * 卖家取消发布
+     * 传入参数 id
+     * @param commodityDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_my_unpublish",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityDto>> unpublish(@RequestBody CommodityDto commodityDto){
+        try {
+            return commodityService.unpublish(commodityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 卖家取消交易
+     * 传入参数 id,commodityOrderId
+     * @param commodityDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_my_cancel",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityDto>> cancelTransaction(@RequestBody CommodityDto commodityDto){
+        try {
+            return commodityService.cancelTransaction(commodityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+
+
+    /**
      * 查看商品详情
      * 传入参数
      * @param commodityDto
@@ -111,7 +147,7 @@ public class CommodityController {
 
     /**
      * 查询我的订单列表
-     * 传入参数 buyerId、commoditystatus
+     * 传入参数 buyerId、commodityStatus
      * @param commodityOrderDto
      * @return
      */
@@ -143,6 +179,40 @@ public class CommodityController {
         }
     }
 
+    /**
+     * 购买
+     * 传入参数 buyerId;//买家id,buyerActualName;// 买家姓名,buyerPhoneNumber;// 买家电话号码,
+     *         harvestAddress;// 买家地址,commodityId;// 商品id,
+     * @param commodityOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_buy",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityOrderDto>> buy(@RequestBody CommodityOrderDto commodityOrderDto){
+        try {
+            return commodityService.buy(commodityOrderDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 卖家取消交易
+     * 传入参数 id，commodityId
+     * @param commodityOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_order_cancel",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<CommodityOrderDto>> buyerCancelTransaction(@RequestBody CommodityOrderDto commodityOrderDto){
+        try {
+            return commodityService.buyerCancelTransaction(commodityOrderDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 
 
 }

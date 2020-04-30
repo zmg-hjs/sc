@@ -180,7 +180,6 @@ public class CommodityService {
                 e.setCreateDate(date);
                 e.setUpdateDate(date);
                 e.setWhetherValid(WhetherValidEnum.VALID.getType());
-                //转换价格
                 e.setCommodityStatus(commodityEntity.getCommodityStatus());
             });
             commodityOrderRepository.save(commodityOrderEntity);
@@ -230,5 +229,84 @@ public class CommodityService {
             return Result.createSystemErrorResult();
         }
     }
+
+    /**
+     * 卖家取消发布
+     * 1.修改商品状态
+     * 2.修改订单表
+     * @param commodityDto
+     * @return
+     */
+    public Result unpublish(CommodityDto commodityDto){
+        try {
+            Date date = new Date();
+            //1.修改商品表
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityDto.getId());
+            commodityEntity.setCommodityStatus(CommodityStatusEnum.UNPUBLISH.getType());
+            commodityEntity.setUpdateDate(date);
+            commodityRepository.save(commodityEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 卖家取消交易
+     * 1.修改商品状态
+     * 2.修改订单表
+     * @param commodityDto
+     * @return
+     */
+    public Result cancelTransaction(CommodityDto commodityDto){
+        try {
+            Date date = new Date();
+            //1.修改商品表
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityDto.getId());
+            commodityEntity.setCommodityStatus(CommodityStatusEnum.CANCEL_TRANSACTION.getType());
+            commodityEntity.setUpdateDate(date);
+            commodityEntity.setCommodityOrderId(null);
+            commodityRepository.save(commodityEntity);
+            //2.修改订单表
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityDto.getCommodityOrderId());
+            commodityOrderEntity.setCommodityStatus(CommodityStatusEnum.CANCEL_TRANSACTION.getType());
+            commodityOrderEntity.setUpdateDate(date);
+            commodityOrderRepository.save(commodityOrderEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 买家取消交易
+     * 1.修改商品状态
+     * 2.修改订单表
+     * @param commodityOrderDto
+     * @return
+     */
+    public Result buyerCancelTransaction(CommodityOrderDto commodityOrderDto){
+        try {
+            Date date = new Date();
+            //1.修改商品表
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityOrderDto.getCommodityId());
+            commodityEntity.setCommodityStatus(CommodityStatusEnum.IN_TRANSACTION.getType());
+            commodityEntity.setUpdateDate(date);
+            commodityEntity.setCommodityOrderId(null);
+            commodityRepository.save(commodityEntity);
+            //2.修改订单表
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityOrderDto.getId());
+            commodityOrderEntity.setCommodityStatus(CommodityStatusEnum.CANCEL_TRANSACTION.getType());
+            commodityOrderEntity.setUpdateDate(date);
+            commodityOrderRepository.save(commodityOrderEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 
 }
