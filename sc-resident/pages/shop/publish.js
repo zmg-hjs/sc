@@ -13,14 +13,18 @@ Page({
     money:'',
     count:0,
     countries: ["衣服", "食品", "电器","美妆","家具","其他"],
+    english:["clothes", "food", "electrical", "beauty", "furniture", "others"],
+    name:'',
     countryIndex: 0,
-    imageUrls:[]
+    imageUrls:[],
+
   },
   bindCountryChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', this.data.countries[e.detail.value]);
 
     this.setData({
-        countryIndex: e.detail.value
+        countryIndex: e.detail.value,
+        name:this.data.english[e.detail.value]
     })
 },
    bindGoodChange:function(e){
@@ -65,11 +69,10 @@ Page({
               success:function(ress){
               //   that.setData({
               //     imageUrls: that.data.imageUrls.concat(ress.data.data)
-              // });
-              debugger
-              console.log(ress.data)
+              // }); 
+              var info=JSON.parse(ress.data)
               that.setData({
-                files: that.data.files.concat(ress.data.data)
+                files: that.data.files.concat(info.data)
             });
               }
             })
@@ -92,15 +95,32 @@ previewImage: function(e){
   },
   submit:function(){
    console.log(this.data)
-   wx.showModal({
-    title: '提示',
-    content: '发布成功，等待审核',
-    showCancel: false,
-    confirmText: "确定",
-    success: function(res) {
-      wx.navigateBack()
-    }
-  })
+   wx.request({
+     url: shopUrl+'resident_commodity_add',
+     method:'POST',
+     data:{
+      businessId:wx.getStorageSync('userInfo').id,
+      businessActualName:wx.getStorageSync('userInfo').actualName,
+      businessPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
+     commodityName:this.data.goods,
+     commodityIntroduce:this.data.content,
+     commodityPictureUrl:this.data.files,
+     commodityPrice:this.data.money,
+     commodityClassification:this.data.name
+     },
+     success:function(res){
+       console.log(res)
+       wx.showModal({
+        title: '提示',
+        content: '发布成功，等待审核',
+        showCancel: false,
+        confirmText: "确定",
+        success: function(res) {
+          wx.navigateBack()
+        }
+      })
+     }
+   })
   },
   onLoad: function (options) {
 

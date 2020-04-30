@@ -1,4 +1,5 @@
 // pages/shop/shop.js
+const shopUrl=require('../../config').shopUrl
 Page({
 
   /**
@@ -30,6 +31,16 @@ Page({
          id:options.id
        })
        console.log(this.data.id)
+       wx.request({
+         url: shopUrl+'resident_commodity_one',
+         method:'POST',
+         data:{
+           id:options.id
+         },
+         success:function(res){
+           console.log(res)
+         }
+       })
   },
 
   /**

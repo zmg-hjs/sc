@@ -1,11 +1,11 @@
 <!--pages/shop/commodity.wxml-->
 <i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll">
-	<i-tab key="tab1" title="衣服"></i-tab>
-	<i-tab key="tab2" title="食品"></i-tab>
-	<i-tab key="tab3" title="电器"></i-tab>
-	<i-tab key="tab4" title="美妆"></i-tab>
-	<i-tab key="tab5" title="家具"></i-tab>
-	<i-tab key="tab6" title="其他"></i-tab>
+	<i-tab key="clothes" title="衣服"></i-tab>
+	<i-tab key="food" title="食品"></i-tab>
+	<i-tab key="electrical" title="电器"></i-tab>
+	<i-tab key="beauty" title="美妆"></i-tab>
+	<i-tab key="furniture" title="家具"></i-tab>
+	<i-tab key="others" title="其他"></i-tab>
 </i-tabs>
 <scroll-view scroll-y="true" style="height: 84vh;">
 	<block wx:for="{{list}}" wx:key="id">

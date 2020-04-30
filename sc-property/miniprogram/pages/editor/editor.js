@@ -117,9 +117,9 @@ Page({
           name: 'file',
           url: app.globalData.domainName+'/sc/staff/upload/images',
           success:function(ress){
-            console.log(ress.data)
+            var info=JSON.parse(ress.data)
             that.editorCtx.insertImage({
-              src: ress.data.data ,
+              src: info.data ,
               data: {
                 id: 'abcd',
                 role: 'god'

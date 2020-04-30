@@ -1,4 +1,5 @@
 // pages/shop/my.js
+const shopUrl=require('../../config').shopUrl
 Page({
 
   /**
@@ -47,6 +48,17 @@ Page({
   onLoad: function (options) {
 
     if(options.status=='publish'){
+      wx.request({
+        url: shopUrl+'resident_commodity_my_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'audit_successful'
+        },
+        success:function(res){
+          console.log(res.data)
+        }
+      })
       this.setData({
         status:options.status,
         listName:'我的发布商品列表'
@@ -54,6 +66,28 @@ Page({
       return
     }
     if(options.status=='sale'){
+      wx.request({
+        url: shopUrl+'resident_commodity_my_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'in_transaction'
+        },
+        success:function(res){
+          console.log(res.data)
+        }
+      })
+      wx.request({
+        url: shopUrl+'resident_commodity_my_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'transaction_successful'
+        },
+        success:function(res){
+          console.log(res.data)
+        }
+      })
       this.setData({
         status:options.status,
         listName:'我的售出商品列表'
@@ -61,6 +95,28 @@ Page({
       return
     }
     if(options.status=='buy'){
+      wx.request({
+        url: shopUrl+'resident_commodity_order_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'in_transaction'
+        },
+        success:function(res){
+          console.log(res.data)
+        }
+      })
+      wx.request({
+        url: shopUrl+'resident_commodity_order_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'transaction_successfu'
+        },
+        success:function(res){
+          console.log(res.data)
+        }
+      })
       this.setData({
         status:options.status,
         listName:'我的购买商品列表'

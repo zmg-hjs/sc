@@ -1,4 +1,5 @@
 // pages/shop/commodity.js
+const shopUrl=require('../../config').shopUrl
 Page({
 
   /**
@@ -45,7 +46,7 @@ Page({
         seller:'18.6'
       }
     ],
-    current_scroll: 'tab1'
+    current_scroll: 'clothes'
 
   },
 
@@ -59,6 +60,18 @@ Page({
         current_scroll: detail.key,
         list:this.data.list1
     });
+    var that=this
+    wx.request({
+      url: shopUrl+'/resident_commodity_list',
+      method:'POST',
+      data:{
+        commodityClassification:detail.key,
+        commodityStatus:'audit_successful'
+      },
+      success:function(res){
+        console.log(res.data)
+      }
+    })
 },
 submit:function(e){
   wx.navigateTo({
@@ -71,6 +84,18 @@ handleChange ({ detail }) {
   })
 },
   onLoad: function (options) {
+    var that=this
+    wx.request({
+      url: shopUrl+'/resident_commodity_list',
+      method:'POST',
+      data:{
+        commodityClassification:'clothes',
+        commoditystatus:'audit_successful'
+      },
+      success:function(res){
+        console.log(res.data)
+      }
+    })
 
   },
 
