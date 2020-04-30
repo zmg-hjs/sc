@@ -37,7 +37,7 @@ public class uploadController {
 
     @RequestMapping(value = "/images",method = RequestMethod.POST)
     @ResponseBody
-    public String up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
+    public Result up(@RequestParam(value = "file",required = false)MultipartFile myfile) {
         try {
             //得到原文件名
             String originalFilename = myfile.getOriginalFilename();
@@ -48,8 +48,8 @@ public class uploadController {
             String imagePath=MyDateUtil.date2String(new Date(),"/yyyy/MM/dd");
             boolean flag= FtpUtil.uploadFile(ip, port, username, password, baseUrl,imagePath,newName, myfile.getInputStream());
             if(!flag){
-                return null;
-//                return Result.createSimpleFailResult();
+//                return null;
+                return Result.createSimpleFailResult();
             }
 //            HashMap<String, Object> map1 = new HashMap<>();
 //            map1.put("code",0);
@@ -57,11 +57,11 @@ public class uploadController {
 //            map1.put("data",picUrl+imagePath+"/"+newName);
 //
 //            return MyJsonUtil.toJson(map1);
-            return picUrl+imagePath+"/"+newName;
+            return new Result().setSuccess(picUrl+imagePath+"/"+newName);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
-//            return Result.createSystemErrorResult();
+//            return null;
+            return Result.createSystemErrorResult();
         }
     }
 }
