@@ -391,4 +391,39 @@ public class RepairService {
             return Result.createSystemErrorResult();
         }
     }
+
+    /**
+     * 查询我的维修列表，我的取消状态
+     * @param repairOrderDto
+     * @return
+     */
+    public Result<List<RepairDto>> findMyCancel(RepairOrderDto repairOrderDto){
+        try {
+            Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+            Page<RepairOrderEntity> page = repairOrderRepository.findAll(new Specification<RepairOrderEntity>() {
+                @Override
+                public Predicate toPredicate(Root<RepairOrderEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    predicateList.add(criteriaBuilder.equal(root.get("repairmanStatus"), RepairStatusEnum.CANCEL.getType()));
+                    predicateList.add(criteriaBuilder.equal(root.get("staffUserId"), repairOrderDto.getStaffUserId()));
+                    predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            List<RepairDto> repairDtoList = page.getContent().stream().map(e -> {
+                RepairEntity repairEntity = repairRepository.findRepairEntityById(e.getRepairId());
+                RepairDto dto = MyBeanUtils.copyPropertiesAndResTarget(repairEntity, RepairDto::new);
+                dto.setCreateDateStr(MyDateUtil.getDateAndTime(repairEntity.getCreateDate()));
+                dto.setUpdateDateStr(MyDateUtil.getDateAndTime(repairEntity.getUpdateDate()));
+                dto.setWhetherValidStr(WhetherValidEnum.getTypesName(repairEntity.getWhetherValid()));
+                dto.setMaintenanceStatusStr(RepairStatusEnum.getTypesName(repairEntity.getMaintenanceStatus()));
+                return dto;
+            }).collect(Collectors.toList());
+            return new Result().setSuccess(repairDtoList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 }

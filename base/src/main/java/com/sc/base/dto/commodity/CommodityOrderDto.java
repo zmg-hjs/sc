@@ -24,6 +24,8 @@ public class CommodityOrderDto {
     private String commodityStatus;// 商品状态type
     private String commodityStatusStr;// 商品状态name
     private String feedback;// '反馈',
+    private String commodityName;// '商品名称',
+    private String commodityPictureUrl;// '商品图片',
 
 
 }

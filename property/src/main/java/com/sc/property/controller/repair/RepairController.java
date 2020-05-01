@@ -1,6 +1,7 @@
 package com.sc.property.controller.repair;
 
 import com.sc.base.dto.repair.RepairDto;
+import com.sc.base.dto.repair.RepairOrderDto;
 import com.sc.property.service.repair.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -149,6 +150,24 @@ public class RepairController {
     public Result<RepairDto> endRepair(@RequestBody RepairDto repairDto){
         try {
             return repairService.endRepair(repairDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+
+    /**
+     * 我的取消维修列表
+     * 传入参数 staffUserId
+     * @param repairOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/property_repair_my_cancel_list",method = RequestMethod.POST)
+    @ResponseBody
+    public Result findMyRepairEntityList(@RequestBody RepairOrderDto repairOrderDto){
+        try {
+            return repairService.findMyCancel(repairOrderDto);
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();

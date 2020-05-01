@@ -126,6 +126,7 @@ public class CommodityService {
                     d.setUpdateDateStr(MyDateUtil.getDateAndTime(commodityEntity.getUpdateDate()));
                     d.setWhetherValidStr(WhetherValidEnum.getTypesName(commodityEntity.getWhetherValid()));
                     d.setCommodityStatusStr(CommodityStatusEnum.getTypesName(commodityEntity.getCommodityStatus()));
+                    d.setCommodityPrice(commodityEntity.getCommodityPrice().doubleValue());
                 });
                 return new Result().setSuccess(commodityDto1);
             }else return Result.createSimpleFailResult();
@@ -181,6 +182,8 @@ public class CommodityService {
                 e.setUpdateDate(date);
                 e.setWhetherValid(WhetherValidEnum.VALID.getType());
                 e.setCommodityStatus(commodityEntity.getCommodityStatus());
+                e.setCommodityName(commodityEntity.getCommodityName());
+                e.setCommodityPictureUrl(commodityEntity.getCommodityPictureUrl());
             });
             commodityOrderRepository.save(commodityOrderEntity);
             return Result.createSimpleSuccessResult();

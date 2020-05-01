@@ -24,6 +24,8 @@ public class CommodityOrderEntity {
     private String commodityStatus;// 商品状态
     private String harvestAddress;// 收获地址
     private String feedback;// '反馈',
+    private String commodityName;// '商品名称',
+    private String commodityPictureUrl;// '商品图片',
 
 
 }
