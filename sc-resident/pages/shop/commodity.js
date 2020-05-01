@@ -6,46 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[
-      {
-        title:'小台芒 2斤/袋',
-        url:'http://5b0988e595225.cdn.sohucs.com/images/20170910/551ced4e517b4828a841142e056a6b4c.jpeg',
-        id:'1',
-        seller:'18.6'
-      },
-      {
-        title:'红富士苹果 2斤/袋',
-        url:'http://img.chemcp.com/201910/187099201910191014583088.jpg',
-        id:'2',
-        seller:'10'
-      },
-      {
-        title:'小黄瓜 2斤/袋',
-        url:'http://img.mp.sohu.com/upload/20170712/280d28acfe3643bab859b38a61d1cccd_th.png',
-        id:'1',
-        seller:'13'
-      },
-    ],
-    list1:[
-      {
-        title:'小黄瓜 2斤/袋',
-        url:'http://img.mp.sohu.com/upload/20170712/280d28acfe3643bab859b38a61d1cccd_th.png',
-        id:'1',
-        seller:'13'
-      },
-      {
-        title:'红富士苹果 2斤/袋',
-        url:'http://img.chemcp.com/201910/187099201910191014583088.jpg',
-        id:'2',
-        seller:'10'
-      },
-      {
-        title:'小台芒 2斤/袋',
-        url:'http://5b0988e595225.cdn.sohucs.com/images/20170910/551ced4e517b4828a841142e056a6b4c.jpeg',
-        id:'1',
-        seller:'18.6'
-      }
-    ],
+    list:[],
+    headerUrl:'',
     current_scroll: 'clothes'
 
   },
@@ -58,7 +20,6 @@ Page({
     console.log(detail.key)
     this.setData({
         current_scroll: detail.key,
-        list:this.data.list1
     });
     var that=this
     wx.request({
@@ -69,7 +30,17 @@ Page({
         commodityStatus:'audit_successful'
       },
       success:function(res){
-        console.log(res.data)
+        that.setData({
+          list:res.data.data
+        })
+        for(var i=0;i<that.data.list.length;i++){
+          var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+          var info1=JSON.parse(info)
+          that.data.list[i].headerUrl=info1[0]
+        }
+        that.setData({
+          list:that.data.list
+        })
       }
     })
 },
@@ -90,10 +61,20 @@ handleChange ({ detail }) {
       method:'POST',
       data:{
         commodityClassification:'clothes',
-        commoditystatus:'audit_successful'
+        commodityStatus:'audit_successful'
       },
       success:function(res){
-        console.log(res.data)
+        that.setData({
+          list:res.data.data
+        })
+        for(var i=0;i<that.data.list.length;i++){
+          var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+          var info1=JSON.parse(info)
+          that.data.list[i].headerUrl=info1[0]
+        }
+        that.setData({
+          list:that.data.list
+        })
       }
     })
 

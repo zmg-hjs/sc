@@ -2,10 +2,10 @@
 <scroll-view scroll-y="true" style="height: 90vh;">
 <view class="container1">
 	<view class="page-section page-section-spacing swiper">
-		<swiper indicator-dots="true}" autoplay="true" interval="3000" duration="1" style="width:100vw">
+		<swiper indicator-dots="true}" autoplay="true" interval="3000" duration="1" style="width:100vw; height:200px">
 			<block wx:for="{{imgUrls}}" wx:key="*this">
 				<swiper-item>
-					<image src="{{item}}" mode="aspectFill" style="width:100vw"></image>
+					<image src="{{item}}" mode="scaleToFill" style="width:100vw"></image>
 				</swiper-item>
 			</block>
 		</swiper>
@@ -13,8 +13,8 @@
 </view>
 <view class="weui-cells weui-cells_after-title">
 	<view class="weui-cell">
-		<view class="weui-cell__bd">商品名字</view>
-		<view class="weui-cell__ft">¥16</view>
+		<view class="weui-cell__bd">{{shop.commodityName}}</view>
+		<view class="weui-cell__ft">¥{{shop.commodityPrice}}</view>
 	</view>
 </view>
 <view class="page">
@@ -23,20 +23,18 @@
             <view class="weui-article__section">
                 <view class="weui-article__h2">商品简介：</view>
                 <view class="weui-article__section">
-                    <view class="weui-article__p">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                    <view class="weui-article_s">
+                     {{shop.commodityIntroduce}}
                     </view>
-                    <view class="weui-article__p">
-                        <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFit" style="height: 180px" />
-                        <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFit" style="height: 180px" />
+                    <view class="weui-article_s">
+                        <image src="{{imgUrls[0]}}" mode="scaleToFill" style="height: 180px;width:87vw" />
+                        <image class="weui-article__img" src="{{imgUrls[1]}}" mode="scaleToFill" style="height: 180px;width:87vw" />
+                        <image class="weui-article__img" src="{{imgUrls[2]}}" mode="scaleToFill" style="height: 180px;width:87vw" />
                     </view>
                 </view>
                 <view class="weui-article__section">
                     <view class="weui-article__h3">1.2 节标题</view>
-                    <view class="weui-article__p">
+                    <view class="weui-article_s">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non

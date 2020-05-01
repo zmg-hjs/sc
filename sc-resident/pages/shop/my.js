@@ -8,45 +8,14 @@ Page({
   data: {
     status:'',
     listName:'',
-    list:[
-      {
-      id:'1',
-      title:'标题一',
-      content:'由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-      src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg'
-    },
-    {
-      id:'2',
-      title:'标题一',
-      content:'由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-      src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg'
-    },
-    {
-      id:'3',
-      title:'标题一',
-      content:'由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-      src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg'
-    },
-    {
-      id:'4',
-      title:'标题一',
-      content:'由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-      src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg'
-    },
-    {
-      id:'5',
-      title:'标题一',
-      content:'由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-      src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg'
-    }
-  ]
+    list:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this
     if(options.status=='publish'){
       wx.request({
         url: shopUrl+'resident_commodity_my_list',
@@ -56,12 +25,33 @@ Page({
           commodityStatus:'audit_successful'
         },
         success:function(res){
-          console.log(res.data)
+          that.setData({
+            list:that.data.list.concat(res.data.data)
+          })
         }
       })
-      this.setData({
-        status:options.status,
-        listName:'我的发布商品列表'
+      wx.request({
+        url: shopUrl+'resident_commodity_my_list',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'under_review'
+        },
+        success:function(res){
+          that.setData({
+            list:that.data.list.concat(res.data.data)
+          })
+          for(var i=0;i<that.data.list.length;i++){
+            var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+            var info1=JSON.parse(info)
+            that.data.list[i].headerUrl=info1[0]
+          }
+          that.setData({
+            list:that.data.list,
+            status:options.status,
+            listName:'我的发布商品列表'
+          })
+        }
       })
       return
     }
@@ -74,7 +64,9 @@ Page({
           commodityStatus:'in_transaction'
         },
         success:function(res){
-          console.log(res.data)
+          that.setData({
+            list:that.data.list.concat(res.data.data)
+          })
         }
       })
       wx.request({
@@ -85,41 +77,119 @@ Page({
           commodityStatus:'transaction_successful'
         },
         success:function(res){
-          console.log(res.data)
+          that.setData({
+            list:that.data.list.concat(res.data.data)
+          })
+          for(var i=0;i<that.data.list.length;i++){
+            var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+            var info1=JSON.parse(info)
+            that.data.list[i].headerUrl=info1[0]
+          }
+          that.setData({
+            list:that.data.list,
+            status:options.status,
+            listName:'我的售出商品列表'
+          })
         }
-      })
-      this.setData({
-        status:options.status,
-        listName:'我的售出商品列表'
       })
       return
     }
     if(options.status=='buy'){
+      // wx.request({
+      //   url: shopUrl+'resident_commodity_order_list',
+      //   method:'POST',
+      //   data:{
+      //     buyerId:wx.getStorageSync('userInfo').id,
+      //     commodityStatus:'in_transaction'
+      //   },
+      //   success:function(res){
+      //     var count=res.data.data.length-1
+      //     for(var i=0;i<res.data.data.length;i++){
+      //       var count1=i
+      //       wx.request({
+      //         url: shopUrl+'resident_commodity_one',
+      //         method:'POST',
+      //         data:{
+      //           id:res.data.data[i].commodityId
+      //         },
+      //         success:function(ress){
+      //           // that.setData({
+      //           //   list:that.data.list.concat(ress.data.data)
+      //           // })
+      //           that.data.list=that.data.list.concat(ress.data.data)
+      //           console.log(that.data.list)
+      //         }
+      //       })
+      //     }
+      //   }
+      // })
       wx.request({
         url: shopUrl+'resident_commodity_order_list',
         method:'POST',
         data:{
-          businessId:wx.getStorageSync('userInfo').id,
-          commodityStatus:'in_transaction'
+          buyerId:wx.getStorageSync('userInfo').id,
+          commodityStatus:'in_transaction'//'transaction_successfu'//
         },
         success:function(res){
-          console.log(res.data)
+          if(res.data.data.length==0){
+            console.log("没有了")
+            for(var i=0;i<that.data.list.length;i++){
+              var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+              var info1=JSON.parse(info)
+              that.data.list[i].headerUrl=info1[0]
+              if(i==that.data.list.length-1){
+                console.log("没有了")
+                that.setData({
+                  list:that.data.list,
+                  status:options.status,
+                  listName:'我的购买商品列表'
+                })
+
+            }
+            }
+            // that.setData({
+            //   list:that.data.list,
+            //   status:options.status,
+            //   listName:'我的购买商品列表'
+            // })
+            console.log(that.data.list)
+          }
+          else{
+          var count=res.data.data.length-1
+          for(var i=0;i<res.data.data.length;i++){
+            var count1=i
+            wx.request({
+              url: shopUrl+'resident_commodity_one',
+              method:'POST',
+              data:{
+                id:res.data.data[i].commodityId
+              },
+              success:function(ress){
+                that.setData({
+                  list:that.data.list.concat(ress.data.data)
+                })
+                console.log(count)
+                console.log(count1)
+                if(count1==count){
+                  console.log(count)
+                  for(var i=0;i<that.data.list.length;i++){
+                    var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
+                    var info1=JSON.parse(info)
+                    that.data.list[i].headerUrl=info1[0]
+                  }
+                  that.setData({
+                    list:that.data.list,
+                    status:options.status,
+                    listName:'我的购买商品列表'
+                  })
+                  console.log("kaisl")
+                }
+      
+              }
+            })
+          }
         }
-      })
-      wx.request({
-        url: shopUrl+'resident_commodity_order_list',
-        method:'POST',
-        data:{
-          businessId:wx.getStorageSync('userInfo').id,
-          commodityStatus:'transaction_successfu'
-        },
-        success:function(res){
-          console.log(res.data)
         }
-      })
-      this.setData({
-        status:options.status,
-        listName:'我的购买商品列表'
       })
       return
     }

@@ -11,9 +11,10 @@
 .i-card-header-thumb {
   display: flex;
   align-items: center;
-  padding: 3px 2vw;
+  /* padding: 3px 2vw; */
   position: relative;
-  width: 88vw;
+  /* width: 88vw; */
+  width: 92vw;
   overflow: hidden;
   background-size: cover;
   vertical-align: middle;

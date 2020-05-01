@@ -2,39 +2,39 @@
 <view class="page__bd">
 	<view class="weui-panel weui-panel_access">
 		<view class="weui-panel__hd">订单信息</view>
-		<i-card full title="" extra="待发货" thumb="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588243789630&di=b20cf5fd50cc7b9c8816ed9b252b2680&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F408%2Fw1728h1080%2F20181229%2F_4Kw-hqwsysz1509145.jpg" i-class="card-demo">
-			<view slot="content">新款守安定的前大灯驱动器新款守安定的前大灯驱动器</view>
-			<view slot="footer">待发货</view>
+		<i-card full title="" extra="{{shop.commodityStatusStr}}" thumb="{{imgUrl}}" i-class="card-demo">
+			<view slot="content">{{shop.commodityName}}</view>
+			<view slot="footer">{{shop.commodityPrice}}</view>
 		</i-card>
 		<i-cell-group wx:if="{{status!='publish'}}">
-			<i-cell title="订单编号：" value="{{info.residentUserActualName}}"></i-cell>
-			<i-cell title="下单时间：" value="{{info.residentUserPhoneNumber}}"></i-cell>
-			<i-cell title="收货地址：" value="{{info.residentUserPhoneNumber}}"></i-cell>
+			<i-cell title="订单编号：" value="{{people.id}}"></i-cell>
+			<i-cell title="下单时间：" value="{{people.createDateStr}}"></i-cell>
+			<i-cell title="收货地址：" value="{{people.harvestAddress}}"></i-cell>
       <block wx:if="{{status=='sale'}}">
-			<i-cell title="买家姓名：" value="{{info.maintenanceAddress}}"></i-cell>
-			<i-cell title="买家电话：" value="{{info.maintenanceContent}}"></i-cell>
+			<i-cell title="买家姓名：" value="{{people.buyerActualName}}"></i-cell>
+			<i-cell title="买家电话：" value="{{people.buyerPhoneNumber}}"></i-cell>
       </block>
       <block wx:if="{{status=='buy'}}">
-			<i-cell title="卖家姓名：" value="{{info.staffUserActualName}}"></i-cell>
-			<i-cell title="卖家电话：" value="{{info.staffUserPhoneNumber}}"></i-cell>
+			<i-cell title="卖家姓名：" value="{{shop.businessActualName}}"></i-cell>
+			<i-cell title="卖家电话：" value="{{shop.businessPhoneNumber}}"></i-cell>
        </block>
 			<i-cell></i-cell>
 		</i-cell-group>
 		<view wx:if="{{status=='sale'}}">
 			<view class="button-sp-area">
-				<button class="weui-btn" type="primary" bindtap="complete">取消订单</button>
+				<button class="weui-btn" type="primary" bindtap="cancle1">取消订单</button>
 			</view>
 		</view>
-		<view wx:if="{{status=='buy'}}">
+		<view wx:if="{{people.commodityStatusStr=='交易中'}}">
 			<view class="button-sp-area">
-				<button class="weui-btn mini-btn" type="primary" bindtap="start">发货完成</button>
+				<button class="weui-btn mini-btn" type="primary" bindtap="complete">发货完成</button>
 				<button class="weui-btn mini-btn" type="default" bindtap="cancle">取消订单</button>
 			</view>
 		</view>
-    		<view wx:if="{{status=='publish'}}">
+    	<view wx:if="{{status=='publish'}}">
 			<view class="button-sp-area">
-				<button class="weui-btn mini-btn" type="primary" bindtap="start">修改价格</button>
-				<button class="weui-btn mini-btn" type="default" bindtap="cancle">删除商品</button>
+				<button class="weui-btn mini-btn" type="primary" bindtap="changePrice">修改价格</button>
+				<button class="weui-btn mini-btn" type="default" bindtap="delete">删除商品</button>
 			</view>
 		</view>
 	</view>

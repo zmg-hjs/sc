@@ -14,9 +14,10 @@ Page({
     count:0,
     countries: ["衣服", "食品", "电器","美妆","家具","其他"],
     english:["clothes", "food", "electrical", "beauty", "furniture", "others"],
-    name:'',
+    name:'clothes',
     countryIndex: 0,
-    imageUrls:[],
+    imageUrls:["http://101.200.237.154/images/2020/05/01/42041af7-96bd-4521-b5f0-0950bf9b8af9.jpg","http://101.200.237.154/images/2020/05/01/a205645f-b1f0-405b-83ff-9118054b6344.jpg"
+    ,"http://101.200.237.154/images/2020/05/01/430058c5-19c8-4c3c-974f-f7485e570401.jpg"]
 
   },
   bindCountryChange: function(e) {
@@ -95,6 +96,13 @@ previewImage: function(e){
   },
   submit:function(){
    console.log(this.data)
+  var info=JSON.stringify(this.data.files)
+  var info1=encodeURIComponent(info)
+  console.log(info1)
+  var info2=decodeURIComponent(info1)
+  var info3=JSON.parse(info2)
+  console.log(info3)
+  console.log()
    wx.request({
      url: shopUrl+'resident_commodity_add',
      method:'POST',
@@ -104,7 +112,7 @@ previewImage: function(e){
       businessPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
      commodityName:this.data.goods,
      commodityIntroduce:this.data.content,
-     commodityPictureUrl:this.data.files,
+     commodityPictureUrl:info1,
      commodityPrice:this.data.money,
      commodityClassification:this.data.name
      },

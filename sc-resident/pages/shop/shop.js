@@ -11,7 +11,8 @@ Page({
       "http://img5.imgtn.bdimg.com/it/u=3008142408,2229729459&fm=26&gp=0.jpg",
       "http://img4.imgtn.bdimg.com/it/u=2939038876,2702387014&fm=26&gp=0.jpg"
     ],
-    current:''
+    current:'',
+    shop:''
 },
   /**
    * 生命周期函数--监听页面加载
@@ -24,13 +25,40 @@ Page({
     if(this.data.current=='homepage'){
       wx.navigateBack()
     }
-    console.log(this.data.current)
+    if(this.data.current=='shop'){
+      wx.request({
+        url: shopUrl+'resident_commodity_buy',
+        method:'POST',
+        data:{
+          commodityId:this.data.id,
+          buyerId:wx.getStorageSync('userInfo').id,
+          buyerActualName:wx.getStorageSync('userInfo').actualName,
+          buyerPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
+          harvestAddress:wx.getStorageSync('userInfo').address
+        },
+        success:function(res){
+          console.log(res.data)
+          wx.showModal({
+            title: '提示',
+            content: '下单成功，等待发货',
+            showCancel: false,
+            confirmText: "确定",
+            success: function(res) {
+              wx.reLaunch({
+                url: './commodity',
+              })
+            }
+          })
+        }
+      })
+    }
 },
   onLoad: function (options) {
        this.setData({
          id:options.id
        })
        console.log(this.data.id)
+       var that=this
        wx.request({
          url: shopUrl+'resident_commodity_one',
          method:'POST',
@@ -38,7 +66,12 @@ Page({
            id:options.id
          },
          success:function(res){
-           console.log(res)
+          var info=decodeURIComponent(res.data.data.commodityPictureUrl)
+          var info1=JSON.parse(info)
+          that.setData({
+            imgUrls:info1,
+            shop:res.data.data
+          })
          }
        })
   },

@@ -141,7 +141,7 @@ public class CommodityService {
      */
     public Result findCommodityOrderEntityById(CommodityOrderDto commodityOrderDto){
         try {
-            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityOrderDto.getId());
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityByCommodityId(commodityOrderDto.getCommodityId());
             if (StringUtils.isNotBlank(commodityOrderEntity.getId())){
                 CommodityOrderDto commodityOrderDto1 = MyBeanUtils.copyPropertiesAndResTarget(commodityOrderEntity, CommodityOrderDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(commodityOrderEntity.getCreateDate()));

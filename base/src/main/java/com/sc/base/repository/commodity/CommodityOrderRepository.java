@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface CommodityOrderRepository extends JpaRepository<CommodityOrderEntity,String> {
 
     CommodityOrderEntity findCommodityOrderEntityById(String id);
+    CommodityOrderEntity findCommodityOrderEntityByCommodityId(String id);
     Page<CommodityOrderEntity> findAll(Specification specification, Pageable pageable);
 }

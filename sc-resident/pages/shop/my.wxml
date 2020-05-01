@@ -6,11 +6,11 @@
 		<block wx:for="{{list}}" wx:key="id">
 			<navigator url="./information?status={{status}}&id={{item.id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
 				<view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-					<image class="weui-media-box__thumb" src="{{item.src}}" />
+					<image class="weui-media-box__thumb" src="{{item.headerUrl}}" />
 				</view>
 				<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-					<view class="weui-media-box__title">{{item.title}}</view>
-					<view class="weui-media-box__desc">{{item.content}}</view>
+					<view class="weui-media-box__title">{{item.commodityName}}</view>
+					<view class="weui-media-box__desc">{{item.commodityStatusStr}}</view>
 				</view>
 			</navigator>
 			</block>

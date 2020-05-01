@@ -11,18 +11,12 @@
 }
 .swiper-item{
   display: block;
-  height: 150px;
+  height: 200px;
   width: 100vw;
 }
 .page-section{
   width: 100%;
 }
-.image {
-  width: 90vm;
-  height: 240px;
-  display: inline-block;
-  overflow: hidden;
-  }
   .weui-cell__bd {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -47,3 +41,7 @@
     background:#e9eaec;
     height: 10vh;
   }
+  .weui-article_s{
+    margin:0 1vw
+  }
+    
