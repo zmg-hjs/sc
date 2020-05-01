@@ -103,6 +103,7 @@ public class CommodityService {
                 dto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 dto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                 dto.setCommodityStatusStr(CommodityStatusEnum.getTypesName(e.getCommodityStatus()));
+                dto.setCommodityPrice(e.getCommodityPrice().doubleValue());
                 return dto;
             }).collect(Collectors.toList());
             return new Result<List<CommodityDto>>().setSuccess(commodityDtoList).setCount(page.getTotalElements());
