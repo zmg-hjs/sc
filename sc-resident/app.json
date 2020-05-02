@@ -31,7 +31,10 @@
     "pages/shop/shop",
     "pages/shop/publish",
     "pages/shop/my",
-    "pages/shop/information"
+    "pages/shop/information",
+    "pages/feedback/index",
+    "pages/feedback/feedback",
+    "pages/feedback/response"
   ],
   "window": {
     "backgroundTextStyle": "light",
