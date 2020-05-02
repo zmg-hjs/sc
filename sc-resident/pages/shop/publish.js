@@ -94,44 +94,75 @@ previewImage: function(e){
       content:e.detail.value
    })
   },
-  submit:function(){
-   console.log(this.data)
-  var info=JSON.stringify(this.data.files)
-  var info1=encodeURIComponent(info)
-  console.log(info1)
-  var info2=decodeURIComponent(info1)
-  var info3=JSON.parse(info2)
-  console.log(info3)
-  console.log()
-   wx.request({
-     url: shopUrl+'resident_commodity_add',
-     method:'POST',
-     data:{
-      businessId:wx.getStorageSync('userInfo').id,
-      businessActualName:wx.getStorageSync('userInfo').actualName,
-      businessPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
-     commodityName:this.data.goods,
-     commodityIntroduce:this.data.content,
-     commodityPictureUrl:info1,
-     commodityPrice:this.data.money,
-     commodityClassification:this.data.name
-     },
-     success:function(res){
-       console.log(res)
-       wx.showModal({
-        title: '提示',
-        content: '发布成功，等待审核',
-        showCancel: false,
-        confirmText: "确定",
-        success: function(res) {
-          wx.navigateBack()
+  // submit:function(){
+  //  console.log(this.data)
+  // var info=JSON.stringify(this.data.files)
+  // var info1=encodeURIComponent(info)
+  // console.log(info1)
+  // var info2=decodeURIComponent(info1)
+  // var info3=JSON.parse(info2)
+  // console.log(info3)
+  // console.log()
+  //  wx.request({
+  //    url: shopUrl+'resident_commodity_add',
+  //    method:'POST',
+  //    data:{
+  //     businessId:wx.getStorageSync('userInfo').id,
+  //     businessActualName:wx.getStorageSync('userInfo').actualName,
+  //     businessPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
+  //    commodityName:this.data.goods,
+  //    commodityIntroduce:this.data.content,
+  //    commodityPictureUrl:info1,
+  //    commodityPrice:this.data.money,
+  //    commodityClassification:this.data.name
+  //    },
+  //    success:function(res){
+  //      console.log(res)
+  //      wx.showModal({
+  //       title: '提示',
+  //       content: '发布成功，等待审核',
+  //       showCancel: false,
+  //       confirmText: "确定",
+  //       success: function(res) {
+  //         wx.navigateBack()
+  //       }
+  //     })
+  //    }
+  //  })
+  // },
+    submit:function(){
+        wx.request({
+        url: shopUrl+'resident_commodity_add',
+        method:'POST',
+        data:{
+          businessId:wx.getStorageSync('userInfo').id,
+          businessActualName:wx.getStorageSync('userInfo').actualName,
+          businessPhoneNumber:wx.getStorageSync('userInfo').phoneNumber,
+        commodityName:this.data.goods,
+        commodityIntroduce:this.data.content,
+        commodityPictureUrl:this.data.files.toString(),
+        commodityPrice:this.data.money,
+        commodityClassification:this.data.name
+        },
+        success:function(res){
+          console.log(res)
+          wx.showModal({
+            title: '提示',
+            content: '发布成功，等待审核',
+            showCancel: false,
+            confirmText: "确定",
+            success: function(res) {
+              wx.navigateBack()
+            }
+          })
         }
       })
-     }
-   })
   },
   onLoad: function (options) {
-
+    console.log(this.data.imageUrls.toString())
+    var mes=this.data.files.toString()
+    var info=mes.split(",")
+    console.log(info[0])
   },
 
   /**

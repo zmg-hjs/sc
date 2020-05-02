@@ -143,7 +143,7 @@ public class CommodityService {
      */
     public Result findCommodityOrderEntityById(CommodityOrderDto commodityOrderDto){
         try {
-            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityByCommodityId(commodityOrderDto.getCommodityId());
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityOrderDto.getId());
             if (StringUtils.isNotBlank(commodityOrderEntity.getId())){
                 CommodityOrderDto commodityOrderDto1 = MyBeanUtils.copyPropertiesAndResTarget(commodityOrderEntity, CommodityOrderDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(commodityOrderEntity.getCreateDate()));
@@ -296,7 +296,7 @@ public class CommodityService {
             Date date = new Date();
             //1.修改商品表
             CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityOrderDto.getCommodityId());
-            commodityEntity.setCommodityStatus(CommodityStatusEnum.IN_TRANSACTION.getType());
+            commodityEntity.setCommodityStatus(CommodityStatusEnum.AUDIT_SUCCESSFUL.getType());
             commodityEntity.setUpdateDate(date);
             commodityEntity.setCommodityOrderId(null);
             commodityRepository.save(commodityEntity);

@@ -10,7 +10,7 @@
 <scroll-view scroll-y="true" style="height: 84vh;">
 	<block wx:for="{{list}}" wx:key="id">
 		<view class="i-class i-card">
-			<image class="i-card-header-thumb" src="{{  item.headerUrl}}" mode="scaleToFill" wx:if="{{ item.headerUrl}}" />
+			<image class="i-card-header-thumb" src="{{ item.headerUrl}}" mode="scaleToFill"  />
 			<view class="i-class i-card-body">{{ item.commodityName}}</view>
 			<view class="i-class i-card-content">
 				<view class="i-class i-card-footer">¥ {{ item.commodityPrice}}</view>

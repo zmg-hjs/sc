@@ -44,9 +44,7 @@ Page({
             showCancel: false,
             confirmText: "确定",
             success: function(res) {
-              wx.reLaunch({
-                url: './commodity',
-              })
+              wx.navigateBack()
             }
           })
         }
@@ -66,10 +64,8 @@ Page({
            id:options.id
          },
          success:function(res){
-          var info=decodeURIComponent(res.data.data.commodityPictureUrl)
-          var info1=JSON.parse(info)
           that.setData({
-            imgUrls:info1,
+            imgUrls:res.data.data.commodityPictureUrl.split(','),
             shop:res.data.data
           })
          }
