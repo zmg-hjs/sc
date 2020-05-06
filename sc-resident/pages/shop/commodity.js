@@ -34,9 +34,8 @@ Page({
           list:res.data.data
         })
         for(var i=0;i<that.data.list.length;i++){
-          var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
-          var info1=JSON.parse(info)
-          that.data.list[i].headerUrl=info1[0]
+          that.data.list[i].commodityPictureUrl=that.data.list[i].commodityPictureUrl.split(",")
+          that.data.list[i].headerUrl=that.data.list[i].commodityPictureUrl[0]
         }
         that.setData({
           list:that.data.list
@@ -55,28 +54,7 @@ handleChange ({ detail }) {
   })
 },
   onLoad: function (options) {
-    var that=this
-    wx.request({
-      url: shopUrl+'/resident_commodity_list',
-      method:'POST',
-      data:{
-        commodityClassification:'clothes',
-        commodityStatus:'audit_successful'
-      },
-      success:function(res){
-        that.setData({
-          list:res.data.data
-        })
-        for(var i=0;i<that.data.list.length;i++){
-          var info=decodeURIComponent(that.data.list[i].commodityPictureUrl)
-          var info1=JSON.parse(info)
-          that.data.list[i].headerUrl=info1[0]
-        }
-        that.setData({
-          list:that.data.list
-        })
-      }
-    })
+    
 
   },
 
@@ -91,6 +69,30 @@ handleChange ({ detail }) {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      current_scroll: 'clothes',
+  });
+    var that=this
+    wx.request({
+      url: shopUrl+'/resident_commodity_list',
+      method:'POST',
+      data:{
+        commodityClassification:'clothes',
+        commodityStatus:'audit_successful'
+      },
+      success:function(res){
+        that.setData({
+          list:res.data.data
+        })
+        for(var i=0;i<that.data.list.length;i++){
+          that.data.list[i].commodityPictureUrl=that.data.list[i].commodityPictureUrl.split(",")
+          that.data.list[i].headerUrl=that.data.list[i].commodityPictureUrl[0]
+        }
+        that.setData({
+          list:that.data.list
+        })
+      }
+    })
 
   },
 

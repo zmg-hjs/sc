@@ -93,11 +93,8 @@ Page({
         id:options.id
       },
       success:function(res){
-        console.log(res.data.data)
-       var info=decodeURIComponent(res.data.data.commodityPictureUrl)
-       var info1=JSON.parse(info)
        that.setData({
-         imgUrl:info1[0],
+         imgUrl:res.data.data.commodityPictureUrl.split(",")[0],
          shop:res.data.data
        })
       }
@@ -112,60 +109,56 @@ Page({
         id:options.id
       },
       success:function(res){
-        console.log(res.data.data)
-       var info=decodeURIComponent(res.data.data.commodityPictureUrl)
-       var info1=JSON.parse(info)
        that.setData({
-         imgUrl:info1[0],
-         shop:res.data.data
+        imgUrl:res.data.data.commodityPictureUrl.split(",")[0],
+        shop:res.data.data
        })
+       wx.request({
+        url: shopUrl+'resident_commodity_order_one',
+        method:'POST',
+        data:{
+          id:that.data.shop.commodityOrderId
+         },
+         success:function(ress){
+           that.setData({
+             people:ress.data.data
+           })
+           console.log(that.data.people)
+         }
+      })
       }
     })
-    wx.request({
-      url: shopUrl+'resident_commodity_order_one',
-      method:'POST',
-      data:{
-        commodityId:this.data.id
-       },
-       success:function(res){
-         that.setData({
-           people:res.data.data
-         })
-         console.log(that.data.people)
-       }
-    })
+
     return
   }
   if(this.data.status=='buy'){
     wx.request({
-      url: shopUrl+'resident_commodity_one',
-      method:'POST',
-      data:{
-        id:options.id
-      },
-      success:function(res){
-        console.log(res.data.data)
-       var info=decodeURIComponent(res.data.data.commodityPictureUrl)
-       var info1=JSON.parse(info)
-       that.setData({
-         imgUrl:info1[0],
-         shop:res.data.data
-       })
-      }
-    })
-    wx.request({
       url: shopUrl+'resident_commodity_order_one',
       method:'POST',
       data:{
-        commodityId:this.data.id
+        id:this.data.id
        },
        success:function(res){
          that.setData({
            people:res.data.data
          })
-         console.log(that.data.people)
+         wx.request({
+          url: shopUrl+'resident_commodity_one',
+          method:'POST',
+          data:{
+            id:res.data.data.commodityId
+          },
+          success:function(ress){
+            console.log(ress.data.data)
+           that.setData({
+            imgUrl:ress.data.data.commodityPictureUrl.split(",")[0],
+            shop:ress.data.data
+           })
+          }
+        })
        }
     })
+
   }
 
   },

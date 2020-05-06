@@ -1,25 +1,32 @@
 <view>
-<!-- 头部 -->
-  <view class="head">
-    <view class="avatar">
-      <image class="image" src="{{avatarUrl}}"></image>
-    </view>
-    <button class="nickname" wx:if="{{canIUse}}" style="font-size:23px;" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">{{nickName}}</button>
-  </view>
-<!-- 菜单 -->
-  <view class="menuitems">
-  <view class="div-line"></view>
-    <block wx:for="{{menuitems}}" wx:key="item">
-      <navigator url="{{item.url}}" class="list-item" hover-class="list-item_active">
-        <view class="item">
-          <image src="/images/mp.png" class="item-image"></image>
-          <text class="item-text">{{item.text}}</text>
-          <text class='item-array'>></text>
-        </view>
-        <view class="div-line"></view>
-      </navigator>
-    </block>
-  </view>
-
+	<!-- 头部 -->
+	<view class="head">
+		<view class="avatar">
+			<image class="image" src="{{avatarUrl}}"></image>
+		</view>
+		<button class="nickname" wx:if="{{canIUse}}" style="font-size:23px;" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">{{nickName}}</button>
+	</view>
+	<!-- 菜单 -->
+	<view class="menuitems">
+		<view class="div-line"></view>
+		<view class="item">
+			<image src="{{statusImgs[countryIndex]}}" class="item-image"></image>
+      	<text class='item-array'>></text>
+			<picker style=" position:fixed;left:80rpx;font-size:38rpx;width:100%" bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
+				<view class="myui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+			</picker>
+		</view>
+		<view class="div-line"></view>
+		<block wx:for="{{menuitems}}" wx:key="item">
+			<navigator url="{{item.url}}" class="list-item" hover-class="list-item_active">
+				<view class="item">
+					<image src="/images/mp.png" class="item-image"></image>
+					<text class="item-text">{{item.text}}</text>
+					<text class='item-array'>></text>
+				</view>
+				<view class="div-line"></view>
+			</navigator>
+		</block>
+		<view class="div-line"></view>
+	</view>
 </view>
-  

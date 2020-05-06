@@ -1,10 +1,10 @@
 <!--pages/shop/information.wxml-->
 <view class="page__bd">
 	<view class="weui-panel weui-panel_access">
-		<view class="weui-panel__hd">订单信息</view>
+		<view class="weui-panel__hd">商品信息</view>
 		<i-card full title="" extra="{{shop.commodityStatusStr}}" thumb="{{imgUrl}}" i-class="card-demo">
 			<view slot="content">{{shop.commodityName}}</view>
-			<view slot="footer">{{shop.commodityPrice}}</view>
+			<view slot="footer" style="color: #e40d11;font-size: 20px;font-weight:bold">¥ {{shop.commodityPrice}}</view>
 		</i-card>
 		<i-cell-group wx:if="{{status!='publish'}}">
 			<i-cell title="订单编号：" value="{{people.id}}"></i-cell>
@@ -20,12 +20,12 @@
        </block>
 			<i-cell></i-cell>
 		</i-cell-group>
-		<view wx:if="{{status=='sale'}}">
+		<view wx:if="{{status=='sale'&&people.commodityStatusStr=='交易中'}}">
 			<view class="button-sp-area">
 				<button class="weui-btn" type="primary" bindtap="cancle1">取消订单</button>
 			</view>
 		</view>
-		<view wx:if="{{people.commodityStatusStr=='交易中'}}">
+		<view wx:if="{{people.commodityStatusStr=='交易中'&&status=='buy'}}">
 			<view class="button-sp-area">
 				<button class="weui-btn mini-btn" type="primary" bindtap="complete">发货完成</button>
 				<button class="weui-btn mini-btn" type="default" bindtap="cancle">取消订单</button>

@@ -72,3 +72,15 @@ page {
   height: 40rpx;
   border-radius: 0px;
 }
+
+.weui-cell__db {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 2;
+  
+}
+.myui-select {
+  padding-right: 30px;
+  border-right: 1rpx solid rgba(0, 0, 0, .1);
+  
+  }

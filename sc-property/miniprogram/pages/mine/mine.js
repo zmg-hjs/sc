@@ -14,12 +14,22 @@ Page({
     menuitems: [
       { text: '我的消息发布', url: '../myNews/myNews', icon: '../../images/icon-index.png', tips: '' },
       { text: '联系我们', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' }
-    ]
+    ],
+    countries: ["在线", "隐身", "忙碌","离开"],
+    statusImgs:["/images/status1.png","/images/status2.png","/images/status3.png"],
+    countryIndex: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  bindCountryChange: function(e) {
+    console.log('picker country 发生选择改变，携带值为', this.data.countries[e.detail.value]);
+
+    this.setData({
+        countryIndex: e.detail.value,
+    })
+},
   onLoad: function (options) {
     var that =this;
     if (app.globalData.userId == null || app.globalData.userId == ""){

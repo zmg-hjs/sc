@@ -1,0 +1,9 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="weui-cells weui-cells_after-title" style="height: 40vh;">
+	<view class="weui-cell">
+		<view class="weui-cell__bd">
+			<textarea class="weui-textarea" placeholder="请在此处输入反馈建议" style="height: 9em" bindinput="bindContentChange" />
+			</view>
+    </view>
+</view>
+<button class="weui-btn" type="primary" bindtap="submit">确定</button>
