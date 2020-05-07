@@ -312,5 +312,32 @@ public class CommodityService {
         }
     }
 
+    /**
+     * 买家完成交易
+     * 1.修改商品状态
+     * 2.修改订单表
+     * @param commodityOrderDto
+     * @return
+     */
+    public Result buyerCompleteTransaction(CommodityOrderDto commodityOrderDto){
+        try {
+            Date date = new Date();
+            //1.修改商品表
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityOrderDto.getCommodityId());
+            commodityEntity.setCommodityStatus(CommodityStatusEnum.TRANSACTION_SUCCESSFUL.getType());
+            commodityEntity.setUpdateDate(date);
+            commodityRepository.save(commodityEntity);
+            //2.修改订单表
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityOrderDto.getId());
+            commodityOrderEntity.setCommodityStatus(CommodityStatusEnum.TRANSACTION_SUCCESSFUL.getType());
+            commodityOrderEntity.setUpdateDate(date);
+            commodityOrderRepository.save(commodityOrderEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 
 }
