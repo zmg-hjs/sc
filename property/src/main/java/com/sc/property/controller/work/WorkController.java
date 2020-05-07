@@ -19,6 +19,17 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
+    /**
+     * 修改工作状态
+     * 传参id（即workId）,workStatus
+     * workStatus值{
+     *     ON_DUTY_STATUS("on_duty_status","上班"),
+     *     BE_BUSY("be_busy","忙碌"),
+     *     COME_OFF_DUTY("come_off_duty","下班");
+     * }
+     * @param workDto
+     * @return
+     */
     @RequestMapping(value = "/work",method = RequestMethod.POST)
     @ResponseBody
     public Result findAll(@RequestBody WorkDto workDto){

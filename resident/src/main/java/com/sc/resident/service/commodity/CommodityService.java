@@ -257,6 +257,28 @@ public class CommodityService {
     }
 
     /**
+     * 卖家修改价格
+     * 1.修改商品状态
+     * 2.修改订单表
+     * @param commodityDto
+     * @return
+     */
+    public Result updatePrice(CommodityDto commodityDto){
+        try {
+            Date date = new Date();
+            //1.修改商品表
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityDto.getId());
+            commodityEntity.setCommodityPrice(new BigDecimal(commodityDto.getCommodityPrice()));
+            commodityEntity.setUpdateDate(date);
+            commodityRepository.save(commodityEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
+    /**
      * 卖家取消交易
      * 1.修改商品状态
      * 2.修改订单表

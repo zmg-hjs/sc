@@ -231,6 +231,23 @@ public class CommodityController {
         }
     }
 
+    /**
+     * 卖家修改价格
+     * 传入参数 id，commodityPrice
+     * @param commodityDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_update_price",method = RequestMethod.POST)
+    @ResponseBody
+    public Result updatePrice(@RequestBody CommodityDto commodityDto){
+        try {
+            return commodityService.updatePrice(commodityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 
 
 }
