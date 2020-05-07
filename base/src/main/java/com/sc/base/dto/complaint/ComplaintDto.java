@@ -22,5 +22,6 @@ public class ComplaintDto {
     private String complaintContent;//投诉内容
     private String complaintStatus;// 投诉状态type
     private String complaintStatusStr;// 投诉状态name
+    private String feedback;//反馈回复
 
 }

@@ -21,5 +21,6 @@ public class ComplaintEntity {
     private String residentUserActualName;//投诉居民姓名
     private String complaintContent;//投诉内容
     private String complaintStatus;// 投诉状态
+    private String feedback;//反馈回复
 
 }

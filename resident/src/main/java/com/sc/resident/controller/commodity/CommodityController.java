@@ -47,7 +47,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_my_unpublish",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityDto>> unpublish(@RequestBody CommodityDto commodityDto){
+    public Result unpublish(@RequestBody CommodityDto commodityDto){
         try {
             return commodityService.unpublish(commodityDto);
         }catch (Exception e){
@@ -64,7 +64,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_my_cancel",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityDto>> cancelTransaction(@RequestBody CommodityDto commodityDto){
+    public Result cancelTransaction(@RequestBody CommodityDto commodityDto){
         try {
             return commodityService.cancelTransaction(commodityDto);
         }catch (Exception e){
@@ -83,7 +83,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_one",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityDto>> findCommodityEntityById(@RequestBody CommodityDto commodityDto){
+    public Result<CommodityDto> findCommodityEntityById(@RequestBody CommodityDto commodityDto){
         try {
             return commodityService.findCommodityEntityById(commodityDto);
         }catch (Exception e){
@@ -102,7 +102,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_add",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityDto>> add(@RequestBody CommodityDto commodityDto){
+    public Result add(@RequestBody CommodityDto commodityDto){
         try {
             return commodityService.add(commodityDto);
         }catch (Exception e){
@@ -136,7 +136,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_my_one",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityDto>> findMyCommodityEntityById(@RequestBody CommodityDto commodityDto){
+    public Result<CommodityDto> findMyCommodityEntityById(@RequestBody CommodityDto commodityDto){
         try {
             return commodityService.findCommodityEntityById(commodityDto);
         }catch (Exception e){
@@ -170,7 +170,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_order_one",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityOrderDto>> findCommodityOrderEntityById(@RequestBody CommodityOrderDto commodityOrderDto){
+    public Result<CommodityOrderDto> findCommodityOrderEntityById(@RequestBody CommodityOrderDto commodityOrderDto){
         try {
             return commodityService.findCommodityOrderEntityById(commodityOrderDto);
         }catch (Exception e){
@@ -188,7 +188,7 @@ public class CommodityController {
      */
     @RequestMapping(value = "/resident_commodity_buy",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityOrderDto>> buy(@RequestBody CommodityOrderDto commodityOrderDto){
+    public Result buy(@RequestBody CommodityOrderDto commodityOrderDto){
         try {
             return commodityService.buy(commodityOrderDto);
         }catch (Exception e){
@@ -198,14 +198,14 @@ public class CommodityController {
     }
 
     /**
-     * 卖家取消交易
+     * 买家取消交易
      * 传入参数 id，commodityId
      * @param commodityOrderDto
      * @return
      */
     @RequestMapping(value = "/resident_commodity_order_cancel",method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<CommodityOrderDto>> buyerCancelTransaction(@RequestBody CommodityOrderDto commodityOrderDto){
+    public Result buyerCancelTransaction(@RequestBody CommodityOrderDto commodityOrderDto){
         try {
             return commodityService.buyerCancelTransaction(commodityOrderDto);
         }catch (Exception e){
@@ -213,6 +213,24 @@ public class CommodityController {
             return Result.createSystemErrorResult();
         }
     }
+
+    /**
+     * 买家完成交易
+     * 传入参数 id，commodityId
+     * @param commodityOrderDto
+     * @return
+     */
+    @RequestMapping(value = "/resident_commodity_order_complete",method = RequestMethod.POST)
+    @ResponseBody
+    public Result buyerCompleteTransaction(@RequestBody CommodityOrderDto commodityOrderDto){
+        try {
+            return commodityService.buyerCompleteTransaction(commodityOrderDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 
 
 }
