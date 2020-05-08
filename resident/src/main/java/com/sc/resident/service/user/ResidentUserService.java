@@ -160,7 +160,9 @@ public class ResidentUserService {
     public Result<List<ResidentUserDto>> findAll(@RequestBody ResidentUserDto dto){
         try {
             List<ResidentUserEntity> residentUserEntityList = residentUserRepository.findResidentUserEntitiesByWhetherValid(WhetherValidEnum.VALID.getType());
-            List<ResidentUserDto> residentUserDtoList = residentUserEntityList.stream().map(e -> {
+            List<ResidentUserDto> residentUserDtoList = residentUserEntityList.stream().filter(e->{
+                return !e.getId().equals(dto.getId());
+            }).map(e -> {
                 ResidentUserDto residentUserDto = MyBeanUtils.copyPropertiesAndResTarget(e, ResidentUserDto::new);
                 residentUserDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                 residentUserDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));

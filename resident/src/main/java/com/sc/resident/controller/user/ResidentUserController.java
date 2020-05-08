@@ -75,6 +75,7 @@ public class ResidentUserController {
 
     /**
      * 查询所有
+     * 传参 id
      */
     @RequestMapping(value = "/all",method = RequestMethod.POST)
     @ResponseBody
