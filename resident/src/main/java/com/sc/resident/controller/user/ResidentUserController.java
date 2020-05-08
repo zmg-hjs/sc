@@ -2,6 +2,7 @@ package com.sc.resident.controller.user;
 
 
 import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.dto.user.ResidentUserDto;
 import com.sc.base.dto.user.UpdateUserDto;
 import com.sc.resident.service.user.ResidentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vo.Result;
 import weChat.entity.WeChatEntity;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/sc/resident/user")
@@ -65,6 +68,20 @@ public class ResidentUserController {
         try{
             Result update = residentUserService.update(updateUserDto);
             return update;
+        }catch (Exception e){
+            return  Result.createSystemErrorResult();
+        }
+    }
+
+    /**
+     * 查询所有
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<List<ResidentUserDto>> findAll(@RequestBody ResidentUserDto residentUserDto){
+        try{
+            Result<List<ResidentUserDto>> result = residentUserService.findAll(residentUserDto);
+            return result;
         }catch (Exception e){
             return  Result.createSystemErrorResult();
         }

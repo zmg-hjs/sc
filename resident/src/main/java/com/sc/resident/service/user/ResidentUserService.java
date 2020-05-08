@@ -2,6 +2,7 @@ package com.sc.resident.service.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sc.base.dto.user.RegisterDto;
+import com.sc.base.dto.user.ResidentUserDto;
 import com.sc.base.dto.user.UpdateUserDto;
 import com.sc.base.entity.user.ResidentRegistrationEntity;
 import com.sc.base.entity.user.ResidentUserEntity;
@@ -11,6 +12,8 @@ import com.sc.base.repository.user.ResidentRegistrationRepository;
 import com.sc.base.repository.user.ResidentUserRepository;
 import myJson.MyJsonUtil;
 import myString.MyStringUtils;
+import mydate.MyDateUtil;
+import myspringbean.MyBeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +21,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import vo.Result;
 import weChat.entity.WeChatEntity;
 import weChat.util.GetWeChatInfoUtil;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResidentUserService {
@@ -147,6 +153,28 @@ public class ResidentUserService {
         residentUserRepository.saveAndFlush(residentUserEntity);
     }
 
+    /**
+     * 查询所有居民用户
+     * @return
+     */
+    public Result<List<ResidentUserDto>> findAll(@RequestBody ResidentUserDto dto){
+        try {
+            List<ResidentUserEntity> residentUserEntityList = residentUserRepository.findResidentUserEntitiesByWhetherValid(WhetherValidEnum.VALID.getType());
+            List<ResidentUserDto> residentUserDtoList = residentUserEntityList.stream().map(e -> {
+                ResidentUserDto residentUserDto = MyBeanUtils.copyPropertiesAndResTarget(e, ResidentUserDto::new);
+                residentUserDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                residentUserDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                residentUserDto.setRoleStr(RoleEnum.getTypesName(e.getRole()));
+                residentUserDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                return residentUserDto;
+            }).collect(Collectors.toList());
+            return new Result<List<ResidentUserDto>>().setSuccess(residentUserDtoList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
     public Result update(UpdateUserDto updateUserDto){
         ResidentUserEntity residentUserEntity=residentUserRepository.findResidentUserEntityByOpenId(updateUserDto.getOpenId());
         if(updateUserDto.getChange().equals("unit")){
@@ -167,6 +195,5 @@ public class ResidentUserService {
         }
         residentUserRepository.saveAndFlush(residentUserEntity);
         return new Result().setSuccess(residentUserEntity);
-
     }
 }
