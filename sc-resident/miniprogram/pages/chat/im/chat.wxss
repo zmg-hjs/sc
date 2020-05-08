@@ -1,0 +1,17 @@
+/* miniprogram/pages/chat/im/chat.wxss */
+.cell-panel-demo{
+  display: block;
+  margin-top: 15px;
+}
+.my-tab-bar {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  justify-content: space-around;
+  align-items: center;
+  -webkit-box-align: center;
+  background:#e9eaec;
+  height: 10vh;
+}
+  

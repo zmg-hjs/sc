@@ -1,0 +1,29 @@
+/* pages/shop/information.wxss */
+.card-demo image {
+  width: 100px;
+  height: 100px;
+}
+.weui-btn{
+  margin: 20px 15px
+}
+.button-sp-area{
+  margin: 0 auto;
+  padding-top: 15px;
+  text-align:center;
+}
+.weui-demo-dialog{
+  visibility:hidden;
+  opacity:0;
+  transition:all .3s;
+}
+.weui-half-screen-dialog{
+  transition:all .3s;
+  transform:translateY(100%);
+}
+.weui-demo-dialog_show{
+  visibility:visible;
+  opacity:1;
+}
+.weui-demo-dialog_show .weui-half-screen-dialog{
+    transform:translateY(0);
+}

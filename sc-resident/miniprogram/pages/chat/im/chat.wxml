@@ -1,0 +1,41 @@
+<!--miniprogram/pages/chat/im/chat.wxml-->
+<view wx:if="{{show=='1'}}">
+	<scroll-view scroll-y="true" style="height: 90vh;">
+		<view class="weui-panel weui-panel_access">
+			<view class="weui-panel__hd">社区通讯录</view>
+			<i-cell-group>
+				<block wx:for="{{users}}" wx:id="id">
+					<i-cell title="{{item.username}}" is-link url="../im/room/room?groupStatus=2&&name={{item.username}}&&avatarUrl={{item.headPictureUrl}}&&openId={{item.openId}}" label="{{item.address}}" value="发送消息">
+						<i-icon type="addressbook_fill" slot="icon" size="20" />
+					</i-cell>
+				</block>
+			</i-cell-group>
+		</view>
+	</scroll-view>
+</view>
+<view wx:if="{{show=='2'}}">
+	<scroll-view scroll-y="true" style="height: 90vh;">
+		<view class="weui-panel weui-panel_access">
+			<view class="weui-cells weui-cells_after-title"></view>
+			<block wx:for="{{rooms}}" wx:key="id">
+				<navigator url="./room/room?groupId={{item.groupId}}&&groupStatus=1&&name={{name==item.people1 ? item.people2:item.people1}}">
+					<view class="weui-cell">
+						<view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+							<image src="{{item.avatarUrl}}" style="width: 50px; height: 50px; display: block" />
+							<view wx:if="{{item.finalOpenId!=openId}}" class="weui-badge weui-badge_dot" style="position: absolute;top: -.4em;right: -.4em;"></view>
+						</view>
+						<view class="weui-cell__bd">
+							<view>{{name==item.people1 ? item.people2:item.people1}}</view>
+							<view style="font-size: 13px;color: #888888;">{{item.finalMessage}}</view>
+						</view>
+					</view>
+				</navigator>
+				<view class="weui-cells weui-cells_after-title"></view>
+			</block>
+		</view>
+	</scroll-view>
+</view>
+<i-tab-bar i-tab-bar="my-tab-bar" current="{{ current }}" bindchange="handleChange">
+	<i-tab-bar-item key="notice" icon="remind" current-icon="remind_fill" count="3" title="消息"></i-tab-bar-item>
+	<i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="通讯录"></i-tab-bar-item>
+</i-tab-bar>
