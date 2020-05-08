@@ -76,7 +76,7 @@ public class ResidentUserController {
     /**
      * 查询所有
      */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/all",method = RequestMethod.POST)
     @ResponseBody
     public Result<List<ResidentUserDto>> findAll(@RequestBody ResidentUserDto residentUserDto){
         try{
