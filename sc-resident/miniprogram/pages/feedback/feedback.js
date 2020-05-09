@@ -1,13 +1,41 @@
 // pages/feedback/feedback.js
+var complaintUrl=require('../../config').complaintUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    complaint:''
   },
-
+  bindContentChange:function(e){
+    this.setData({
+      complaint:e.detail.value
+    })
+  },
+  submit:function(){
+   wx.request({
+     url: complaintUrl+'resident_complint_add',
+     data:{
+      residentUserId:wx.getStorageSync('userInfo').id,
+      residentUserActualName:wx.getStorageSync('userInfo').actualName,
+      complaintContent:this.data.complaint
+     },
+     method:'POST',
+     success:function(res){
+        console.log(res.data)
+        wx.showModal({
+          title: '提示',
+          content: '投诉提交成功',
+          showCancel: false,
+          confirmText: "确定",
+          success: function() {
+            wx.navigateBack()
+          }
+        })
+     }
+   })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

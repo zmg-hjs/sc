@@ -13,6 +13,7 @@ var config={
   voteUrl:`${apiUrl}/sc/resident/activity/vote/`,
   repairUrl:`${apiUrl}/sc/resident/repair/`,
   shopUrl:`${apiUrl}/sc/resident/commodity/`,
-  imageUrl:`${apiUrl}/sc/resident/upload/`
+  imageUrl:`${apiUrl}/sc/resident/upload/`,
+  complaintUrl:`${apiUrl}/sc/resident/complaint/`
 };
 module.exports = config

@@ -1,1 +1,32 @@
 /* pages/feedback/response.wxss */
+.weui-media-box__title_in-text {
+  margin-bottom: 8px;
+  
+  }
+  .weui-media-box__desc, .weui-media-box__title {
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  }
+  .weui-media-box__title {
+  font-size: 14px;
+  color: rgba(0, 0, 0, .9);
+  width: auto;
+  white-space: nowrap;
+  word-wrap: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+  
+  }
+
+  .weui-media-box__desc {
+    font-size: 12px;
+    padding-top: 4px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    
+    }
+    
+  

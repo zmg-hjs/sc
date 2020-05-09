@@ -1,18 +1,47 @@
 // pages/feedback/response.js
+var complaintUrl=require('../../config').complaintUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this
+    wx.request({
+      url: complaintUrl+'resident_complint_my_list',
+      method:'POST',
+      data:{
+        residentUserId:wx.getStorageSync('userInfo').id,
+        complaintStatus:'processing'
+      },
+      success:function(res){
+        console.log(res.data.data)
+         that.setData({
+           list:that.data.list.concat(res.data.data)
+         })
+         wx.request({
+          url: complaintUrl+'resident_complint_my_list',
+          method:'POST',
+          data:{
+            residentUserId:wx.getStorageSync('userInfo').id,
+            complaintStatus:'processed'
+          },
+          success:function(ress){
+            console.log(res.data.data)
+             that.setData({
+               list:that.data.list.concat(ress.data.data)
+             })
+            }
+         })
+      }
+    })
   },
 
   /**
