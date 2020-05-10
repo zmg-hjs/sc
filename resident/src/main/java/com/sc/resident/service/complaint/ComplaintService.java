@@ -49,6 +49,7 @@ public class ComplaintService {
             complaintEntity.setUpdateDate(date);
             complaintEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
             complaintEntity.setComplaintStatus(ComplaintStatusEnum.PROCESSING.getType());
+            complaintRepository.save(complaintEntity);
             return Result.createSimpleSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
