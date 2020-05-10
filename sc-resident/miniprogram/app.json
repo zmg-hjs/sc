@@ -1,0 +1,78 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/car/signin",
+    "pages/car/car",
+    "pages/car/seek",
+    "pages/car/join",
+    "pages/car/own",
+    "pages/my/register",
+    "pages/my/userlogin",
+    "pages/my/myinfo",
+    "pages/my/change",
+    "pages/emal/emal",
+    "pages/emal/information",
+    "pages/repair/repair",
+    "pages/vote/vote",
+    "pages/vote/activity",
+    "pages/vote/information",
+    "pages/vote/join",
+    "pages/vote/voting",
+    "pages/vote/myVote",
+    "pages/repair/information",
+    "pages/car/index",
+    "pages/car/history",
+    "pages/vote/final",
+    "pages/repair/index",
+    "pages/shop/index",
+    "pages/shop/commodity",
+    "pages/repair/res",
+    "pages/shop/shop",
+    "pages/shop/publish",
+    "pages/shop/my",
+    "pages/shop/information",
+    "pages/feedback/index",
+    "pages/feedback/feedback",
+    "pages/feedback/response",
+    "pages/chat/index/index",
+    "pages/chat/userConsole/userConsole",
+    "pages/chat/storageConsole/storageConsole",
+    "pages/chat/databaseGuide/databaseGuide",
+    "pages/chat/addFunction/addFunction",
+    "pages/chat/deployFunctions/deployFunctions",
+    "pages/chat/chooseLib/chooseLib",
+    "pages/chat/openapi/openapi",
+    "pages/chat/openapi/serverapi/serverapi",
+    "pages/chat/openapi/callback/callback",
+    "pages/chat/openapi/cloudid/cloudid",
+    "pages/chat/im/im",
+    "pages/chat/im/room/room",
+    "pages/chat/im/chat",
+    "pages/chat/im/notice"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "images/first2.png",
+        "selectedIconPath": "images/first1.png"
+      },
+      {
+        "pagePath": "pages/my/myinfo",
+        "text": "我的",
+        "iconPath": "images/wode2.png",
+        "selectedIconPath": "images/wode1.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
