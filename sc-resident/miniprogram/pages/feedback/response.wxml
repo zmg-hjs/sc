@@ -2,18 +2,14 @@
 <view class="weui-panel weui-panel_access">
 	<view class="weui-panel__hd">我的投诉列表</view>
 	<view class="weui-panel__bd">
-		<navigator>
-			<view class="weui-media-box weui-media-box_text">
-				<view class="weui-media-box__title weui-media-box__title_in-text">标题一由各种物质组成的巨型球状天体，由各种物质组成的巨型球状天体，由各种物质组成的巨型球状天体，</view>
-				<view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。由各种物质组成的巨型球状天体，由各种物质组成的巨型球状天体，由各种物质组成的巨型球状天体，由各种物质组成的巨型球状天体，</view>
-			</view>
-		</navigator>
-    	<view class="weui-cells weui-cells_after-title"></view>
-		<navigator>
-			<view class="weui-media-box weui-media-box_text">
-				<view class="weui-media-box__title weui-media-box__title_in-text">标题二</view>
-				<view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-			</view>
-		</navigator>
+		<block wx:for="{{list}}" wx:key="id">
+			<navigator>
+				<view class="weui-media-box weui-media-box_text">
+					<view class="weui-media-box__title weui-media-box__title_in-text">{{item.complaintStatusStr}}  {{item.updateDateStr}}</view>
+					<view class="weui-media-box__desc">{{item.complaintContent}}</view>
+				</view>
+			</navigator>
+			<view class="weui-cells weui-cells_after-title"></view>
+		</block>
 	</view>
 </view>
