@@ -23,6 +23,7 @@ public class CommodityDto {
     private String commodityPictureUrl;// 商品图片
     private Double commodityPrice;// 商品价格
     private String commodityClassification;// 商品分类
+    private String commodityClassificationStr;// 商品分类
     private String transactionMode;// 交易方式
     private String commodityReviewStatus;// 商品审核状态type
     private String commodityReviewStatusStr;// 商品审核状态name
@@ -31,5 +32,8 @@ public class CommodityDto {
     private String reviewReason;// '审核失败原因',
     private Integer commodityNumber;// '商品数量',
     private String commodityOrderId;// 订单id
+
+    private Integer page;
+    private Integer limit;
 
 }
