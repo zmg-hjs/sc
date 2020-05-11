@@ -36,6 +36,7 @@ layui.config({
             , {field: 'commodityClassificationStr', title: '商品分类',  width: 200, align: 'center'}
             , {field: 'commodityStatusStr', title: '商品状态',  width: 200, align: 'center'}
             , {field: 'createDateStr', title: '发布时间', width: 200, align: 'center'}
+            , {field: 'commodityOrderId', title: '发布时间', width: 200, align: 'center',hide:true}
             , {field : 'tool',fixed: 'right',title : '操作',minWidth : 260,align : 'center',toolbar : '#barDemo'}
         ]]
         , page: true
@@ -70,6 +71,35 @@ layui.config({
                 area: [width, height],
                 title: '商品信息',
                 content: "/sc/manage/commodity/manage_commodity_find_page?id="+data.id
+                ,maxmin: true
+                ,zIndex: layer.zIndex //重点1
+            });
+        }
+        if (obj.event === 'update'){
+            console.log(data.id)
+            var width = document.documentElement.scrollWidth * 0.9 + "px";
+            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            layer.open({
+                type: 2,
+                skin: 'open-class',
+                area: [width, height],
+                title: '审核',
+                content: "/sc/manage/commodity/manage_commodity_update_page?id="+data.id
+                ,maxmin: true
+                ,zIndex: layer.zIndex //重点1
+            });
+        }
+
+        if (obj.event === 'order'){
+            console.log(data.id)
+            var width = document.documentElement.scrollWidth * 0.9 + "px";
+            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            layer.open({
+                type: 2,
+                skin: 'open-class',
+                area: [width, height],
+                title: '订单',
+                content: "/sc/manage/commodity/manage_commodity_order_find_page?commodityId="+data.id+"&&id="+data.commodityOrderId
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });

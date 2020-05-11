@@ -1,6 +1,5 @@
 package com.sc.manage.service.commodity;
 
-import com.alibaba.fastjson.JSONArray;
 import com.sc.base.dto.commodity.CommodityDto;
 import com.sc.base.dto.commodity.CommodityOrderDto;
 import com.sc.base.entity.commodity.CommodityEntity;
@@ -28,80 +27,70 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CommodityService {
+public class CommodityOrderService {
 
-    @Autowired
-    private CommodityRepository commodityRepository;
     @Autowired
     private CommodityOrderRepository commodityOrderRepository;
+    @Autowired
+    private CommodityRepository commodityRepository;
+
 
     /**
-     * 查询商品列表
+     * 查询订单列表
      * @return
      */
-    public Result<List<CommodityDto>> findCommodityEntityList(CommodityDto commodityDto){
+    public Result<List<CommodityOrderDto>> findCommodityOrderEntityList(CommodityOrderDto commodityOrderDto){
         try {
             //多条件排序
             Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
             //页数与每页大小
-            Pageable pageable = PageRequest.of(commodityDto.getPage()-1, commodityDto.getLimit());
+            Pageable pageable = PageRequest.of(commodityOrderDto.getPage()-1, commodityOrderDto.getLimit());
             //条件
-            Page<CommodityEntity> page = commodityRepository.findAll(new Specification<CommodityEntity>() {
+            Page<CommodityOrderEntity> page = commodityOrderRepository.findAll(new Specification<CommodityOrderEntity>() {
                 @Override
-                public Predicate toPredicate(Root<CommodityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                public Predicate toPredicate(Root<CommodityOrderEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
-                    if (StringUtils.isNotBlank(commodityDto.getCommodityName())){
-                        predicateList.add(criteriaBuilder.like(root.get("commodityName"),"%"+commodityDto.getCommodityName()+"%"));
+                    if (StringUtils.isNotBlank(commodityOrderDto.getCommodityName())){
+                        predicateList.add(criteriaBuilder.like(root.get("commodityName"),"%"+commodityOrderDto.getCommodityName()+"%"));
                     }
-                    if (StringUtils.isNotBlank(commodityDto.getBusinessActualName())){
-                        predicateList.add(criteriaBuilder.like(root.get("businessActualName"),"%"+commodityDto.getBusinessActualName()+"%"));
+                    if (StringUtils.isNotBlank(commodityOrderDto.getBuyerActualName())){
+                        predicateList.add(criteriaBuilder.like(root.get("buyerActualName"),"%"+commodityOrderDto.getBuyerActualName()+"%"));
                     }
-                    if (StringUtils.isNotBlank(commodityDto.getCommodityClassification())){
-                        predicateList.add(criteriaBuilder.equal(root.get("commodityClassification"),commodityDto.getCommodityClassification()));
-                    }
-                    if (StringUtils.isNotBlank(commodityDto.getBusinessId())){
-                        predicateList.add(criteriaBuilder.equal(root.get("businessId"),commodityDto.getBusinessId()));
-                    }
-                    if (StringUtils.isNotBlank(commodityDto.getCommodityStatus())){
-                        predicateList.add(criteriaBuilder.equal(root.get("commodityStatus"),commodityDto.getCommodityStatus()));
+                    if (StringUtils.isNotBlank(commodityOrderDto.getCommodityStatus())){
+                        predicateList.add(criteriaBuilder.equal(root.get("commodityStatus"),commodityOrderDto.getCommodityStatus()));
                     }
                     predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }
             }, pageable);
-            List<CommodityDto> commodityDtoList = page.getContent().stream().map(e -> {
-                CommodityDto dto = MyBeanUtils.copyPropertiesAndResTarget(e, CommodityDto::new);
+            List<CommodityOrderDto> commodityDtoList = page.getContent().stream().map(e -> {
+                CommodityOrderDto dto = MyBeanUtils.copyPropertiesAndResTarget(e, CommodityOrderDto::new);
                 dto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                 dto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 dto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
                 dto.setCommodityStatusStr(CommodityStatusEnum.getTypesName(e.getCommodityStatus()));
-                dto.setCommodityPrice(e.getCommodityPrice().doubleValue());
-                dto.setCommodityClassificationStr(ClassificationStatusEnum.getTypesName(e.getCommodityClassification()));
-                if (StringUtils.isNotBlank(e.getCommodityPictureUrl())){
-                    dto.setCommodityPictureUrlList(Arrays.asList(e.getCommodityPictureUrl().split(",")));
-                }
                 return dto;
             }).collect(Collectors.toList());
-            return new Result<List<CommodityDto>>().setSuccess(commodityDtoList).setCount(page.getTotalElements());
+            return new Result<List<CommodityOrderDto>>().setSuccess(commodityDtoList).setCount(page.getTotalElements());
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
 
+
     /**
      * 查看商品详情
-     * @param commodityDto
+     * @param commodityOrderDto
      * @return
      */
-    public Result findCommodityEntityById(CommodityDto commodityDto){
+    public Result findCommodityEntityById(CommodityOrderDto commodityOrderDto){
         try {
-            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityDto.getId());
+            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityOrderDto.getCommodityId());
             if (StringUtils.isNotBlank(commodityEntity.getId())){
                 CommodityDto commodityDto1 = MyBeanUtils.copyPropertiesAndResTarget(commodityEntity, CommodityDto::new, d -> {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(commodityEntity.getCreateDate()));
@@ -123,24 +112,29 @@ public class CommodityService {
     }
 
     /**
-     * 审核商品
-     * @param commodityDto
+     * 查看订单详情
+     * @param commodityOrderDto
      * @return
      */
-    public Result update(CommodityDto commodityDto){
+    public Result findCommodityOrderEntityById(CommodityOrderDto commodityOrderDto){
         try {
-            CommodityEntity commodityEntity = commodityRepository.findCommodityEntityById(commodityDto.getId());
-            commodityEntity.setCommodityStatus(commodityDto.getCommodityStatus());
-            commodityEntity.setCommodityReviewStatus(commodityDto.getCommodityStatus());
-            commodityEntity.setReviewReason(commodityDto.getReviewReason());
-            commodityEntity.setUpdateDate(new Date());
-            commodityRepository.save(commodityEntity);
-            return Result.createSimpleSuccessResult();
+            CommodityOrderEntity commodityOrderEntity = commodityOrderRepository.findCommodityOrderEntityById(commodityOrderDto.getId());
+            if (StringUtils.isNotBlank(commodityOrderEntity.getId())){
+                CommodityOrderDto commodityOrderDto1 = MyBeanUtils.copyPropertiesAndResTarget(commodityOrderEntity, CommodityOrderDto::new, d -> {
+                    d.setCreateDateStr(MyDateUtil.getDateAndTime(commodityOrderEntity.getCreateDate()));
+                    d.setUpdateDateStr(MyDateUtil.getDateAndTime(commodityOrderEntity.getUpdateDate()));
+                    d.setWhetherValidStr(WhetherValidEnum.getTypesName(commodityOrderEntity.getWhetherValid()));
+                    d.setCommodityStatusStr(CommodityStatusEnum.getTypesName(commodityOrderEntity.getCommodityStatus()));
+                    if (StringUtils.isNotBlank(commodityOrderEntity.getCommodityPictureUrl())){
+                        d.setCommodityPictureUrlList(Arrays.asList(commodityOrderEntity.getCommodityPictureUrl().split(",")));
+                    }
+                });
+                return new Result().setSuccess(commodityOrderDto1);
+            }else return Result.createSimpleFailResult();
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();
         }
     }
-
 
 }

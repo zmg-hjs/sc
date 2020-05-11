@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title th:text="商品详情"></title>
+    <title th:text="订单详情"></title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -111,9 +111,35 @@
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <hr>
-                        <input type="hidden" name="id" th:value="${commodityDto.getId()}"/>
+                        <label th:text="订单编号" class="layui-form-label"></label>
+                        <div th:text="${commodityOrderDto.getId()}" class="edit-module-title"></div>
                     </div>
                 </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="买家姓名" class="layui-form-label"></label>
+                            <div th:text="${commodityOrderDto.getBuyerActualName()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="买家联系方式" class="layui-form-label"></label>
+                            <div th:text="${commodityOrderDto.getBuyerPhoneNumber()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="买家地址" class="layui-form-label"></label>
+                            <div th:text="${commodityOrderDto.getHarvestAddress()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
