@@ -57,11 +57,15 @@ public class ComplaintService {
                     if (StringUtils.isNotBlank(complaintDto.getResidentUserId())){
                         predicateList.add(criteriaBuilder.equal(root.get("residentUserId"),complaintDto.getResidentUserId()));
                     }
-                    predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                    if (StringUtils.isNotBlank(complaintDto.getWhetherValid())){
+                        predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),complaintDto.getWhetherValid()));
+                    }else {
+                        predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                    }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }
             }, pageable);
-            List<ComplaintDto> residentNewsIndexOutDtoList = page.getContent().stream().map(e -> {
+            List<ComplaintDto> complaintDtoList = page.getContent().stream().map(e -> {
                 ComplaintDto outDto = MyBeanUtils.copyPropertiesAndResTarget(e, ComplaintDto::new);
                 outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                 outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
@@ -69,7 +73,7 @@ public class ComplaintService {
                 outDto.setComplaintStatusStr(ComplaintStatusEnum.getTypesName(e.getComplaintStatus()));
                 return outDto;
             }).collect(Collectors.toList());
-            return new Result<List<ComplaintDto>>().setSuccess(residentNewsIndexOutDtoList).setCount(page.getTotalElements());
+            return new Result<List<ComplaintDto>>().setSuccess(complaintDtoList).setCount(page.getTotalElements());
         }catch (Exception e){
             e.printStackTrace();
             return Result.createSystemErrorResult();

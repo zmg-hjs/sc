@@ -15,11 +15,16 @@ public class WorkDto {
     private String staffUserActualName;//员工姓名
     private String staffUserPhoneNumber;//员工电话号码
     private String staffUserPosition;//员工职位
+    private String staffUserPositionStr;//员工职位name
 
     private String workStatus;//员工工作状态type
     private String workStatusStr;//员工工作状态name
 
     private Integer newsNumber;//发布新闻数量
     private Integer repairNumber;//维修数量
+    private Integer weight;//优先级
+
+    private Integer page;
+    private Integer limit;
 
 }
