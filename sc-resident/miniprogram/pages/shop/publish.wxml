@@ -19,10 +19,6 @@
 		</view>
 	</view>
     <view class="weui-cell ">
-	<!-- <view class="weui-cell weui-cell_select"> -->
-		<!-- <view class="weui-cell__hd weui-cell__hd_in-select-after">
-			<view class="weui-label">类别：</view>
-		</view> -->
 		<view class="weui-cell__hd">
 			<image src="../../images/good.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
 		</view>

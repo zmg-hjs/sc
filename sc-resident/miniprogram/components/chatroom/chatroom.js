@@ -162,8 +162,8 @@ Component({
         const doc = {
           _id: `${Math.random()}_${Date.now()}`,
           groupId: this.data.groupId,
-          avatar: this.data.userInfo.avatarUrl,
-          nickName: this.data.userInfo.nickName,
+          avatar: this.data.userInfo.headPictureUrl,
+          nickName: this.data.userInfo.username,
           msgType: 'text',
           textContent: e.detail.value,
           sendTime: new Date(),
