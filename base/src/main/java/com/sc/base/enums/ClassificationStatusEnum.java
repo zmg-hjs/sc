@@ -9,7 +9,15 @@ import java.util.stream.Collectors;
 
 @Getter
 public enum ClassificationStatusEnum {
-
+    /**
+     * countries: ["衣服", "食品", "电器","美妆","家具","其他"],
+     *     english:["clothes", "food", "electrical", "beauty", "furniture", "others"],
+     */
+    FOOD("food","食品"),
+    ELECTRICAL("electrical","电器"),
+    BEAUTY("beauty","美妆"),
+    FURNITURE("furniture","家具"),
+    OTHERS("others","其他"),
     CLOTHES("clothes","衣服");
 
     private String type;

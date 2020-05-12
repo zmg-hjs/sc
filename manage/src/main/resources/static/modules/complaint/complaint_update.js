@@ -20,24 +20,24 @@ layui.config({
 
 
 
+    function off_on(whetherValid) {
+        if (whetherValid == 'on'){
+            whetherValid = 'valid'
+        }
+
+        if (whetherValid == undefined){
+            whetherValid = 'invalid'
+        }
+        return whetherValid;
+    }
+
     layui.use('form', function () {
         //监听提交
         form.on('submit(component-form)', function (data) {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);//关闭当前页
-        });
-    });
-
-    $(document).on('click',"#testListAction3",function(){
-        var carpoolUserId = document.getElementById("carpoolUserId").value;
-        var width = document.documentElement.scrollWidth * 0.5 + "px";
-        var height = document.documentElement.scrollHeight * 0.5 + "px";
-        layer.open({
-            type: 2,
-            skin: 'open-class',
-            area: [width, height],
-            title: '委员会选举活动发布页面',
-            content: "/sc/manage/resident/manage_resident_user_find_page?id="+carpoolUserId
+            var searchObj = $("#searchFormId").serializeObject();
+            searchObj.whetherValid=off_on(searchObj.whetherValid);
+            $.simpleAjax('/sc/manage/complaint/manage_complaint_update_data', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
+            return false;//这一行代码必须加，不然会自动刷新页面，这个和layui的封装有关，且returnFunction 也不会调用
         });
     });
 

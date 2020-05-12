@@ -29,7 +29,7 @@ layui.config({
     });
 
     $(document).on('click',"#testListAction3",function(){
-        var carpoolUserId = document.getElementById("carpoolUserId").value;
+        var id = document.getElementById("carpoolUserId").value;
         var width = document.documentElement.scrollWidth * 0.5 + "px";
         var height = document.documentElement.scrollHeight * 0.5 + "px";
         layer.open({
@@ -37,7 +37,7 @@ layui.config({
             skin: 'open-class',
             area: [width, height],
             title: '委员会选举活动发布页面',
-            content: "/sc/manage/resident/manage_resident_user_find_page?id="+carpoolUserId
+            content: "/sc/manage/resident/manage_resident_user_find_page?id="+id
         });
     });
 

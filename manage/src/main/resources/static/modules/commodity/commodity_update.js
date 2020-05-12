@@ -3,14 +3,16 @@ layui.config({
 }).extend({
     index: 'lib/index' //主入口模块
     , formSelects: '../lib/formSelects/formSelects-v4'
-}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload'], function () {
+}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload','layedit'], function () {
     layui.form.config.verify.required[1] = requiredNotNull;
     var $ = layui.$,
         form = layui.form,
         laydate = layui.laydate,
         table = layui.table,
         upload = layui.upload,
+        layedit = layui.layedit,
         formSelects = layui.formSelects;
+
 
     $(document).on('click','#close',function(){
         var index = parent.layer.getFrameIndex(window.name);
@@ -20,24 +22,37 @@ layui.config({
 
 
 
+
+    //注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
+    layedit.set({
+        uploadImage: {
+            url: '/sc/manage/upload/images' //接口url
+            ,type: 'POST' //默认post
+        }
+    });
+    var index=layedit.build('textareaDemo1',{
+        tool: ['strong',,'italic',,'del','unlink','face','image','link','left', 'center', 'right', '|', 'face'],
+        height:500
+    });//建立编辑器
+
+    function off_on(whetherValid) {
+        if (whetherValid == 'on'){
+            whetherValid = 'valid'
+        }
+
+        if (whetherValid == undefined){
+            whetherValid = 'invalid'
+        }
+        return whetherValid;
+    }
+
     layui.use('form', function () {
         //监听提交
         form.on('submit(component-form)', function (data) {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);//关闭当前页
-        });
-    });
-
-    $(document).on('click',"#testListAction3",function(){
-        var carpoolUserId = document.getElementById("carpoolUserId").value;
-        var width = document.documentElement.scrollWidth * 0.5 + "px";
-        var height = document.documentElement.scrollHeight * 0.5 + "px";
-        layer.open({
-            type: 2,
-            skin: 'open-class',
-            area: [width, height],
-            title: '委员会选举活动发布页面',
-            content: "/sc/manage/resident/manage_resident_user_find_page?id="+carpoolUserId
+            var searchObj = $("#searchFormId").serializeObject();
+            searchObj.whetherValid=off_on(searchObj.whetherValid);
+            $.simpleAjax('/sc/manage/commodity/manage_commodity_update_data', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
+            return false;//这一行代码必须加，不然会自动刷新页面，这个和layui的封装有关，且returnFunction 也不会调用
         });
     });
 
@@ -69,6 +84,9 @@ layui.config({
             if(value.length > 20){
                 return '不能超过20字符';
             }
+        },
+        article_desc: function(value){
+            layedit.sync(index);
         }
 
     });

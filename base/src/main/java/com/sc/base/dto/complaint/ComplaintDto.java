@@ -24,4 +24,7 @@ public class ComplaintDto {
     private String complaintStatusStr;// 投诉状态name
     private String feedback;//反馈回复
 
+    private Integer page;
+    private Integer limit;
+
 }
