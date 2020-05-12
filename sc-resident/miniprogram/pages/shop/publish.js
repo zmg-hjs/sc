@@ -71,6 +71,7 @@ Page({
               //   that.setData({
               //     imageUrls: that.data.imageUrls.concat(ress.data.data)
               // }); 
+              console.log(ress.data)
               var info=JSON.parse(ress.data)
               that.setData({
                 files: that.data.files.concat(info.data)
@@ -123,10 +124,7 @@ previewImage: function(e){
       })
   },
   onLoad: function (options) {
-    console.log(this.data.imageUrls.toString())
-    var mes=this.data.files.toString()
-    var info=mes.split(",")
-    console.log(info[0])
+
   },
 
   /**

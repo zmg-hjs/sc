@@ -20,21 +20,6 @@ Page({
   onLoad: function(options) {
     var that=this
     // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
-    })
      if(options.groupStatus==2){
         const db=wx.cloud.database({
           env:this.data.chatRoomEnvId
@@ -98,6 +83,8 @@ Page({
       getOpenID: this.getOpenID,
      // chatRoomGroupName:options.groupName,
      // chatRoomGroupId:options.groupId
+     avatarUrl: wx.getStorageSync('userInfo').headPictureUrl,
+     userInfo: wx.getStorageSync('userInfo')
     })
 
     wx.getSystemInfo({
@@ -111,6 +98,7 @@ Page({
         }
       },
     })
+    console.log(this.data.userInfo)
   },
 
   getOpenID: async function() {
@@ -130,7 +118,7 @@ Page({
         avatarUrl: wx.getStorageSync('userInfo').headPictureUrl,
         userInfo: wx.getStorageSync('userInfo')
       })
-      console.log(this.data.userInfo)
+     
   },
 
   onShareAppMessage() {
