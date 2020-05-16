@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title th:text="居民登记管理"></title>
+    <title th:text="报修信息"></title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -53,9 +53,13 @@
         var synchronize_confirm = [[#{product.synchronize.confirm}]];
     </script>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="find">详情</a>
-        <a class="layui-btn layui-btn-xs" lay-event="examine">审核</a>
-        <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
+        <a class="layui-btn layui-btn-xs" lay-event="find">查看</a>
+        {{# if(d.maintenanceStatus=="dispatch"){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="update">派遣</a>
+        {{# } }}
+        {{# if(d.maintenanceStatus=="complete_dispatch"||d.maintenanceStatus=="under_repair"||d.maintenanceStatus=="repair_complete"||d.maintenanceStatus=="feedback"){ }}
+        <!--<a class="layui-btn layui-btn-xs" lay-event="order">维修信息</a>-->
+        {{# } }}
     </script>
 
 </head>
@@ -70,40 +74,9 @@
                 <div class="layui-form-item">
                     <input type="hidden" name="status" id="status" lay-data=""/>
                     <div class="layui-inline">
-                        <label th:text="姓名" class="layui-form-label"></label>
+                        <label th:text="报修人员姓名" class="layui-form-label"></label>
                         <div class="layui-input-block">
-                            <input name="actualName" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label th:text="身份证号码" class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <input name="idNumber" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label th:text="地址" class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <input name="address" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label th:text="登记号码" class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <input name="phoneNumber" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label th:text="家庭身份" class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <select id="houseMembers" name="houseMembers" lay-filter="aihao">
-                                <option th:text="所有"
-                                        value=""></option>
-                                <option th:text="房主"
-                                        value="homeowner"></option>
-                                <option th:text="居住成员"
-                                        value="resident"></option>
-                            </select>
+                            <input name="residentUserActualName" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -124,23 +97,26 @@
 
         <script type="text/html" id="order-table-toolbar-toolbarDemo">
             <div class="layui-btn-container">
-                <a id="djA" class="djsA layui-btn layui-btn-xs" style="background-color: #b1b0b0" lay-event="valid" >居住中</a>
-                <a id="djB" class="djsB layui-btn layui-btn-xs" style="" lay-event="invalid">已搬离</a>
+                <a id="djA" class="djsA layui-btn layui-btn-xs" style="background-color: #b1b0b0" lay-event="all" >所有</a>
+                <a id="djB" class="djsB layui-btn layui-btn-xs" style="" lay-event="dispatch">派遣中</a>
+                <a id="djC" class="djsC layui-btn layui-btn-xs" style="" lay-event="complete_dispatch">已派遣</a>
+                <a id="djD" class="djsD layui-btn layui-btn-xs" style="" lay-event="under_repair">维修中</a>
+                <a id="djE" class="djsE layui-btn layui-btn-xs" style="" lay-event="repair_complete">完成维修</a>
+                <a id="djF" class="djsF layui-btn layui-btn-xs" style="" lay-event="feedback">反馈</a>
+                <a id="djG" class="djsG layui-btn layui-btn-xs" style="" lay-event="cancel">取消报修</a>
             </div>
             <div class="com-option-content">
                 <div class="layui-inline" th:title="筛选" lay-event="LAYTABLE_COLS"><i
                         class="layui-icon icon-tune"></i>
                 </div>
-                <a class="layui-btn layui-btn-xs"  lay-event="add">添加</a>
             </div>
         </script>
-
     </div>
 </div>
 </div>
 <script src="../../../static/layui/layui.js" type="text/javascript"></script>
 <script src="../../../static/modules/ws-dropdown.js" type="text/javascript"></script>
-<script>document.write('<script src="../../../static/modules/user/resident_registration_index.js?time=' + new Date().getTime() + '"><\/script>')</script>
+<script>document.write('<script src="../../../static/modules/repair/repair_index.js?time=' + new Date().getTime() + '"><\/script>')</script>
 <script type="application/javascript">
 
 </script>

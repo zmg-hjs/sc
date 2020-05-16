@@ -27,5 +27,6 @@ public class ResidentUserDto {
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
     private String whetherValidStr; //是否有效
-
+    private String houseMembers;//成员
+    private String houseMembersStr;//成员name
 }

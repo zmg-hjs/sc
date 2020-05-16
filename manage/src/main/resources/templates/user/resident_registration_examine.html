@@ -151,6 +151,14 @@
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
+                            <label th:text="家庭身份" class="layui-form-label"></label>
+                            <div th:text="${residentRegistration.getHouseMembersStr()}" class="edit-module-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
                             <label th:text="创建时间" class="layui-form-label"></label>
                             <div th:text="${residentRegistration.getCreateDateStr()}" class="edit-module-title"></div>
                         </div>

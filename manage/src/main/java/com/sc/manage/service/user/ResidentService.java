@@ -4,6 +4,7 @@ import com.sc.base.dto.common.BaseIntoDto;
 import com.sc.base.dto.user.*;
 import com.sc.base.entity.user.ResidentRegistrationEntity;
 import com.sc.base.entity.user.ResidentUserEntity;
+import com.sc.base.enums.HouseMembersStatusEnum;
 import com.sc.base.enums.RoleEnum;
 import com.sc.base.enums.WhetherValidEnum;
 import com.sc.base.repository.user.ResidentRegistrationRepository;
@@ -73,6 +74,9 @@ public class ResidentService {
                     if (StringUtils.isNotBlank(indexIntoDto.getRole())){
                         predicateList.add(criteriaBuilder.equal(root.get("role"),indexIntoDto.getRole()));
                     }
+                    if (StringUtils.isNotBlank(indexIntoDto.getHouseMembers())){
+                        predicateList.add(criteriaBuilder.equal(root.get("houseMembers"),indexIntoDto.getHouseMembers()));
+                    }
                     if (StringUtils.isNotBlank(indexIntoDto.getPhoneNumber())){
                         predicateList.add(criteriaBuilder.equal(root.get("phoneNumber"),indexIntoDto.getPhoneNumber()));
                     }
@@ -86,6 +90,7 @@ public class ResidentService {
                 outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 outDto.setRoleStr(RoleEnum.getTypesName(e.getRole()));
                 outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                outDto.setHouseMembersStr(HouseMembersStatusEnum.getTypesName(e.getHouseMembers()));
                 return outDto;
             }).collect(Collectors.toList());
             return new Result<List<ManageResidentUserIndexOutDto>>().setSuccess(manageResidentUserIndexOutDtoList).setCount(page.getTotalElements());
@@ -153,6 +158,9 @@ public class ResidentService {
                     if (StringUtils.isNotBlank(indexIntoDto.getPhoneNumber())){
                         predicateList.add(criteriaBuilder.equal(root.get("phoneNumber"),indexIntoDto.getPhoneNumber()));
                     }
+                    if (StringUtils.isNotBlank(indexIntoDto.getHouseMembers())){
+                        predicateList.add(criteriaBuilder.equal(root.get("houseMembers"),indexIntoDto.getHouseMembers()));
+                    }
                     getBaseIntoDtoPredicate(predicateList,(BaseIntoDto) indexIntoDto,root,criteriaQuery,criteriaBuilder);
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
                 }
@@ -163,6 +171,7 @@ public class ResidentService {
                 outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
                 outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
                 outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                outDto.setHouseMembersStr(HouseMembersStatusEnum.getTypesName(e.getHouseMembers()));
                 return outDto;
             }).collect(Collectors.toList());
             return new Result<List<ManageResidentRegistrationIndexOutDto>>().setSuccess(manageResidentRegistrationIndexOutDtoList).setCount(page.getTotalElements());
@@ -186,6 +195,7 @@ public class ResidentService {
                     d.setUpdateDateStr(MyDateUtil.getDateAndTime(userEntity.getUpdateDate()));
                     d.setRoleStr(RoleEnum.getTypesName(userEntity.getRole()));
                     d.setWhetherValidStr(WhetherValidEnum.getTypesName(userEntity.getWhetherValid()));
+                    d.setHouseMembersStr(HouseMembersStatusEnum.getTypesName(userEntity.getHouseMembers()));
                 });
                 return new Result().setSuccess(dto);
             }else return Result.createSimpleFailResult();
@@ -212,6 +222,7 @@ public class ResidentService {
             entity.setDoor(dto.getDoor());
             entity.setAddress(dto.getCommunity()+dto.getUnit()+dto.getFloor()+dto.getDoor());
             entity.setPhoneNumber(dto.getPhoneNumber());
+            entity.setHouseMembers(dto.getHouseMembers());
             entity.setCreateDate(new Date());
             entity.setUpdateDate(new Date());
             entity.setWhetherValid(WhetherValidEnum.VALID.getType());
@@ -241,6 +252,7 @@ public class ResidentService {
                 entity.setFloor(dto.getFloor());
                 entity.setDoor(dto.getDoor());
                 entity.setAddress(dto.getCommunity()+dto.getUnit()+dto.getFloor()+dto.getDoor());
+                entity.setHouseMembers(dto.getHouseMembers());
                 entity.setUpdateDate(new Date());
                 residentRegistrationRepository.save(entity);
                 return Result.createSimpleSuccessResult();
@@ -294,6 +306,8 @@ public class ResidentService {
                     d.setCreateDateStr(MyDateUtil.getDateAndTime(entity.getCreateDate()));
                     d.setUpdateDateStr(MyDateUtil.getDateAndTime(entity.getUpdateDate()));
                     d.setWhetherValidStr(WhetherValidEnum.getTypesName(entity.getWhetherValid()));
+                    d.setHouseMembersStr(HouseMembersStatusEnum.getTypesName(entity.getHouseMembers()));
+
                 });
                 return new Result<ResidentRegistrationDto>().setSuccess(ResidentRegistrationDto) ;
             }else return Result.createSimpleFailResult();
