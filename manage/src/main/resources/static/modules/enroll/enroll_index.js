@@ -59,8 +59,8 @@ layui.config({
         console.log(data.id)
         if (obj.event === 'find'){
             console.log(data.id)
-            var width = document.documentElement.scrollWidth * 0.9 + "px";
-            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            var width = document.documentElement.scrollWidth * 0.6 + "px";
+            var height = document.documentElement.scrollHeight * 0.6 + "px";
             layer.open({
                 type: 2,
                 skin: 'open-class',
@@ -73,22 +73,22 @@ layui.config({
         }
         if (obj.event === 'examine'){
             console.log(data.id)
-            var width = document.documentElement.scrollWidth * 0.9 + "px";
-            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            var width = document.documentElement.scrollWidth * 0.6 + "px";
+            var height = document.documentElement.scrollHeight * 0.6 + "px";
             layer.open({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
                 title: '审核页面',
                 content: "/sc/manage/enroll/manage_enroll_examine_page?id="+data.id
-                ,maxmin: true
-                ,zIndex: layer.zIndex //重点1
+                // ,maxmin: true
+                // ,zIndex: layer.zIndex //重点1
             });
         }
         if (obj.event === 'findvote'){
             console.log(data.id)
-            var width = document.documentElement.scrollWidth * 0.9 + "px";
-            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            var width = document.documentElement.scrollWidth * 0.6 + "px";
+            var height = document.documentElement.scrollHeight * 0.6 + "px";
             layer.open({
                 type: 2,
                 skin: 'open-class',

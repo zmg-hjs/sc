@@ -15,28 +15,26 @@ layui.config({
     var url = ""
     //日期插件渲染
     laydate.render({
-        elem: '#time'
-        , type: 'date'
-        , range: '~'
-        , format: 'yyyy-MM-dd'
+        elem: '#test1'
+        ,type: 'month'
     });
 
     //表格渲染
     table.render({
         elem: '#order-table-toolbar'
-        , url: '/sc/manage/repair/manage_repair_index_data'
+        , url: '/sc/manage/payment/manage_payment_index_data'
         , toolbar: '#order-table-toolbar-toolbarDemo'
         , title: ''
         , cols: [[
             {type: 'checkbox', field: 'id', fixed: 'left'}
-            , {field: 'residentUserActualName', title: '报修人员姓名',  width: 200, align: 'center'}
-            , {field: 'maintenanceContent', title: '报修内容',  width: 200, align: 'center'}
-            , {field: 'maintenanceAddress', title: '报修地址',  width: 200, align: 'center'}
-            , {field: 'maintenanceStatusStr', title: '状态',  width: 200, align: 'center'}
-            , {field: 'createDateStr', title: '发布时间', width: 200, align: 'center'}
-            , {field: 'workId', title: '工作人员id', width: 200, align: 'center',hide:true}
-            , {field: 'repairOrderId', title: '维修单id', width: 200, align: 'center',hide:true}
-            , {field : 'tool',fixed: 'right',title : '操作',minWidth : 260,align : 'center',toolbar : '#barDemo'}
+            , {field: 'residentUserActualName', title: '居民姓名',  width: 200, align: 'center'}
+            , {field: 'residentUserPhoneNumber', title: '联系方式', width: 200, align: 'center'}
+            , {field: 'residentUserAddress', title: '居民地址', width: 200, align: 'center'}
+            , {field: 'propertyCost', title: '物业费用', width: 200, align: 'center'}
+            , {field: 'paymentStatusStr', title: '状态', width: 200, align: 'center'}
+            , {field: 'timeFrame', title: '物业费时间', width: 200, align: 'center'}
+            , {field: 'createDateStr', title: '创建时间', width: 200, align: 'center'}
+            ,{fixed: 'right',field : 'tool',title : '操作',minWidth : 350,align : 'center',toolbar : '#barDemo'}
         ]]
         , page: true
         //回调函数查询不同状态数据总数
@@ -59,8 +57,33 @@ layui.config({
     //监听行工具事件
     table.on('tool(order-table-toolbar)', function (obj) {
         var data = obj.data;
-        console.log(data.id)
         if (obj.event === 'find'){
+            var width = document.documentElement.scrollWidth * 0.9 + "px";
+            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            layer.open({
+                type: 2,
+                skin: 'open-class',
+                area: [width, height],
+                title: '缴费信息详情',
+                content: "/sc/manage/payment/manage_payment_find_page?id="+data.id
+                ,maxmin: true
+                ,zIndex: layer.zIndex //重点1
+            });
+        }
+        if (obj.event === 'examine'){
+            var width = document.documentElement.scrollWidth * 0.9 + "px";
+            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            layer.open({
+                type: 2,
+                skin: 'open-class',
+                area: [width, height],
+                title: '物业缴费信息审核',
+                content: "/sc/manage/payment/manage_payment_examine_page?id="+data.id
+                ,maxmin: true
+                ,zIndex: layer.zIndex //重点1
+            });
+        }
+        if (obj.event === 'update1'){
             console.log(data.id)
             var width = document.documentElement.scrollWidth * 0.9 + "px";
             var height = document.documentElement.scrollHeight * 0.9 + "px";
@@ -68,28 +91,14 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '报修信息',
-                content: "/sc/manage/repair/manage_repair_find_page?id="+data.id
+                title: '修改缴费信息',
+                content: "/sc/manage/payment/manage_payment_update_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });
-        }
-        if (obj.event === 'update'){
-            console.log(data.id)
-            var width = document.documentElement.scrollWidth * 0.9 + "px";
-            var height = document.documentElement.scrollHeight * 0.9 + "px";
-            layer.open({
-                type: 2,
-                skin: 'open-class',
-                area: [width, height],
-                title: '审核',
-                content: "/sc/manage/repair/manage_repair_update_page?id="+data.id
-                ,maxmin: true
-                ,zIndex: layer.zIndex //重点1
-            });
-        }
 
-        if (obj.event === 'order'){
+        }
+        if (obj.event === 'update2'){
             console.log(data.id)
             var width = document.documentElement.scrollWidth * 0.9 + "px";
             var height = document.documentElement.scrollHeight * 0.9 + "px";
@@ -97,11 +106,12 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '订单',
-                content: "/sc/manage/repair/manage_repair_order_find_page?repairId="+data.id+"&&id="+data.repairOrderId
+                title: '发送缴费信息',
+                content: "/sc/manage/payment/manage_payment_send_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });
+
         }
     });
 
@@ -113,10 +123,9 @@ layui.config({
             d[this.name] = this.value;
         });
         switch(obj.event){
-            //自定义头工具栏右侧图标 - 提示
             case 'all':
                 //获取查询表单数据
-                d.maintenanceStatus='';
+                d.paymentStatus='';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
@@ -127,13 +136,9 @@ layui.config({
                 $("#djB").css("background-color", "#ffffff");
                 $("#djC").css("background-color", "#ffffff");
                 $("#djD").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
                 break;
-            case 'dispatch':
-                //获取查询表单数据
-                d.maintenanceStatus='dispatch';
+            case 'to_be_sent':
+                d.paymentStatus='to_be_sent';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
@@ -144,13 +149,9 @@ layui.config({
                 $("#djA").css("background-color", "#ffffff");
                 $("#djC").css("background-color", "#ffffff");
                 $("#djD").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
                 break;
-            case 'complete_dispatch':
-                //获取查询表单数据
-                d.maintenanceStatus='complete_dispatch';
+            case 'paid':
+                d.paymentStatus='paid';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
@@ -161,13 +162,9 @@ layui.config({
                 $("#djB").css("background-color", "#ffffff");
                 $("#djA").css("background-color", "#ffffff");
                 $("#djD").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
                 break;
-            case 'under_repair':
-                //获取查询表单数据
-                d.maintenanceStatus='under_repair';
+            case 'unpaid':
+                d.paymentStatus='unpaid';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
@@ -178,63 +175,23 @@ layui.config({
                 $("#djB").css("background-color", "#ffffff");
                 $("#djC").css("background-color", "#ffffff");
                 $("#djA").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
                 break;
-            case 'repair_complete':
-                //获取查询表单数据
-                d.maintenanceStatus='repair_complete';
-                table.reload('order-table-toolbar', {
-                    where: d,
-                    page: {
-                        curr: 1
-                    }
-                });
-                $("#djE").css("background-color", "#b1b0b0");
-                $("#djB").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#ffffff");
-                $("#djD").css("background-color", "#ffffff");
-                $("#djA").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
-                break;
-            case 'feedback':
-                //获取查询表单数据
-                d.maintenanceStatus='feedback';
-                table.reload('order-table-toolbar', {
-                    where: d,
-                    page: {
-                        curr: 1
-                    }
-                });
-                $("#djF").css("background-color", "#b1b0b0");
-                $("#djB").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#ffffff");
-                $("#djD").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djA").css("background-color", "#ffffff");
-                $("#djG").css("background-color", "#ffffff");
-                break;
-            case 'cancel':
-                //获取查询表单数据
-                d.maintenanceStatus='cancel';
-                table.reload('order-table-toolbar', {
-                    where: d,
-                    page: {
-                        curr: 1
-                    }
-                });
-                $("#djG").css("background-color", "#b1b0b0");
-                $("#djB").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#ffffff");
-                $("#djD").css("background-color", "#ffffff");
-                $("#djE").css("background-color", "#ffffff");
-                $("#djF").css("background-color", "#ffffff");
-                $("#djA").css("background-color", "#ffffff");
-                break;
+            //自定义头工具栏右侧图标 - 提示
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                break;
+            case 'addList':
+                var width = document.documentElement.scrollWidth * 0.9 + "px";
+                var height = document.documentElement.scrollHeight * 0.9 + "px";
+                layer.open({
+                    type: 2,
+                    skin: 'open-class',
+                    area: [width, height],
+                    title: '生成缴费信息（全部）',
+                    content: "/sc/manage/payment/manage_payment_add_list_page"
+                    ,maxmin: true
+                    ,zIndex: layer.zIndex //重点1
+                });
                 break;
         };
     });
@@ -245,7 +202,27 @@ layui.config({
 
     })
 
-
+    function returnFunction(data) {
+        if (data.code == '1') {
+            layer.open({
+                icon:1,
+                title: advice
+                ,content: data.msg
+                ,yes: function(index, layero){
+                    var index = parent.layer.getFrameIndex(window.name);
+                    // parent.layui.table.reload('items');//重载父页表格，参数为表格ID
+                    parent.layer.close(index);
+                    window.parent.location.reload();
+                }
+            });
+            return;
+        } else {
+            layer.msg(data.msg, {
+                icon: 5,
+                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+            });
+        }
+    }
 
 
     function initData() {

@@ -58,6 +58,9 @@ public class RepairService {
                     if (StringUtils.isNotBlank(repairDto.getResidentUserActualName())){
                         predicateList.add(criteriaBuilder.like(root.get("residentUserActualName"),"%"+repairDto.getResidentUserActualName()+"%"));
                     }
+                    if (StringUtils.isNotBlank(repairDto.getMaintenanceStatus())){
+                        predicateList.add(criteriaBuilder.equal(root.get("maintenanceStatus"), repairDto.getMaintenanceStatus()));
+                    }
                     if (StringUtils.isNotBlank(repairDto.getWhetherValid())){
                         predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),repairDto.getWhetherValid()));
                     }else {

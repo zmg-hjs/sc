@@ -138,5 +138,49 @@ public class EnrollService {
         }
     }
 
+    /**
+     * 柱状图
+     * @param indexIntoDto
+     * @return
+     */
+    public Result<List<ManageEnrollIndexOutDto>> enrollEchart(ManageEnrollIndexIntoDto indexIntoDto){
+        try {
+            //根据时间倒序
+            Sort sort = Sort.by(Sort.Direction.DESC,"voteNumber");
+            //页数与每页大小
+            Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE,sort);
+            //条件
+            Page<EnrollEntity> page = enrollRepository.findAll(new Specification<EnrollEntity>() {
+                @Override
+                public Predicate toPredicate(Root<EnrollEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    ArrayList<Predicate> predicateList = new ArrayList<>();
+                    if (StringUtils.isNotBlank(indexIntoDto.getActivityId())){
+                        predicateList.add(criteriaBuilder.equal(root.get("activityId"),indexIntoDto.getActivityId()));
+                    }
+                    if (StringUtils.isNotBlank(indexIntoDto.getAuditStatus())){
+                        predicateList.add(criteriaBuilder.equal(root.get("auditStatus"),indexIntoDto.getAuditStatus()));
+                    }
+                    if (StringUtils.isNotBlank(indexIntoDto.getWhetherValid())){
+                        predicateList.add(criteriaBuilder.equal(root.get("whetherValid"),indexIntoDto.getWhetherValid()));
+                    }else {
+                        predicateList.add(criteriaBuilder.equal(root.get("whetherValid"), WhetherValidEnum.VALID.getType()));
+                    }
+                    return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+                }
+            }, pageable);
+            List<ManageEnrollIndexOutDto> manageEnrollIndexOutDtoList = page.getContent().stream().map(e -> {
+                ManageEnrollIndexOutDto outDto = MyBeanUtils.copyPropertiesAndResTarget(e, ManageEnrollIndexOutDto::new);
+                outDto.setCreateDateStr(MyDateUtil.getDateAndTime(e.getCreateDate()));
+                outDto.setUpdateDateStr(MyDateUtil.getDateAndTime(e.getUpdateDate()));
+                outDto.setAuditStatusStr(AuditStatusEnum.getTypesName(e.getAuditStatus()));
+                outDto.setWhetherValidStr(WhetherValidEnum.getTypesName(e.getWhetherValid()));
+                return outDto;
+            }).collect(Collectors.toList());
+            return new Result<List<ManageEnrollIndexOutDto>>().setSuccess(manageEnrollIndexOutDtoList).setCount(page.getTotalElements());
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
 
 }

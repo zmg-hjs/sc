@@ -1,6 +1,7 @@
 package myString;
 
 import mydate.MyDateUtil;
+import org.springframework.util.DigestUtils;
 
 import java.util.UUID;
 
@@ -80,5 +81,10 @@ public class MyStringUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String s = DigestUtils.md5DigestAsHex("123456".getBytes());
+        System.out.println(s);
     }
 }

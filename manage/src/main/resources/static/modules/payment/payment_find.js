@@ -3,14 +3,13 @@ layui.config({
 }).extend({
     index: 'lib/index' //主入口模块
     , formSelects: '../lib/formSelects/formSelects-v4'
-}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload','element','jquery'], function () {
+}).use(['index', 'table', 'form', 'laydate', 'formSelects', 'upload'], function () {
     layui.form.config.verify.required[1] = requiredNotNull;
     var $ = layui.$,
         form = layui.form,
         laydate = layui.laydate,
         table = layui.table,
         upload = layui.upload,
-        element = layui.element,
         formSelects = layui.formSelects;
 
     $(document).on('click','#close',function(){
@@ -43,10 +42,8 @@ layui.config({
         loadOwner($("select[name='owner']"));
     }
 
-
     // 初始化控件数据
     $(document).ready(function () {
-        debugger
         initData();
     });
 

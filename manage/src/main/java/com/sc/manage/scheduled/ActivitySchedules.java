@@ -42,7 +42,7 @@ public class ActivitySchedules {
                 public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityStartTimeStr"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityStartTime"),MyDateUtil.dateString3Date(dateStr)));
                         predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.UNPUBLISHED.getType()));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
@@ -73,7 +73,7 @@ public class ActivitySchedules {
                 public Predicate toPredicate(Root<ActivityEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                     ArrayList<Predicate> predicateList = new ArrayList<>();
                     if (StringUtils.isNotBlank(dateStr)){
-                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityEndTimeStr"),MyDateUtil.dateString3Date(dateStr)));
+                        predicateList.add(criteriaBuilder.lessThanOrEqualTo(root.get("activityEndTime"),MyDateUtil.dateString3Date(dateStr)));
                         predicateList.add(criteriaBuilder.equal(root.get("activityStatus"), ActivityStatusEnum.ENROLMENT.getType()));
                     }
                     return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));

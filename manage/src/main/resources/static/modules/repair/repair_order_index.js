@@ -24,20 +24,17 @@ layui.config({
     //表格渲染
     table.render({
         elem: '#order-table-toolbar'
-        , url: '/sc/manage/car/manage_car_index_data'
+        , url: '/sc/manage/repair/manage_repair_order_index_data'
         , toolbar: '#order-table-toolbar-toolbarDemo'
         , title: ''
         , cols: [[
             {type: 'checkbox', field: 'id', fixed: 'left'}
-            , {field: 'userActualName', title: '发起拼车人名',  width: 200, align: 'center'}
-            , {field: 'telephone', title: '发起拼车人手机号',  width: 200, align: 'center'}
-            , {field: 'carNum', title: '车牌号',  width: 200, align: 'center'}
-            , {field: 'startPosition', title: '起始地', width: 200, align: 'center'}
-            , {field: 'destination', title: '目的地', width: 200, align: 'center'}
-            , {field: 'startTimeStr', title: '出发时间', width: 200, align: 'center'}
-            , {field: 'peopleNum', title: '拼车人数', width: 200, align: 'center'}
-            , {field: 'peopleNow', title: '现有人数', width: 200, align: 'center'}
-            , {field: 'createDateStr', title: '创建时间', width: 200, align: 'center'}
+            , {field: 'staffUserActualName', title: '维修员工姓名',  width: 200, align: 'center'}
+            , {field: 'staffUserPhoneNumber', title: '联系方式',  width: 200, align: 'center'}
+            , {field: 'repairmanStatusStr', title: '状态',  width: 200, align: 'center'}
+            , {field: 'createDateStr', title: '派遣时间', width: 200, align: 'center'}
+            , {field: 'workId', title: '工作人员id', width: 200, align: 'center',hide:true}
+            , {field: 'repairId', title: '报修单id', width: 200, align: 'center',hide:true}
             , {field : 'tool',fixed: 'right',title : '操作',minWidth : 260,align : 'center',toolbar : '#barDemo'}
         ]]
         , page: true
@@ -63,14 +60,15 @@ layui.config({
         var data = obj.data;
         console.log(data.id)
         if (obj.event === 'find'){
+            console.log(data.id)
             var width = document.documentElement.scrollWidth * 0.9 + "px";
             var height = document.documentElement.scrollHeight * 0.9 + "px";
             layer.open({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '拼车信息',
-                content: "/sc/manage/car/manage_car_find_page?id="+data.id
+                title: '维修信息',
+                content: "/sc/manage/repair/manage_repair_order_find_page?id="+data.id+"&&repairId="+data.repairId
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });
@@ -86,44 +84,80 @@ layui.config({
         });
         switch(obj.event){
             //自定义头工具栏右侧图标 - 提示
-            case 'in_progress':
+            case 'all':
                 //获取查询表单数据
-                d.carpoolStatus='in_progress';
+                d.repairmanStatus='';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
                         curr: 1
                     }
                 });
-                $("#djB").css("background-color", "#ffffff");
                 $("#djA").css("background-color", "#b1b0b0");
+                $("#djB").css("background-color", "#ffffff");
                 $("#djC").css("background-color", "#ffffff");
+                $("#djD").css("background-color", "#ffffff");
+                $("#djE").css("background-color", "#ffffff");
                 break;
-            case 'complete':
+            case 'complete_dispatch':
                 //获取查询表单数据
-                d.carpoolStatus='complete';
+                d.repairmanStatus='complete_dispatch';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
                         curr: 1
                     }
                 });
+                $("#djB").css("background-color", "#b1b0b0");
                 $("#djA").css("background-color", "#ffffff");
                 $("#djC").css("background-color", "#ffffff");
-                $("#djB").css("background-color", "#b1b0b0");
+                $("#djD").css("background-color", "#ffffff");
+                $("#djE").css("background-color", "#ffffff");
+                break;
+            case 'under_repair':
+                //获取查询表单数据
+                d.repairmanStatus='under_repair';
+                table.reload('order-table-toolbar', {
+                    where: d,
+                    page: {
+                        curr: 1
+                    }
+                });
+                $("#djC").css("background-color", "#b1b0b0");
+                $("#djB").css("background-color", "#ffffff");
+                $("#djA").css("background-color", "#ffffff");
+                $("#djD").css("background-color", "#ffffff");
+                $("#djE").css("background-color", "#ffffff");
+                break;
+            case 'repair_complete':
+                //获取查询表单数据
+                d.repairmanStatus='repair_complete';
+                table.reload('order-table-toolbar', {
+                    where: d,
+                    page: {
+                        curr: 1
+                    }
+                });
+                $("#djD").css("background-color", "#b1b0b0");
+                $("#djB").css("background-color", "#ffffff");
+                $("#djC").css("background-color", "#ffffff");
+                $("#djA").css("background-color", "#ffffff");
+                $("#djE").css("background-color", "#ffffff");
                 break;
             case 'cancel':
                 //获取查询表单数据
-                d.carpoolStatus='cancel';
+                d.repairmanStatus='cancel';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
                         curr: 1
                     }
                 });
-                $("#djA").css("background-color", "#ffffff");
+                $("#djE").css("background-color", "#b1b0b0");
                 $("#djB").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#b1b0b0");
+                $("#djC").css("background-color", "#ffffff");
+                $("#djD").css("background-color", "#ffffff");
+                $("#djA").css("background-color", "#ffffff");
                 break;
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');

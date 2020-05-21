@@ -214,13 +214,9 @@
                 </div>
                 <tr th:each="carpoolDto:${carpoolDtoList}">
                     <div class="layui-row">
-                        <div class="layui-col-xs12">
-                            <input id="carpoolUserId" type="hidden" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
-                        </div>
-                    </div>
-                    <div class="layui-row">
                         <div class="layui-col-xs4">
                             <div class="layui-form-item">
+                                <input id="carpoolUserId" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
                                 <div th:text="${carpoolDto.getCarpoolUserActualName()}" ></div>
                             </div>
                         </div>

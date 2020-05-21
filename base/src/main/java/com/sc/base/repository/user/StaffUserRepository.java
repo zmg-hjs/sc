@@ -16,6 +16,8 @@ public interface StaffUserRepository extends JpaRepository<StaffUserEntity,Strin
 
     StaffUserEntity findStaffUserEntityById(String id);
     StaffUserEntity findStaffUserEntityByUsernameAndPasswordAndPositionAndWhetherValid(String username,String password,String position,String whetherValid);
+    StaffUserEntity findStaffUserEntityByPhoneNumberAndPasswordAndPositionAndWhetherValid(String phoneNumber,String password,String position,String whetherValid);
+
     StaffUserEntity findStaffUserEntityByOpenId(String openId);
     StaffUserEntity findStaffUserEntityByPhoneNumber(String phoneNumber);
     List<StaffUserEntity> findStaffUserEntitiesByPositionAndWhetherValid(String position,String whetherValid);

@@ -24,21 +24,35 @@ layui.config({
     //表格渲染
     table.render({
         elem: '#order-table-toolbar'
-        , url: '/sc/manage/car/manage_car_index_data'
+        , url: '/sc/manage/payment/manage_resident_user_index_data'
         , toolbar: '#order-table-toolbar-toolbarDemo'
         , title: ''
         , cols: [[
             {type: 'checkbox', field: 'id', fixed: 'left'}
-            , {field: 'userActualName', title: '发起拼车人名',  width: 200, align: 'center'}
-            , {field: 'telephone', title: '发起拼车人手机号',  width: 200, align: 'center'}
-            , {field: 'carNum', title: '车牌号',  width: 200, align: 'center'}
-            , {field: 'startPosition', title: '起始地', width: 200, align: 'center'}
-            , {field: 'destination', title: '目的地', width: 200, align: 'center'}
-            , {field: 'startTimeStr', title: '出发时间', width: 200, align: 'center'}
-            , {field: 'peopleNum', title: '拼车人数', width: 200, align: 'center'}
-            , {field: 'peopleNow', title: '现有人数', width: 200, align: 'center'}
+            , {field: 'username', title: '微信昵称', minWidth: 150,fixed: 'left', align: 'center'}
+            , {
+                field: 'headPictureUrl',
+                title: '头像',
+                width: 150,
+                fixed: 'left',
+                align: 'center',
+                templet: function(item) {
+                    var headPictureUrl = item.headPictureUrl;
+                    // var headPictureUrl = "http://img2.imgtn.bdimg.com/it/u=3098178195,2642187561&fm=26&gp=0.jpg";
+                    var result = '<a href="'+ headPictureUrl + '" target="_blank " title="点击查看">' +
+                        '<img src="' + headPictureUrl + '" style="height:100%;" />' +
+                        '</a>'+'&nbsp&nbsp&nbsp&nbsp';
+                    return result;
+                }
+            }
+            , {field: 'actualName', title: '姓名',  width: 150, align: 'center'}
+            , {field: 'idNumber', title: '身份证号', width: 100, align: 'center'}
+            , {field: 'address', title: '家庭地址', width: 150, align: 'center'}
+            , {field: 'roleStr', title: '社区身份', width: 150, align: 'center'}
+            , {field: 'houseMembersStr', title: '家庭身份', width: 150, align: 'center'}
+            , {field: 'phoneNumber', title: '后台登记电话', width: 150, align: 'center'}
             , {field: 'createDateStr', title: '创建时间', width: 200, align: 'center'}
-            , {field : 'tool',fixed: 'right',title : '操作',minWidth : 260,align : 'center',toolbar : '#barDemo'}
+            ,{fixed: 'right',field : 'tool',title : '操作',minWidth : 200,align : 'center',toolbar : '#barDemo'}
         ]]
         , page: true
         //回调函数查询不同状态数据总数
@@ -69,8 +83,21 @@ layui.config({
                 type: 2,
                 skin: 'open-class',
                 area: [width, height],
-                title: '拼车信息',
-                content: "/sc/manage/car/manage_car_find_page?id="+data.id
+                title: '工作人员信息',
+                content: "/sc/manage/resident/manage_resident_user_find_page?id="+data.id
+                ,maxmin: true
+                ,zIndex: layer.zIndex //重点1
+            });
+        }
+        if (obj.event === 'addOne'){
+            var width = document.documentElement.scrollWidth * 0.9 + "px";
+            var height = document.documentElement.scrollHeight * 0.9 + "px";
+            layer.open({
+                type: 2,
+                skin: 'open-class',
+                area: [width, height],
+                title: '生成个人物业缴费信息',
+                content: "/sc/manage/payment/manage_payment_add_one_page?id="+data.id
                 ,maxmin: true
                 ,zIndex: layer.zIndex //重点1
             });
@@ -85,23 +112,9 @@ layui.config({
             d[this.name] = this.value;
         });
         switch(obj.event){
-            //自定义头工具栏右侧图标 - 提示
-            case 'in_progress':
+            case 'invalid':
                 //获取查询表单数据
-                d.carpoolStatus='in_progress';
-                table.reload('order-table-toolbar', {
-                    where: d,
-                    page: {
-                        curr: 1
-                    }
-                });
-                $("#djB").css("background-color", "#ffffff");
-                $("#djA").css("background-color", "#b1b0b0");
-                $("#djC").css("background-color", "#ffffff");
-                break;
-            case 'complete':
-                //获取查询表单数据
-                d.carpoolStatus='complete';
+                d.whetherValid='invalid';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
@@ -109,22 +122,20 @@ layui.config({
                     }
                 });
                 $("#djA").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#ffffff");
                 $("#djB").css("background-color", "#b1b0b0");
                 break;
-            case 'cancel':
-                //获取查询表单数据
-                d.carpoolStatus='cancel';
+            case 'valid':
+                d.whetherValid='valid';
                 table.reload('order-table-toolbar', {
                     where: d,
                     page: {
                         curr: 1
                     }
                 });
-                $("#djA").css("background-color", "#ffffff");
+                $("#djA").css("background-color", "#b1b0b0");
                 $("#djB").css("background-color", "#ffffff");
-                $("#djC").css("background-color", "#b1b0b0");
                 break;
+            //自定义头工具栏右侧图标 - 提示
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');
                 break;
@@ -137,6 +148,25 @@ layui.config({
 
     })
 
+    // function djA(dom){
+    //     var colloction=$(".djsA")
+    //     $.each(colloction, function() {
+    //         $(this).removeClass("end");
+    //         $(this).addClass("start")
+    //     });
+    //     $(this).removeClass("start");
+    //     $(this).addClass("end")
+    // }
+    // function djB(dom){
+    //     console.log("11111111111111")
+    //     var colloction=$(".djsB")
+    //     $.each(colloction, function() {
+    //         $(this).removeClass("end");
+    //         $(this).addClass("start")
+    //     });
+    //     $(this).removeClass("start");
+    //     $(this).addClass("end")
+    // }
 
 
 

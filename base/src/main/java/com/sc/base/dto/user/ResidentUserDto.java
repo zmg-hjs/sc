@@ -22,11 +22,11 @@ public class ResidentUserDto {
     private String idNumber; //身份证号
     private String address; //家庭地址
     private String userAuditId; //审核表id;
-    private String role; //角色
-    private String roleStr; //角色
+    private String role; //社区身份
+    private String roleStr; //社区身份name
     private String applicationStatus; //申请状态
     private String whetherValid; //是否有效
     private String whetherValidStr; //是否有效
-    private String houseMembers;//成员
-    private String houseMembersStr;//成员name
+    private String houseMembers;//家庭身份
+    private String houseMembersStr;//家庭身份
 }

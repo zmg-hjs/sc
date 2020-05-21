@@ -59,7 +59,6 @@ public class RepairService {
             repairEntity.setResidentUserPhoneNumber(repairDto.getResidentUserPhoneNumber());
             repairEntity.setMaintenanceAddress(repairDto.getMaintenanceAddress());
             repairEntity.setMaintenanceContent(repairDto.getMaintenanceContent());
-            repairEntity.setScore(3);
             List<WorkEntity> workEntityList = findStaffUserList().getData();
             if (workEntityList!=null&&workEntityList.size()>0){
                 //添加维修订单表
@@ -69,9 +68,11 @@ public class RepairService {
                 repairOrderEntity.setCreateDate(date);
                 repairOrderEntity.setUpdateDate(date);
                 repairOrderEntity.setWhetherValid(WhetherValidEnum.VALID.getType());
-                repairOrderEntity.setScore(3);
                 repairOrderEntity.setRepairId(repairId);
+                repairOrderEntity.setWorkId(workEntityList.get(0).getId());
                 repairOrderEntity.setStaffUserId(workEntityList.get(0).getStaffUserId());
+                repairOrderEntity.setStaffUserActualName(workEntityList.get(0).getStaffUserActualName());
+                repairOrderEntity.setStaffUserPhoneNumber(workEntityList.get(0).getStaffUserPhoneNumber());
                 repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
                 repairOrderRepository.save(repairOrderEntity);
                 //修改工作表
@@ -176,10 +177,11 @@ public class RepairService {
             RepairOrderEntity repairOrderEntity = repairOrderRepository.findRepairOrderEntityById(repairEntity.getRepairOrderId());
             repairOrderEntity.setUpdateDate(date);
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.CANCEL.getType());
+            repairOrderEntity.setScore(0);
             repairOrderRepository.save(repairOrderEntity);
             //修改工作表
             WorkEntity workEntity = workRepository.findWorkEntityById(repairEntity.getWorkId());
-            workEntity.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+            workEntity.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
             workEntity.setUpdateDate(date);
             workRepository.save(workEntity);
             return Result.createSimpleSuccessResult();
@@ -198,7 +200,11 @@ public class RepairService {
         try {
             Date date = new Date();
             RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
-            repairEntity.setScore(repairDto.getScore());
+            if (repairDto.getScore()==null) {
+                repairEntity.setScore(3);
+            }else {
+                repairEntity.setScore(repairDto.getScore());
+            }
             repairEntity.setMaintenanceFeedback(repairDto.getMaintenanceFeedback());
             repairEntity.setMaintenanceStatus(RepairStatusEnum.FEEDBACK.getType());
             repairEntity.setUpdateDate(date);

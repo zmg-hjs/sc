@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Getter
 public enum PaymentStatusEnum {
 
+    TO_BE_SENT("to_be_sent","待发送"),//缴费通知未发送
     PAID("paid","已缴费"),
     UNPAID("unpaid","未缴费");
 

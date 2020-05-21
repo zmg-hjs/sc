@@ -42,7 +42,7 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite th:text="${session.username}"></cite>
+                        <cite th:text="${session.phoneNumber}"></cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd style="text-align: center;">
@@ -87,6 +87,7 @@
                             </dd>
                         </dl>
                     </li>
+
                     <li data-name="home" class="layui-nav-item">
                         <a href="javascript:;" lay-tips="拼车消息信息" lay-direction="2">
                             <i class="layui-icon layui-icon-set"></i>
@@ -106,6 +107,22 @@
                         <dl class="layui-nav-child">
                             <dd data-name="order_manage">
                                 <a lay-href="/sc/manage/news/manage_news_index_page" th:text="发布消息信息管理"></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="物业缴费" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite th:text="物业缴费"></cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/payment/manage_resident_user_index_page" th:text="房主信息"></a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="order_manage">
+                                <a lay-href="/sc/manage/payment/manage_payment_index_page" th:text="物业缴费"></a>
                             </dd>
                         </dl>
                     </li>

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import vo.Result;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -343,7 +344,8 @@ public class StaffService {
     }
     public Result<StaffUserDto> login(StaffUserDto staffUserDto){
         try {
-            StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByUsernameAndPasswordAndPositionAndWhetherValid(staffUserDto.getUsername(),staffUserDto.getPassword(),PositionEnum.ADMINISTRATOR.getType(), WhetherValidEnum.VALID.getType());
+
+            StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityByPhoneNumberAndPasswordAndPositionAndWhetherValid(staffUserDto.getPhoneNumber(),DigestUtils.md5DigestAsHex(staffUserDto.getPassword().getBytes()),PositionEnum.ADMINISTRATOR.getType(), WhetherValidEnum.VALID.getType());
             StaffUserDto dto = MyBeanUtils.copyPropertiesAndResTarget(staffUserEntity, StaffUserDto::new, d -> {
                 d.setCreateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getCreateDate()));
                 d.setUpdateDateStr(MyDateUtil.getDateAndTime(staffUserEntity.getUpdateDate()));
