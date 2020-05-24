@@ -1,32 +1,54 @@
 // miniprogram/pages/charges/charges.js
+const chargesUrl=require('../../config').chargesUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      status:''
+      payment:{},
+      id:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.status)
-     this.setData({
-       status:options.status
-     })
+    var that=this
+    wx.request({
+      url: chargesUrl+'/resident_payment_one',
+      data:{
+         id:options.id
+      },
+      method:'POST',
+      success:function(res){
+        console.log(res.data)
+         that.setData({
+           payment:res.data.data
+         })
+         console.log(that.data.payment)
+      }
+    })
   },
  payMent(){
-  wx.showModal({
-    title: '提示',
-    content: '支付成功',
-    showCancel: false,
-    confirmText: "确定",
-    success: function(res){
-      wx.navigateBack()
+   wx.request({
+     url: chargesUrl+'/resident_payment_update',
+     method:'POST',
+     data:{
+         id:this.data.payment.id
      },
-})
+     success:function(res){
+      wx.showModal({
+        title: '提示',
+        content: '支付成功',
+        showCancel: false,
+        confirmText: "确定",
+        success: function(res){
+          wx.navigateBack()
+         },
+    })
+     }
+   })
  },
   /**
    * 生命周期函数--监听页面初次渲染完成

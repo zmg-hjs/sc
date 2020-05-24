@@ -3,24 +3,20 @@
 	<view class="weui-form-preview__hd">
 		<view class="weui-form-preview__item">
 			<view class="weui-form-preview__label">付款金额</view>
-			<view class="weui-form-preview__value_in-hd">¥2400.00</view>
+			<view class="weui-form-preview__value_in-hd">¥{{payment.propertyCost}}</view>
 		</view>
 	</view>
 	<view class="weui-form-preview__bd">
 		<view class="weui-form-preview__item">
-			<view class="weui-form-preview__label">商品</view>
-			<view class="weui-form-preview__value">电动打蛋机</view>
+			<view class="weui-form-preview__label">缴费月份:</view>
+			<view class="weui-form-preview__value">{{payment.timeFrame}}</view>
 		</view>
 		<view class="weui-form-preview__item">
-			<view class="weui-form-preview__label">标题标题</view>
-			<view class="weui-form-preview__value">名字名字名字</view>
-		</view>
-		<view class="weui-form-preview__item">
-			<view class="weui-form-preview__label">标题标题</view>
-			<view class="weui-form-preview__value">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</view>
+			<view class="weui-form-preview__label">备注:</view>
+			<view class="weui-form-preview__value">{{payment.description}}</view>
 		</view>
 	</view>
 </view>
-<block wx:if="{{status=='待交'}}">
+<block wx:if="{{status=='unpaid'}}">
 	<button class="weui-btn" type="primary" bindtap="payMent">去支付</button>
 </block>

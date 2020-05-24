@@ -1,27 +1,12 @@
 // miniprogram/pages/charges/index.js
+const chargesUrl=require('../../config').chargesUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  list:[
-    {
-     id:'1',
-     title:'九月份物业费代缴：200元',
-     status:'待交'
-    },
-    {
-      id:'2',
-      title:'八月份物业费代缴：200元',
-      status:'已交'
-    },
-    {
-      id:'3',
-      title:'七月份物业费代缴：200元',
-      status:'已交'
-    }
-  ]
+  list:[]
   },
 
   /**
@@ -42,7 +27,37 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      list:[]
+    })
+    var that=this
+    wx.request({
+      url: chargesUrl+'/resident_payment_list',
+      method:'POST',
+      data:{
+        residentUserId:wx.getStorageSync('userInfo').id,
+        paymentStatus:'unpaid'
+      },
+      success:function(res){
+        that.setData({
+          list:that.data.list.concat(res.data.data)
+        })
+        wx.request({
+          url: chargesUrl+'/resident_payment_list',
+          method:'POST',
+          data:{
+            residentUserId:wx.getStorageSync('userInfo').id,
+            paymentStatus:'paid'
+          },
+          success:function(ress){
+            that.setData({
+              list:that.data.list.concat(ress.data.data)
+            })
+            console.log(that.data.list)
+          }
+        })
+      }
+    })
   },
 
   /**

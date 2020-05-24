@@ -14,6 +14,7 @@ var config={
   repairUrl:`${apiUrl}/sc/resident/repair/`,
   shopUrl:`${apiUrl}/sc/resident/commodity/`,
   imageUrl:`${apiUrl}/sc/resident/upload/`,
-  complaintUrl:`${apiUrl}/sc/resident/complaint/`
+  complaintUrl:`${apiUrl}/sc/resident/complaint/`,
+  chargesUrl:`${apiUrl}/sc/resident/news`
 };
 module.exports = config
