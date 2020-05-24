@@ -24,6 +24,8 @@ Page({
       _url="/pages/shop/index"
     }else if(type == 'fbk'){
       _url="/pages/feedback/index"
+    }else if(type == 'charges'){
+      _url="/pages/charges/index"
     }
     wx.navigateTo({
       url: _url,

@@ -39,14 +39,18 @@
 		<view class="icon-index-bx"></view>
 		<view class="text">物业报修</view>
 	</view>
+	<view bindtap="service" data-type='charges' class="index-exam-inlets-list col-hg-6">
+		<view class="icon-index-ch"></view>
+		<view class="text">物业缴费</view>
+	</view>
+</view>
+<view class="row" style="clear: both;">
 	<view bindtap="service" data-type='vote' class="index-exam-inlets-list col-hg-6">
 		<view class="icon-index-tp"></view>
 		<view class="text">选举投票</view>
 	</view>
-</view>
-<view class="row" style="clear: both;">
 	<view bindtap="service" data-type='fbk' class="index-exam-inlets-list col-hg-6">
 		<view class="icon-index-fk"></view>
-		<view class="text">物业反馈</view>
+		<view class="text">物业投诉</view>
 	</view>
 </view>

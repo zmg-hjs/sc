@@ -182,8 +182,7 @@ Component({
           ],
         })
         this.scrollToBottom(true)
-        console.log(this.data.userInfo.avatarUrl)
-        console.log(this.data.userInfo)
+  
 
         await db.collection(collection).add({
           data: doc,
@@ -346,6 +345,7 @@ Component({
   },
 
   ready() {
+    console.log(this.data.userInfo)
     global.chatroom = this
     this.initRoom()
     this.fatalRebuildCount = 0
