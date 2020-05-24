@@ -13,5 +13,6 @@ public class ManageResidentUserIndexIntoDto extends BaseIntoDto {
     private String address; //家庭地址
     private String role; //角色
     private String phoneNumber;//工作人员后台登记号码
+    private String houseMembers;//家庭身份
 
 }

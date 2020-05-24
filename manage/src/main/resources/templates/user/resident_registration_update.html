@@ -182,6 +182,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label th:text="家庭身份" class="layui-form-label"></label>
+                            <div class="layui-input-block">
+                                <select id="houseMembers" name="houseMembers" class="layui-input" >
+                                    <option th:text="房主"
+                                            value="homeowner"></option>
+                                    <option th:text="居住成员"
+                                            value="resident"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="edit-options-content">
                     <button id="testListAction2" th:text="提交" class="layui-btn" lay-submit=""
                             lay-filter="component-form"></button>

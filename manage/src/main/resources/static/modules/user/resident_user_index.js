@@ -48,7 +48,8 @@ layui.config({
             , {field: 'actualName', title: '姓名',  width: 150, align: 'center'}
             , {field: 'idNumber', title: '身份证号', width: 100, align: 'center'}
             , {field: 'address', title: '家庭地址', width: 150, align: 'center'}
-            , {field: 'roleStr', title: '角色', width: 150, align: 'center'}
+            , {field: 'roleStr', title: '社区身份', width: 150, align: 'center'}
+            , {field: 'houseMembersStr', title: '家庭身份', width: 150, align: 'center'}
             , {field: 'phoneNumber', title: '后台登记电话', width: 150, align: 'center'}
             , {field: 'createDateStr', title: '创建时间', width: 200, align: 'center'}
             ,{fixed: 'right',field : 'tool',title : '操作',minWidth : 200,align : 'center',toolbar : '#barDemo'}

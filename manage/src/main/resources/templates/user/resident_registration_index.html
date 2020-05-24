@@ -94,6 +94,19 @@
                         </div>
                     </div>
                     <div class="layui-inline">
+                        <label th:text="家庭身份" class="layui-form-label"></label>
+                        <div class="layui-input-block">
+                            <select id="houseMembers" name="houseMembers" lay-filter="aihao">
+                                <option th:text="所有"
+                                        value=""></option>
+                                <option th:text="房主"
+                                        value="homeowner"></option>
+                                <option th:text="居住成员"
+                                        value="resident"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
                         <button id="search" class="layui-btn layuiadmin-btn-useradmin" lay-submit
                                 lay-filter="LAY-user-front-search">
                             <i class="layui-icon layuiadmin-button-btn icon-magnify"></i>
@@ -111,8 +124,8 @@
 
         <script type="text/html" id="order-table-toolbar-toolbarDemo">
             <div class="layui-btn-container">
-                <a id="djA" class="djsA layui-btn layui-btn-xs" style="background-color: #b1b0b0" lay-event="valid" >在职</a>
-                <a id="djB" class="djsB layui-btn layui-btn-xs" style="" lay-event="invalid">已辞职</a>
+                <a id="djA" class="djsA layui-btn layui-btn-xs" style="background-color: #b1b0b0" lay-event="valid" >居住中</a>
+                <a id="djB" class="djsB layui-btn layui-btn-xs" style="" lay-event="invalid">已搬离</a>
             </div>
             <div class="com-option-content">
                 <div class="layui-inline" th:title="筛选" lay-event="LAYTABLE_COLS"><i

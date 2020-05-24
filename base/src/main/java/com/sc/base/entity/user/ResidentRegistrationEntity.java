@@ -24,4 +24,5 @@ public class ResidentRegistrationEntity {
     private Date createDate; //创建时间
     private Date updateDate; //更新时间
     private String whetherValid;//是否有效
+    private String houseMembers;//成员
 }

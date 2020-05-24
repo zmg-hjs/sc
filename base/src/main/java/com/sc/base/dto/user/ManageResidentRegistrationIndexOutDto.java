@@ -13,4 +13,6 @@ public class ManageResidentRegistrationIndexOutDto extends BaseOutDto {
     private String unit;//单元
     private String floor;//楼层
     private String door;//门牌号
+    private String houseMembers;//家庭身份
+    private String houseMembersStr;//家庭身份name
 }

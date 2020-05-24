@@ -88,4 +88,10 @@ public class ActivityController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/manage_activity_result_echart",method = RequestMethod.POST)
+    @ResponseBody
+    public Result manage_activity_result_echart(ModelAndView modelAndView, ActivityDto activityDto){
+        return activityService.enrollEchart(activityDto);
+    }
+
 }

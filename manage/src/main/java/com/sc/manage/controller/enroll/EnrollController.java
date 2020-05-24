@@ -38,6 +38,7 @@ public class EnrollController {
     public ModelAndView ManageEnrollIndexPage(ModelAndView modelAndView, String id, HttpSession session){
         session.setAttribute("activityId", id);
         modelAndView.setViewName("enroll/enroll_index");
+        modelAndView.addObject("activityId",id);
         return modelAndView;
     }
 

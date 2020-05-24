@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="layui-inline">
-                        <label th:text="角色" class="layui-form-label"></label>
+                        <label th:text="社区身份" class="layui-form-label"></label>
                         <div class="layui-input-block">
                             <select id="position" name="position" lay-filter="aihao">
                                 <option th:text="所有"
@@ -109,6 +109,19 @@
                                         value="resident"></option>
                                 <option th:text="委员会委员"
                                         value="committee_member"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label th:text="家庭身份" class="layui-form-label"></label>
+                        <div class="layui-input-block">
+                            <select id="houseMembers" name="houseMembers" lay-filter="aihao">
+                                <option th:text="所有"
+                                        value=""></option>
+                                <option th:text="房主"
+                                        value="homeowner"></option>
+                                <option th:text="居住成员"
+                                        value="resident"></option>
                             </select>
                         </div>
                     </div>

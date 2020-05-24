@@ -31,4 +31,7 @@ public class RepairDto {
 
     private String repairOrderId;
     private String workId;
+
+    private Integer page;
+    private Integer limit;
 }

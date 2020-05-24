@@ -11,5 +11,6 @@ public class ManageResidentRegistrationIndexIntoDto extends BaseIntoDto {
     private String idNumber; //身份证号
     private String address; //地址
     private String phoneNumber;  //注册电话号码
+    private String houseMembers;//家庭身份
 
 }

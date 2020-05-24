@@ -34,5 +34,6 @@ public class ResidentUserEntity {
     private String unit; //单元号
     private String floor; //楼层号
     private String door;//门牌号
+    private String houseMembers;//成员
 
 }

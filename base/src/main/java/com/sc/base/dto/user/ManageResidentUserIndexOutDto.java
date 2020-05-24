@@ -21,5 +21,7 @@ public class ManageResidentUserIndexOutDto extends BaseOutDto {
     private String role; //角色type
     private String roleStr; //角色name
     private String applicationStatus; //申请状态
+    private String houseMembers;//家庭身份
+    private String houseMembersStr;//家庭身份name
 
 }

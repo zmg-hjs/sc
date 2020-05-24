@@ -242,4 +242,27 @@ public class ActivityService {
         }
     }
 
+    /**
+     * 活动选举、审核人员成功查询
+     * @param dto
+     * @return
+     */
+    public Result enrollEchart(ActivityDto dto){
+        try {
+            ActivityEntity entity = activityRepository.findActivityEntityById(dto.getId());
+            ManageEnrollIndexIntoDto indexIntoDto = new ManageEnrollIndexIntoDto();
+            indexIntoDto.setActivityId(dto.getId());
+            indexIntoDto.setAuditStatus(AuditStatusEnum.SUCCESS.getType());
+            Result<List<ManageEnrollIndexOutDto>> result = enrollService.enrollEchart(indexIntoDto);
+            List<EnrollDto> dtoList = result.getData().stream().map(outDto -> {
+                EnrollDto enrollDto = MyBeanUtils.copyPropertiesAndResTarget(outDto, EnrollDto::new);
+                return enrollDto;
+            }).collect(Collectors.toList());
+            return new Result().setSuccess(dtoList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 }

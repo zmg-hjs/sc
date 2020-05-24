@@ -2,7 +2,6 @@ package com.sc.base.dto.user;
 
 import lombok.Data;
 
-import javax.persistence.Id;
 
 @Data
 public class ResidentRegistrationDto {
@@ -20,5 +19,6 @@ public class ResidentRegistrationDto {
     private String updateDateStr; //更新时间
     private String whetherValid;//是否有效type
     private String whetherValidStr;//是否有效name
-
+    private String houseMembers;//家庭身份
+    private String houseMembersStr;//家庭身份
 }

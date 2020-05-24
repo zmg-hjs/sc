@@ -63,7 +63,6 @@ layui.config({
         var data = obj.data;
         console.log(data.id)
         if (obj.event === 'find'){
-            console.log(data.id)
             var width = document.documentElement.scrollWidth * 0.9 + "px";
             var height = document.documentElement.scrollHeight * 0.9 + "px";
             layer.open({
