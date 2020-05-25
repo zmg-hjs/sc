@@ -17,6 +17,6 @@
 		</view>
 	</view>
 </view>
-<block wx:if="{{status=='unpaid'}}">
+<block wx:if="{{payment.paymentStatus=='unpaid'}}">
 	<button class="weui-btn" type="primary" bindtap="payMent">去支付</button>
 </block>

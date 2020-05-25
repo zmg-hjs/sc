@@ -1,4 +1,5 @@
 // miniprogram/pages/mine/mine.js
+const workUrl=require('../../config').workUrl
 const app = getApp()
 Page({
 
@@ -15,7 +16,8 @@ Page({
       { text: '我的消息发布', url: '../myNews/myNews', icon: '../../images/icon-index.png', tips: '' },
       { text: '联系我们', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' }
     ],
-    countries: ["在线", "隐身", "忙碌","离开"],
+    status:["on_duty_status","be_busy","come_off_duty"],
+    countries: ["上班", "下班", "忙碌"],
     statusImgs:["/images/status1.png","/images/status2.png","/images/status3.png"],
     countryIndex: 0,
   },
@@ -23,11 +25,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  bindCountryChange: function(e) {
+  bindStatusChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', this.data.countries[e.detail.value]);
-
     this.setData({
         countryIndex: e.detail.value,
+    })
+    wx.request({
+      url: workUrl+'work',
+      method:'POST',
+      data:{
+       id:wx.getStorageSync('userInfo').workDto.id,
+       workStatus:this.data.status[e.detail.value]
+      },
+      success:function(res){
+        console.log(res.data)
+      }
     })
 },
   onLoad: function (options) {

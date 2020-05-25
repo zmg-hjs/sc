@@ -1,7 +1,7 @@
 <view class="chatroom">
   <view class="header">
     <!-- display number of people in the room -->
-    <view class="left">12</view>
+    <view class="left"></view>
     <!-- room name -->
     <view class="middle">{{groupName}}</view>
     <!-- reserved -->
