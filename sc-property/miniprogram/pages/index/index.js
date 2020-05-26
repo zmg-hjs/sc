@@ -14,18 +14,44 @@ Page({
     ]
   },
   service:function(e){
+    var that = this;
      let type=e.currentTarget.dataset.type
      var _url
      if(type=='mes'){
        _url="/pages/allNews/allNews"
      }
      if(type=='act'){
-       _url='/pages/activity/index'
+      //  if (wx.getStorageSync('userInfo').position =="administrator"){
+      //    _url = '/pages/activity/index'
+      //  }else{
+      //    wx.showModal({
+      //      title: '注意',
+      //      content: '活动发布仅供管理员使用！',
+      //    })
+      //  }
+       
+       _url = '/pages/activity/index'
      }
      if(type=='repair'){
+      //  if (wx.getStorageSync('userInfo').position == "repairman") {
+      //    _url = '/pages/repair/repair'
+      //  } else {
+      //    wx.showModal({
+      //      title: '注意',
+      //      content: '活动发布仅供管理员使用！',
+      //    })
+      //  }
        _url='/pages/repair/repair'
      }
      if(type=='info'){
+      //  if (wx.getStorageSync('userInfo').position == "repairman") {
+      //    _url = '/pages/task/task'
+      //  } else {
+      //    wx.showModal({
+      //      title: '注意',
+      //      content: '活动发布仅供管理员使用！',
+      //    })
+      //  }
        _url='/pages/task/task'
      }
      wx.navigateTo({

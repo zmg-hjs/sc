@@ -13,8 +13,8 @@ layui.config({
         formSelects = layui.formSelects;
 
     $(document).on('click','#close',function(){
-        var index = parent.layer.getFrameIndex(window.name);
-        parent.layer.close(index);//关闭当前页
+        var index = layer.getFrameIndex(window.name);
+        layer.close(index);//关闭当前页
         // window.parent.location.reload();
     });
 
