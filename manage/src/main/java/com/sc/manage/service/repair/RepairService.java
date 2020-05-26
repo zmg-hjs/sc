@@ -128,6 +128,9 @@ public class RepairService {
             repairOrderEntity.setRepairId(repairDto.getId());
             repairOrderEntity.setStaffUserId(workEntity.getStaffUserId());
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
+            repairOrderEntity.setWorkId(workEntity.getId());
+            repairOrderEntity.setStaffUserActualName(workEntity.getStaffUserActualName());
+            repairOrderEntity.setStaffUserPhoneNumber(workEntity.getStaffUserPhoneNumber());
             repairOrderRepository.save(repairOrderEntity);
             RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
             repairEntity.setWorkId(workEntity.getId());

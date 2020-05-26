@@ -156,7 +156,7 @@ public class NewsService {
             //如果有需要处理的，集中处理插入
             if (indexList.size()>0) {
                 for (int j = indexList.size() - 1; j >= 0; j--) {
-                    sb.insert(indexList.get(j) + 4, " width='100%' ");
+                    sb.insert(indexList.get(j) + 4, " width='80%' ");
                 }
             }
             entity.setContent(sb.toString());
