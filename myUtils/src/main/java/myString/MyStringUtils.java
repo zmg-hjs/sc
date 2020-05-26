@@ -84,7 +84,8 @@ public class MyStringUtils {
     }
 
     public static void main(String[] args) {
-        String s = DigestUtils.md5DigestAsHex("123456".getBytes());
+        String s = DigestUtils.md5DigestAsHex("411521199902123456".substring(12,18).getBytes());
+        System.out.println("411521199902123456".substring(12,18));
         System.out.println(s);
     }
 }
