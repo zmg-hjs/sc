@@ -252,31 +252,14 @@
                     values.push(result.data[i].voteNumber);
                 }
                 var option={        //加载数据图表
-                    title: {
-                        text: '委员会活动投票数统计'
-                    },
-                    tooltip: {
-                        trigger: "item",
-                        formatter: "{a} <br/>{b} : {c}票"
-                    },
-                    legend: {
-                        data:['票数']
-                    },
-                    xAxis: {
-                        name:"姓名",
-                        data: names
-                    },
-                    yAxis: {
-                        type: 'value',
-                        name:"票数",
-                        min : 0,
-                        interval: 1,
-                    },
+                    title: {text: '委员会活动投票数统计'},
+                    tooltip: {trigger: "item", formatter: "{a} <br/>{b} : {c}票"},
+                    legend: {data:['票数']},
+                    xAxis: {name:"姓名", data: names},
+                    yAxis: {type: 'value', name:"票数", min : 0,interval: 1,},
                     series: [{
                         // 根据名字对应到相应的系列
-                        name: '姓名',
-                        type: 'bar',
-                        barWidth : 30,//柱图宽度
+                        name: '姓名', type: 'bar', barWidth : 30,//柱图宽度
                         barGap:'-50%',//柱图间距
                         data: values
                     }]

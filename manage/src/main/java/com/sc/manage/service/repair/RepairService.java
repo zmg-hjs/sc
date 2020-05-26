@@ -114,12 +114,10 @@ public class RepairService {
     public Result update(RepairDto repairDto){
         try {
             Date date = new Date();
-            //修改工作表
             WorkEntity workEntity = workRepository.findWorkEntityById(repairDto.getWorkId());
             workEntity.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
             workEntity.setUpdateDate(date);
             workRepository.save(workEntity);
-            //添加维修订单表
             RepairOrderEntity repairOrderEntity = new RepairOrderEntity();
             String repairOrderId = MyStringUtils.getIdDateStr("repair_order");
             repairOrderEntity.setId(repairOrderId);
@@ -131,7 +129,6 @@ public class RepairService {
             repairOrderEntity.setStaffUserId(workEntity.getStaffUserId());
             repairOrderEntity.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
             repairOrderRepository.save(repairOrderEntity);
-            //修改维修表
             RepairEntity repairEntity = repairRepository.findRepairEntityById(repairDto.getId());
             repairEntity.setWorkId(workEntity.getId());
             repairEntity.setRepairOrderId(repairOrderId);

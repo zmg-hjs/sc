@@ -18,17 +18,7 @@ layui.config({
         parent.layer.close(index);//关闭当前页
         // window.parent.location.reload();
     });
-    //注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
-    layedit.set({
-        uploadImage: {
-            url: '/sc/manage/upload/images' //接口url
-            ,type: 'POST' //默认post
-        }
-    });
-    var index=layedit.build('textareaDemo',{
-        tool: ['strong',,'italic',,'del','unlink','face','image','link','left', 'center', 'right', '|', 'face'],
-        height:500
-    });//建立编辑器
+
 
 
     var activityStartTimeStr= laydate.render({
@@ -60,6 +50,17 @@ layui.config({
         }
     });
 
+    //注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
+    layedit.set({
+        uploadImage: {
+            url: '/sc/manage/upload/images' //接口url
+            ,type: 'POST' //默认post
+        }
+    });
+    var index=layedit.build('textareaDemo',{
+        tool: ['strong','italic','del','unlink','face','image','link','left', 'center', 'right', '|', 'face'],
+        height:500
+    });//建立编辑器
 
     layui.use('form', function () {
         //监听提交
