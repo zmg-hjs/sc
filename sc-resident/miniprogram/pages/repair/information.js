@@ -70,7 +70,7 @@ Page({
             that.data.list[i].process=25
             that.data.list1.push(that.data.list[i])
           }
-          if(that.data.list[i].maintenanceStatusStr=='完成派遣'){
+          if(that.data.list[i].maintenanceStatusStr=='已派遣'){
             that.data.list[i].process=50
             that.data.list2.push(that.data.list[i])
           }    

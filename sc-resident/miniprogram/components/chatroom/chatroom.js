@@ -226,7 +226,7 @@ Component({
           const doc = {
             _id: `${Math.random()}_${Date.now()}`,
             groupId: this.data.groupId,
-            avatar: this.data.userInfo.avatarUrl,
+            avatar: this.data.userInfo.headPictureUrl,
             nickName: this.data.userInfo.nickName,
             msgType: 'image',
             sendTime: new Date(),

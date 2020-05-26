@@ -13,11 +13,12 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     logged: false,
     menuitems: [
-      { text: '我的消息发布', url: '../myNews/myNews', icon: '../../images/icon-index.png', tips: '' }
+      { text: '我的消息发布', url: '../myNews/myNews', icon: '../../images/icon-index.png', tips: '' },
+      { text: '联系我们', url: '../userinfo/userinfo', icon: '../../images/icon-index.png', tips: '' }
     ],
-    status:["on_duty_status","be_busy","come_off_duty"],
-    countries: ["上班", "忙碌", "下班"],
-    statusImgs: ["/images/status1.png", "/images/status3.png", "/images/status2.png"],
+    status:["on_duty_status","come_off_duty","be_busy",],
+    countries: ["上班", "下班", "忙碌"],
+    statusImgs:["/images/status1.png","/images/status2.png","/images/status3.png"],
     countryIndex: 0,
   },
 
@@ -52,13 +53,13 @@ Page({
     }
      if(status==="上班"){
      this.setData({
-       countryIndex:2
+       countryIndex:0
      })
      console.log("上班")
     }
      if(status==="忙碌"){
      this.setData({
-       countryIndex:3
+       countryIndex:2
      })
      console.log("忙碌")
     }
@@ -73,10 +74,12 @@ Page({
             wx.redirectTo({
               url: '../userlogin/userlogin'
             })
+            console.log(1)
           } else if (res.cancel) {
             wx.switchTab({
               url: "/pages/index/index"
             }) 
+            console.log(1)
           }
         }
       })

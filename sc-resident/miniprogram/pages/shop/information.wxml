@@ -27,7 +27,7 @@
 		</view>
 		<view wx:if="{{people.commodityStatusStr=='交易中'&&status=='buy'}}">
 			<view class="button-sp-area">
-				<button class="weui-btn mini-btn" type="primary" bindtap="complete">发货完成</button>
+				<button class="weui-btn mini-btn" type="primary" bindtap="complete">收货成功</button>
 				<button class="weui-btn mini-btn" type="default" bindtap="cancle">取消订单</button>
 			</view>
 		</view>
