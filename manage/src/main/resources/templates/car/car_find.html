@@ -208,15 +208,19 @@
                     </div>
                     <div class="layui-col-xs4">
                         <div class="layui-form-item">
-                            <div>操作</div>
+                            <div>拼车人数</div>
                         </div>
                     </div>
                 </div>
                 <tr th:each="carpoolDto:${carpoolDtoList}">
                     <div class="layui-row">
+                        <div class="layui-row">
+                            <div class="layui-col-xs12">
+                                <input id="carpoolUserId" type="hidden" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
+                            </div>
+                        </div>
                         <div class="layui-col-xs4">
                             <div class="layui-form-item">
-                                <input id="carpoolUserId" name="carpoolUserId" th:value="${carpoolDto.getCarpoolUserId()}"/>
                                 <div th:text="${carpoolDto.getCarpoolUserActualName()}" ></div>
                             </div>
                         </div>
@@ -227,7 +231,7 @@
                         </div>
                         <div class="layui-col-xs4">
                             <div class="layui-form-item">
-                                <button id="testListAction3" th:text="查询信息" type="button" class="layui-btn" ></button>
+                                <div th:text="${carpoolDto.getCarpoolNumber()}"></div>
                             </div>
                         </div>
                     </div>

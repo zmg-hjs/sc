@@ -19,8 +19,8 @@ public class LoginController {
     private StaffService staffService;
 
     @GetMapping("/")
-    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String phoneNumber, Model model) {
-        model.addAttribute("phoneNumber", phoneNumber);
+    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) StaffUserDto staffUserDto, Model model) {
+        model.addAttribute("staffUserDto", staffUserDto);
         return "index";
     }
 
@@ -35,7 +35,7 @@ public class LoginController {
     public String ManageNewsIndexPage(ModelAndView modelAndView, StaffUserDto staffUserDto, HttpSession session){
         Result<StaffUserDto> result = staffService.login(staffUserDto);
         if (result.isSuccess()){
-            session.setAttribute(WebSecurityConfig.SESSION_KEY, staffUserDto.getPhoneNumber());
+            session.setAttribute(WebSecurityConfig.SESSION_KEY, result.getData());
         }
         return "redirect:/";
     }

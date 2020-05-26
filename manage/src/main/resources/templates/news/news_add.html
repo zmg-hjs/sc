@@ -113,7 +113,7 @@
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
                             <hr>
-                            <label th:text="标题" class="layui-form-label required-tag"></label>
+                            <label th:text="标题" class="layui-form-label"></label>
                             <div class="layui-input-block">
                                 <input type="text" name="title" class="layui-input">
                             </div>
@@ -124,20 +124,23 @@
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
                             <label th:text="发布人员" class="layui-form-label"></label>
-                            <div class="layui-input-block">
-                                <select id="staff_user_id" class="staff_user_id" name="staffUserId" lay-filter="staff_user_id">
-                                    <option th:each="list:${staffUserDtoList}"
-                                            th:text="${list.getActualName()}"
-                                            th:value="${list.getId()}"></option>
-                                </select>
-                            </div>
+                            <div th:text="${session.staffUserDto.actualName}" class="edit-module-title"></div>
+                            <input name="staffUserId" type=hidden th:value="${session.staffUserDto.id}"  class="layui-input">
+                            <input name="staffUserActualName" type=hidden th:value="${session.staffUserDto.actualName}" class="layui-input">
+                            <!--<div class="layui-input-block">-->
+                                <!--<select id="staff_user_id" class="staff_user_id" name="staffUserId" lay-filter="staff_user_id">-->
+                                    <!--<option th:each="list:${staffUserDtoList}"-->
+                                            <!--th:text="${list.getActualName()}"-->
+                                            <!--th:value="${list.getId()}"></option>-->
+                                <!--</select>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
                 <div class="layui-row">
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
-                            <label th:text="内容" class="layui-form-label required-tag"></label>
+                            <label th:text="内容" class="layui-form-label"></label>
                             <div class="layui-input-block">
                                 <textarea id="textareaDemo" style="display: none;" type="text" name="content"
                                           class="layui-textarea" lay-verify="article_desc"></textarea>

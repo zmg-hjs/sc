@@ -143,7 +143,23 @@ public class NewsService {
             NewsEntity entity = new NewsEntity();
             entity.setId(MyStringUtils.getIdDateStr("news"));
             entity.setTitle(dto.getTitle());
-            entity.setContent(dto.getContent());
+            StringBuilder  sb = new StringBuilder (dto.getContent());//用来字符串操作
+            List<Integer> indexList = new ArrayList<>();//用来存放下标
+            //获取需要插入的下标，先记录，暂不处理；
+            for (int i=0;i<dto.getContent().length();i++){
+                Integer index=dto.getContent().indexOf("img",i);
+                if (-1!=index){
+                    indexList.add(index);
+                    i=index;
+                }
+            }
+            //如果有需要处理的，集中处理插入
+            if (indexList.size()>0) {
+                for (int j = indexList.size() - 1; j >= 0; j--) {
+                    sb.insert(indexList.get(j) + 4, " width='100%' ");
+                }
+            }
+            entity.setContent(sb.toString());
             entity.setStaffUserId(dto.getStaffUserId());
             entity.setStaffUserActualName(dto.getStaffUserActualName());
             entity.setCreateDate(date);

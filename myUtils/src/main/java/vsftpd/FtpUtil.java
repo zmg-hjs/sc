@@ -65,6 +65,7 @@ public class FtpUtil {
 			}
 			//设置上传文件的类型为二进制类型
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			ftp.setControlEncoding("UTF-8");
 			//上传文件
 			if (!ftp.storeFile(filename, input)) {
 				return result;
@@ -132,6 +133,7 @@ public class FtpUtil {
 				try {
 					ftp.disconnect();
 				} catch (IOException ioe) {
+					ioe.printStackTrace();
 				}
 			}
 		}
@@ -141,7 +143,7 @@ public class FtpUtil {
 	public static void main(String[] args) {
 		try {
 			String imagePath= MyDateUtil.date2String(new Date(),"/yyyy/MM/dd");
-	        FileInputStream in=new FileInputStream(new File("C:\\Users\\ZMG\\Desktop\\timg.jpg"));
+	        FileInputStream in=new FileInputStream(new File("C:\\Users\\ZMG\\Desktop\\pic\\timg.jpg"));
 	        boolean flag = uploadFile("101.200.237.154", 21, "vsftpduser", "123456", "/myprograms/images",imagePath, "timg.jpg", in);
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  

@@ -39,11 +39,11 @@ layui.config({
         form.on('submit(component-form)', function (data) {
             var searchObj = $("#searchFormId").serializeObject();
             searchObj.content=layedit.getContent(index);
-            for (var i=0;i<data.form.length;i++){
-                if (data.form[i].name=="staffUserId"){
-                    searchObj.staffUserActualName=data.form[i].options[data.form[i].selectedIndex].innerText
-                }
-            }
+            // for (var i=0;i<data.form.length;i++){
+            //     if (data.form[i].name=="staffUserId"){
+            //         searchObj.staffUserActualName=data.form[i].options[data.form[i].selectedIndex].innerText
+            //     }
+            // }
             $.simpleAjax('/sc/manage/news/manage_news_update_data', 'POST', JSON.stringify(searchObj), "application/json;charset-UTF-8", returnFunction);
             return false;//这一行代码必须加，不然会自动刷新页面，这个和layui的封装有关，且returnFunction 也不会调用
         });

@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import vo.Result;
 import weChat.entity.WeChatEntity;
 import weChat.util.GetWeChatInfoUtil;
@@ -108,6 +109,7 @@ public class StaffUserService {
         staffUserEntity.setPosition(staffRegistrationEntity.getPosition());
         staffUserEntity.setUserAuditId(staffRegistrationEntity.getId());
         staffUserEntity.setPhoneNumber(staffRegistrationEntity.getPhoneNumber());
+        staffUserEntity.setPassword(DigestUtils.md5DigestAsHex(staffRegistrationEntity.getIdNumber().substring(12,18).getBytes()));
         //获取微信用户信息
         WeChatEntity weChatEntity = new WeChatEntity();
         weChatEntity.setAppid(appId);

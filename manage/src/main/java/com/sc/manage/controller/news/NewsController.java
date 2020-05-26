@@ -2,15 +2,14 @@ package com.sc.manage.controller.news;
 
 import com.sc.base.dto.news.ManageNewsIndexIntoDto;
 import com.sc.base.dto.news.NewsDto;
+import com.sc.base.dto.user.StaffUserDto;
 import com.sc.base.repository.user.StaffUserRepository;
+import com.sc.manage.configuration.WebSecurityConfig;
 import com.sc.manage.service.news.NewsService;
 import com.sc.manage.service.user.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vo.Result;
 
@@ -59,8 +58,9 @@ public class NewsController {
 
     @RequestMapping(value = "/manage_news_update_page",method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView ManageNewsUpdatePage(ModelAndView modelAndView,NewsDto newsDto){
+    public ModelAndView ManageNewsUpdatePage(@SessionAttribute(WebSecurityConfig.SESSION_KEY) StaffUserDto staffUserDto,ModelAndView modelAndView,NewsDto newsDto){
         modelAndView.setViewName("news/news_update");
+        modelAndView.addObject("staffUserDto",staffUserDto);
         modelAndView.addObject("newsDto",newsService.findNewsEntityById(newsDto).getData());
         modelAndView.addObject("staffUserDtoList",staffService.findStaffUserEntitiesByPosition().getData());
         return modelAndView;
@@ -74,8 +74,9 @@ public class NewsController {
 
     @RequestMapping(value = "/manage_news_add_page",method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView ManageNewsAddPage(ModelAndView modelAndView){
+    public ModelAndView ManageNewsAddPage(@SessionAttribute(WebSecurityConfig.SESSION_KEY) StaffUserDto staffUserDto,ModelAndView modelAndView){
         modelAndView.setViewName("news/news_add");
+        modelAndView.addObject("staffUserDto",staffUserDto);
         modelAndView.addObject("staffUserDtoList",staffService.findStaffUserEntitiesByPosition().getData());
         return modelAndView;
     }

@@ -125,13 +125,16 @@
                     <div class="layui-col-xs12">
                         <div class="layui-form-item">
                             <label th:text="发布人员" class="layui-form-label"></label>
-                            <div class="layui-input-block">
-                                <select id="staff_user_id" class="staff_user_id" name="staffUserId" lay-filter="staff_user_id">
-                                    <option th:each="list:${staffUserDtoList}"
-                                            th:text="${list.getActualName()}"
-                                            th:value="${list.getId()}" th:selected="${list.getId()eq newsDto.getStaffUserId()}"></option>
-                                </select>
-                            </div>
+                            <div th:text="${session.staffUserDto.actualName}" class="edit-module-title"></div>
+                            <input name="staffUserId" type=hidden th:value="${session.staffUserDto.id}"  class="layui-input">
+                            <input name="staffUserActualName" type=hidden th:value="${session.staffUserDto.actualName}" class="layui-input">
+                            <!--<div class="layui-input-block">-->
+                                <!--<select id="staff_user_id" class="staff_user_id" name="staffUserId" lay-filter="staff_user_id">-->
+                                    <!--<option th:each="list:${staffUserDtoList}"-->
+                                            <!--th:text="${list.getActualName()}"-->
+                                            <!--th:value="${list.getId()}" th:selected="${list.getId()eq newsDto.getStaffUserId()}"></option>-->
+                                <!--</select>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
