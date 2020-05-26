@@ -1,6 +1,6 @@
 <!--miniprogram/pages/task/list.wxml-->
 <view class="weui-panel weui-panel_access">
-	<view class="weui-panel__hd">居民报修列表</view>
+	<view class="weui-panel__hd">维修任务列表</view>
   </view>
 <view class="weui-cells weui-cells_after-title">
 	<block wx:for="{{list}}" wx:key="id">

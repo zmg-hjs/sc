@@ -201,7 +201,7 @@ public class RepairService {
             //修改工作表
             WorkEntity workEntity = workRepository.findWorkEntityById(repairDto.getWorkId());
             workEntity.setWeight(workEntity.getWeight()-1);
-            workEntity.setWorkStatus(WorkStatusEnum.BE_BUSY.getType());
+            workEntity.setWorkStatus(WorkStatusEnum.ON_DUTY_STATUS.getType());
             workEntity.setUpdateDate(date);
             workRepository.save(workEntity);
             //查询报修表
@@ -218,10 +218,10 @@ public class RepairService {
                 repairOrderEntity1.setWhetherValid(WhetherValidEnum.VALID.getType());
                 repairOrderEntity1.setScore(0);
                 repairOrderEntity1.setRepairId(repairDto.getId());
-                repairOrderEntity.setWorkId(workEntityList.get(0).getId());
-                repairOrderEntity.setStaffUserId(workEntityList.get(0).getStaffUserId());
-                repairOrderEntity.setStaffUserActualName(workEntityList.get(0).getStaffUserActualName());
-                repairOrderEntity.setStaffUserPhoneNumber(workEntityList.get(0).getStaffUserPhoneNumber());
+                repairOrderEntity1.setWorkId(workEntityList.get(0).getId());
+                repairOrderEntity1.setStaffUserId(workEntityList.get(0).getStaffUserId());
+                repairOrderEntity1.setStaffUserActualName(workEntityList.get(0).getStaffUserActualName());
+                repairOrderEntity1.setStaffUserPhoneNumber(workEntityList.get(0).getStaffUserPhoneNumber());
                 repairOrderEntity1.setRepairmanStatus(RepairOrderStatusEnum.RECEIVE_DISPATCH.getType());
                 repairOrderRepository.save(repairOrderEntity1);
                 //修改工作表

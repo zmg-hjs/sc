@@ -2,6 +2,7 @@ package com.sc.property.controller.repair;
 
 import com.sc.base.dto.repair.RepairDto;
 import com.sc.base.dto.repair.RepairOrderDto;
+import com.sc.base.enums.RepairStatusEnum;
 import com.sc.property.service.repair.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +82,12 @@ public class RepairController {
     @ResponseBody
     public Result findMyRepairEntityList(@RequestBody RepairDto repairDto){
         try {
+            if (RepairStatusEnum.CANCEL.getType().equals(repairDto.getMaintenanceStatus())){
+                RepairOrderDto repairOrderDto = new RepairOrderDto();
+                repairOrderDto.setRepairmanStatus(repairDto.getMaintenanceStatus());
+                repairOrderDto.setStaffUserId(repairDto.getStaffUserId());
+                return repairService.findMyCancel(repairOrderDto);
+            }
             return repairService.findMyRepairEntityList(repairDto);
         }catch (Exception e){
             e.printStackTrace();
