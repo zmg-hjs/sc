@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "邻里交流",
   "usingComponents": {
     "chatroom": "../../../../components/chatroom/chatroom"
   }

@@ -1,0 +1,22 @@
+<!--miniprogram/pages/charges/charges.wxml-->
+<view class="weui-form-preview">
+	<view class="weui-form-preview__hd">
+		<view class="weui-form-preview__item">
+			<view class="weui-form-preview__label">付款金额</view>
+			<view class="weui-form-preview__value_in-hd">¥{{payment.propertyCost}}</view>
+		</view>
+	</view>
+	<view class="weui-form-preview__bd">
+		<view class="weui-form-preview__item">
+			<view class="weui-form-preview__label">缴费月份:</view>
+			<view class="weui-form-preview__value">{{payment.timeFrame}}</view>
+		</view>
+		<view class="weui-form-preview__item">
+			<view class="weui-form-preview__label">备注:</view>
+			<view class="weui-form-preview__value">{{payment.description}}</view>
+		</view>
+	</view>
+</view>
+<block wx:if="{{payment.paymentStatus=='unpaid'}}">
+	<button class="weui-btn" type="primary" bindtap="payMent">去支付</button>
+</block>

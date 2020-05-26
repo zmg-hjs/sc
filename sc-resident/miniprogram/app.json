@@ -49,7 +49,9 @@
     "pages/chat/im/im",
     "pages/chat/im/room/room",
     "pages/chat/im/chat",
-    "pages/chat/im/notice"
+    "pages/chat/im/notice",
+    "pages/charges/index",
+    "pages/charges/charges"
   ],
   "window": {
     "backgroundTextStyle": "light",
