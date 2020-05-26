@@ -43,6 +43,26 @@ Page({
     })
 },
   onLoad: function (options) {
+    var status=wx.getStorageSync('userInfo').workDto.workStatusStr
+    console.log(status)
+    if(status==="下班"){
+     this.setData({
+       countryIndex:1
+     })
+     console.log("下班")
+    }
+     if(status==="上班"){
+     this.setData({
+       countryIndex:2
+     })
+     console.log("上班")
+    }
+     if(status==="忙碌"){
+     this.setData({
+       countryIndex:3
+     })
+     console.log("忙碌")
+    }
     var that =this;
     if (app.globalData.userId == null || app.globalData.userId == ""){
       console.log(app.globalData.userId)
