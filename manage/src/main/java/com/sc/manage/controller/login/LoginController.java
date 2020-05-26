@@ -52,4 +52,28 @@ public class LoginController {
         return "main";
     }
 
+
+    @RequestMapping(value = "/sc/manage/password",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView password(@SessionAttribute(WebSecurityConfig.SESSION_KEY) StaffUserDto staffUserDto,ModelAndView modelAndView){
+        modelAndView.setViewName("user/password_update");
+        modelAndView.addObject("staffUsrDto",staffUserDto);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/sc/manage/login/password_update_data",method = RequestMethod.POST)
+    @ResponseBody
+    public Result password_update_data(@RequestBody StaffUserDto staffUserDto,HttpSession session){
+        try {
+            Result result = staffService.updatePassword(staffUserDto);
+            if (result.isSuccess()){
+                session.removeAttribute(WebSecurityConfig.SESSION_KEY);
+            }
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 }

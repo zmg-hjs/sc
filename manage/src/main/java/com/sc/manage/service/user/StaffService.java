@@ -358,4 +358,18 @@ public class StaffService {
             return Result.createSystemErrorResult();
         }
     }
+
+    public Result updatePassword(StaffUserDto staffUserDto){
+        try {
+            StaffUserEntity staffUserEntity = staffUserRepository.findStaffUserEntityById(staffUserDto.getId());
+            staffUserEntity.setUpdateDate(new Date());
+            staffUserEntity.setPassword(DigestUtils.md5DigestAsHex(staffUserDto.getPassword().getBytes()));
+            staffUserRepository.save(staffUserEntity);
+            return Result.createSimpleSuccessResult();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.createSystemErrorResult();
+        }
+    }
+
 }

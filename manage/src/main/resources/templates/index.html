@@ -46,6 +46,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd style="text-align: center;">
+                            <a lay-href="/sc/manage/password" th:text="修改密码"></a>
                             <a id="logout" class="logoutSystem" onclick="logout" th:text="退出"></a>
                         </dd>
                     </dl>
@@ -252,6 +253,10 @@
 <script type="application/javascript">
     $(document).on('click',"#logout",function(){
         $.simpleAjax('/sc/manage/logout', 'GET', "", "application/json;charset-UTF-8", returnFunction);
+
+    });
+    $(document).on('click',"#password",function(){
+        $.simpleAjax('/sc/manage/password', 'GET', "", "application/json;charset-UTF-8", returnFunction);
 
     });
     function returnFunction(data) {
