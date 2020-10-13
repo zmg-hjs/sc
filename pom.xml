@@ -28,7 +28,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <lombok>1.18.12</lombok>
         <mysql-connector-java>8.0.19</mysql-connector-java>
-        <junit>4.12</junit>
+        <junit>4.13.1</junit>
         <fastjson>1.2.49</fastjson>
         <druid>1.1.21</druid>
         <spring-boot-starter>2.2.5.RELEASE</spring-boot-starter>
