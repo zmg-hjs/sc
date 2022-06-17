@@ -29,7 +29,7 @@
         <lombok>1.18.12</lombok>
         <mysql-connector-java>8.0.19</mysql-connector-java>
         <junit>4.12</junit>
-        <fastjson>1.2.49</fastjson>
+        <fastjson>1.2.83</fastjson>
         <druid>1.1.21</druid>
         <spring-boot-starter>2.2.5.RELEASE</spring-boot-starter>
         <bcprov-ext-jdk16>1.46</bcprov-ext-jdk16>
