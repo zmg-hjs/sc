@@ -34,7 +34,7 @@
         <spring-boot-starter>2.2.5.RELEASE</spring-boot-starter>
         <bcprov-ext-jdk16>1.46</bcprov-ext-jdk16>
         <httpclient>4.3.5</httpclient>
-        <jackson-databind>2.10.2</jackson-databind>
+        <jackson-databind>2.13.4.1</jackson-databind>
         <commons-lang3>3.9</commons-lang3>
         <commons-fileupload>3.9</commons-fileupload>
         <commons-net>3.6</commons-net>
